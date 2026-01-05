@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>首页</title>
+  <link rel="stylesheet" href="./css/dashboard.css?v=3" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName" id="nicknameLine">CoCo.</div>
+          <div class="brandSub"><span class="vip" id="vipLine">VIP4</span></div>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="iconbtn" id="supportBtn" title="帮助">🎧</button>
+        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+      </div>
+    </header>
+
+    <!-- 紫色大卡片 -->
+    <section class="heroCard">
+      <div class="heroTitle">智能 AI 营销</div>
+      <div class="heroDesc">为你量身打造的 AI 营销解决方案。</div>
+
+      <button class="primaryBtn" id="taskBtn">获取任务</button>
+
+      <div class="statGrid">
+        <div class="statItem">
+          <div class="statLabel">可用积分</div>
+          <div class="statValue" id="balLine">0.0000</div>
+        </div>
+        <div class="statItem">
+          <div class="statLabel">进行中的任务</div>
+          <div class="statValue"><span id="doingLine">0</span>/<span id="totalLine">55</span></div>
+        </div>
+        <div class="statItem">
+          <div class="statLabel">今日完成</div>
+          <div class="statValue" id="doneLine">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 快捷入口 -->
+    <section class="quickWrap">
+      <div class="quickGrid">
+        <button class="qitem" data-go="./tasks.html">
+          <div class="qicon">📌</div>
+          <div class="qtext">任务</div>
+        </button>
+        <button class="qitem" data-go="./records.html">
+          <div class="qicon">🕘</div>
+          <div class="qtext">记录</div>
+        </button>
+        <button class="qitem" data-go="#faq">
+          <div class="qicon">❓</div>
+          <div class="qtext">常见问题</div>
+        </button>
+        <button class="qitem" data-go="./me.html">
+          <div class="qicon">👤</div>
+          <div class="qtext">我的</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- 产品展示区 -->
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">产品展示区</div>
+          <div class="cardSub">平台精选推荐内容与优质产品展示。</div>
+        </div>
+        <button class="outlineBtn" id="detailBtn">查看详情</button>
+      </div>
+
+      <div class="banner">
+        <img src="./assets/banner.svg" alt="banner">
+      </div>
+    </section>
+
+    <!-- 热销列表 -->
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">本季热销单品</div>
+          <div class="cardSub">平台近期获得优质评价的热门内容。</div>
+        </div>
+      </div>
+
+      <div class="list" id="list"></div>
+
+      <div class="cardFoot">
+        <button class="primaryBtn" id="shopBtn" style="width:160px">去看看</button>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card" id="faq">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">常见问题</div>
+          <div class="cardSub">遇到问题先看看这里。</div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accItem">
+          <div class="accQ">1. 这个平台是做什么的？</div>
+          <div class="accIcon">▾</div>
+        </button>
+        <div class="accA">
+          这是一个账户 + 任务 + 内容展示的站点结构示例。
+        </div>
+
+        <button class="accItem">
+          <div class="accQ">2. 为什么我登录后能看到昵称？</div>
+          <div class="accIcon">▾</div>
+        </button>
+        <div class="accA">
+          页面会从本地登录态读取当前用户信息，并显示昵称。
+        </div>
+
+        <button class="accItem">
+          <div class="accQ">3. 积分和任务数据从哪里来？</div>
+          <div class="accIcon">▾</div>
+        </button>
+        <div class="accA">
+          目前使用演示数据 + 本地保存，后续可改为数据库读取。
+        </div>
+      </div>
+    </section>
+
+    <div style="height:86px"></div>
+
+    <!-- 底部导航 -->
+    <nav class="tabbar">
+      <button class="tab active" data-go="./dashboard.html">🏠<span>首页</span></button>
+      <button class="tab" data-go="./me.html">👤<span>我的</span></button>
+      <button class="tab" data-go="./records.html">🕘<span>记录</span></button>
+      <button class="tab" data-go="./tasks.html">📌<span>任务</span></button>
+    </nav>
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/dashboard.js" defer></script>
+</body>
+</html>

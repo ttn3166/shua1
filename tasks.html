@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>任务</title>
+  <link rel="stylesheet" href="./css/app.css?v=3" />
+  <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/tasks.css?v=3" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">任务中心</div>
+          <div class="brandSub">分配任务 · 做单返利</div>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+      </div>
+    </header>
+
+    <!-- 顶部状态卡 -->
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">任务概览</div>
+          <div class="cardSub">一次只能进行一个任务，完成后才能继续接单</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <div class="tTopGrid">
+          <div class="tBox">
+            <div class="tK">可用余额</div>
+            <div class="tV blue"><span id="balLine">0.0000</span> USDT</div>
+          </div>
+          <div class="tBox">
+            <div class="tK">进行中</div>
+            <div class="tV"><span id="doingLine">0</span>/<span id="totalLine">55</span></div>
+          </div>
+          <div class="tBox">
+            <div class="tK">今日收益</div>
+            <div class="tV"><span id="todayLine">0.0000</span> USDT</div>
+          </div>
+        </div>
+
+        <div class="tRow">
+          <div class="tSelectWrap">
+            <div class="tK2">订单数量</div>
+            <select class="tSelect" id="countSel">
+              <option value="5">5 单</option>
+              <option value="20" selected>20 单</option>
+            </select>
+          </div>
+
+          <button class="primaryBtn tBtnBig" id="matchBtn">分配任务</button>
+        </div>
+
+        <div class="tHint" id="hintLine"></div>
+      </div>
+    </section>
+
+    <!-- 当前任务卡 -->
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">当前任务</div>
+          <div class="cardSub">有进行中的任务时，点击进入做单</div>
+        </div>
+      </div>
+      <div class="cardBody">
+        <div id="currentBox"></div>
+        <div class="empty" id="currentEmpty" style="display:none;">暂无进行中的任务</div>
+      </div>
+    </section>
+
+    <!-- 匹配中遮罩 -->
+    <div class="matching" id="matching" style="display:none;">
+      <div class="mCard">
+        <div class="spinner"></div>
+        <div class="mTitle">正在为您匹配任务</div>
+        <div class="mSub">请稍候，系统正在分配订单…</div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/tasks-center.js" defer></script>
+  <div class="pagePadBottom"></div>
+
+  <nav class="tabbar" role="navigation" aria-label="底部导航">
+    <div class="tabs">
+      <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+    </div>
+  </nav>
+
+  <script src="./js/nav.js" defer></script>
+</body>
+</html>

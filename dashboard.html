@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Dashboard</title>
+
+  <link rel="stylesheet" href="./css/nav.css?v=1" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=4" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <div class="brand__logo">B</div>
+        <div style="min-width:0">
+          <div class="brand__name">BITIC</div>
+          <div class="brand__sub">控制台</div>
+        </div>
+      </div>
+      <a class="btn btn--ghost" href="./me.html">账户</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid grid-2">
+      <section class="card">
+        <div class="section-title">资产概览</div>
+
+        <div class="balance">
+          <div>
+            <div class="muted">总余额</div>
+            <div class="balance__value" id="balanceValue">0.00</div>
+            <div class="muted" id="balanceUnit">USD</div>
+          </div>
+
+          <div class="balance__actions">
+            <a class="btn btn--primary" href="./deposit.html">充值</a>
+            <a class="btn" href="./withdraw.html">提现</a>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="quick">
+          <a class="quick__item" href="./transactions.html">
+            <strong>交易明细</strong><span>资金进出/历史记录</span>
+          </a>
+          <a class="quick__item" href="./records.html">
+            <strong>记录</strong><span>查看所有记录</span>
+          </a>
+          <a class="quick__item" href="./tasks.html">
+            <strong>任务</strong><span>进行中/已完成</span>
+          </a>
+          <a class="quick__item" href="./me.html">
+            <strong>我的</strong><span>账户与设置</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title">今日概况</div>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="muted">今日收益</div>
+            <div class="kpi__v" id="kpiProfit">--</div>
+          </div>
+          <div class="kpi">
+            <div class="muted">进行中任务</div>
+            <div class="kpi__v" id="kpiTasks">--</div>
+          </div>
+          <div class="kpi">
+            <div class="muted">今日交易</div>
+            <div class="kpi__v" id="kpiTx">--</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="notice">
+          <div class="section-title" style="margin-bottom:8px">公告</div>
+          <ul>
+            <li>底部导航已统一（tasks/records/dashboard 不再缩小或跑位）。</li>
+            <li>如需接入真实数据：用你原有 JS 把 kpi/balance 的 ID 填值即可。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:14px">
+      <section class="card">
+        <div class="card-head">
+          <div class="section-title" style="margin:0">最新记录</div>
+          <a class="link" href="./records.html">查看全部</a>
+        </div>
+
+        <div class="list" id="recentRecords">
+          <div class="list-item">
+            <div>暂无记录</div>
+            <div class="badge">—</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="section-title" style="margin:0">任务</div>
+          <a class="link" href="./tasks.html">查看全部</a>
+        </div>
+
+        <div class="list" id="recentTasks">
+          <div class="list-item">
+            <div>暂无任务</div>
+            <div class="badge">—</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-space"></div>
+  </main>
+
+  <!-- 占位：nav.js 会统一重建并移动到 body 底部 -->

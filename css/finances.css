@@ -1,0 +1,141 @@
+.addrBox{
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#fafbff;
+}
+.addrLine{
+  font-weight:900;
+  font-size:13px;
+  word-break:break-all;
+  line-height:1.4;
+}
+.copyBtn{
+  border:1px solid rgba(31,111,255,.35);
+  background:rgba(31,111,255,.10);
+  color:var(--blue);
+  font-weight:1000;
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.copyBtn:active{transform:scale(.99)}
+
+.qrWrap{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:14px;
+  align-items:center;
+}
+.qrBox{
+  width:120px;height:120px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#fff;
+}
+.qrBox img{width:100%;height:100%;object-fit:cover;display:block}
+.qrTips .t1{font-weight:1000;margin-bottom:6px}
+.qrTips .t2{color:var(--muted);font-size:13px;line-height:1.6}
+
+.line{
+  height:1px;
+  background:var(--line);
+  margin:14px 0;
+}
+
+.form .lab{
+  margin-top:12px;
+  font-weight:1000;
+  font-size:13px;
+}
+.inp{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px 12px;
+  outline:none;
+  margin-top:8px;
+  background:#fff;
+}
+.inp::placeholder{color:#b3b3bb}
+.msg{
+  margin-top:12px;
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:13px;
+  border:1px solid var(--line);
+  background:#f7f8ff;
+  color:#1d4ed8;
+}
+
+.list{margin-top:8px}
+.row{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 12px;
+  background:#fff;
+  margin-top:10px;
+}
+.rTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.rType{font-weight:1000}
+.rBadge{
+  font-weight:1000;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(245,158,11,.12);
+  color:#b45309;
+}
+.rBadge.ok{background:rgba(34,197,94,.12);color:#166534}
+.rBadge.no{background:rgba(239,68,68,.10);color:#b91c1c}
+.rMid{margin-top:8px;color:var(--muted);font-size:13px;word-break:break-all}
+.rAmt{margin-top:8px;font-weight:1000;color:var(--blue)}
+.empty{color:var(--muted);font-size:13px;padding:10px 2px}
+
+/* 提现页余额卡 */
+.balGrid{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.balItem{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  background:#fafbff;
+}
+.balK{color:var(--muted);font-size:12px;font-weight:900}
+.balV{margin-top:6px;font-weight:1000;font-size:20px;color:var(--blue)}
+
+/* 交易明细筛选 chips */
+.filterRow{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.chip{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  font-weight:1000;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.chip.active{
+  border-color:rgba(31,111,255,.35);
+  background:rgba(31,111,255,.10);
+  color:var(--blue);
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>记录</title>
+  <link rel="stylesheet" href="./css/app.css?v=3" />
+  <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/records.css?v=2" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">记录中心</div>
+          <div class="brandSub">任务记录 · 交易流水</div>
+        </div>
+      </div>
+      <div class="topActions">
+        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+      </div>
+    </header>
+
+    <!-- 余额不足提示（自动出现） -->
+    <div id="notice"></div>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">筛选</div>
+          <div class="cardSub">切换查看任务/流水</div>
+        </div>
+      </div>
+      <div class="cardBody">
+        <div class="segRow">
+          <button class="seg active" data-tab="TASK">任务记录</button>
+          <button class="seg" data-tab="TX">交易流水</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="rList" id="list"></div>
+    <div class="empty" id="empty" style="display:none;">暂无记录</div>
+
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/records.js" defer></script>
+  <div class="pagePadBottom"></div>
+
+  <nav class="tabbar" role="navigation" aria-label="底部导航">
+    <div class="tabs">
+      <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+    </div>
+  </nav>
+
+  <script src="./js/nav.js" defer></script>
+</body>
+</html>

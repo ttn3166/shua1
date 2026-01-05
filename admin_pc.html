@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>管理后台</title>
+  <link rel="stylesheet" href="./css/admin_pc.css?v=1" />
+</head>
+<body>
+  <div class="shell">
+
+    <aside class="side">
+      <div class="brand">
+        <div class="dots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div>
+          <div class="bn">管理后台</div>
+          <div class="bs" id="opLine">-</div>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <button class="mi active" data-tab="pending">待处理</button>
+        <button class="mi" data-tab="users">用户资产</button>
+        <button class="mi" data-tab="adjust">人工调整</button>
+        <button class="mi" data-tab="logs">操作日志</button>
+        <div class="sep"></div>
+        <button class="mi danger" id="logoutBtn">退出登录</button>
+      </nav>
+
+      <div class="hint">
+        <div class="h1">提示</div>
+        <div class="h2">你可以先用当前登录用户操作；也可以输入邮箱查看其它用户（同一浏览器本地数据）。</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div class="left">
+          <div class="title" id="pageTitle">待处理</div>
+          <div class="sub">人工审核充值 / 提现，并同步余额与日志</div>
+        </div>
+
+        <div class="right">
+          <div class="field">
+            <div class="lab">用户邮箱</div>
+            <input class="inp" id="emailInp" placeholder="例如 abc@gmail.com（不填默认当前用户）" />
+          </div>
+          <button class="btn" id="loadBtn">加载</button>
+        </div>
+      </header>
+
+      <section class="kpi">
+        <div class="k">
+          <div class="kl">余额</div>
+          <div class="kv" id="kBal">0.0000</div>
+        </div>
+        <div class="k">
+          <div class="kl">充值待处理</div>
+          <div class="kv" id="kDepP">0</div>
+        </div>
+        <div class="k">
+          <div class="kl">提现待处理</div>
+          <div class="kv" id="kWdP">0</div>
+        </div>
+        <div class="k">
+          <div class="kl">近 7 天操作</div>
+          <div class="kv" id="kOps7">0</div>
+        </div>
+      </section>
+
+      <!-- TAB：待处理 -->
+      <section class="card tab" id="tab-pending">
+        <div class="cardTop">
+          <div>
+            <div class="ct">待处理列表</div>
+            <div class="cs">选择类型后进行审核操作</div>
+          </div>
+          <div class="filters">
+            <select class="sel" id="ptypeSel">
+              <option value="DEPOSIT">充值待处理</option>
+              <option value="WITHDRAW">提现待处理</option>
+            </select>
+            <input class="inp2" id="kwInp" placeholder="搜索：地址 / 备注 / TxHash" />
+            <button class="btn2" id="searchBtn">搜索</button>
+            <button class="btn2 ghost" id="resetBtn">重置</button>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:160px">时间</th>
+                <th style="width:110px">类型</th>
+                <th style="width:120px">金额</th>
+                <th>地址 / 备注</th>
+                <th style="width:110px">链</th>
+                <th style="width:140px">TxHash</th>
+                <th style="width:260px">操作</th>
+              </tr>
+            </thead>
+            <tbody id="pendingBody"></tbody>
+          </table>
+        </div>
+
+        <div class="empty" id="pendingEmpty" style="display:none">暂无待处理数据</div>
+      </section>
+
+      <!-- TAB：用户资产 -->
+      <section class="card tab" id="tab-users" style="display:none">
+        <div class="cardTop">
+          <div>
+            <div class="ct">用户资产</div>
+            <div class="cs">查看余额、累计充值/提现、待处理数量</div>
+          </div>
+        </div>
+
+        <div class="uGrid">
+          <div class="uCard">
+            <div class="uLab">邮箱</div>
+            <div class="uVal" id="uEmail">-</div>
+          </div>
+          <div class="uCard">
+            <div class="uLab">余额</div>
+            <div class="uVal" id="uBal">0.0000</div>
+          </div>
+          <div class="uCard">
+            <div class="uLab">累计充值（成功）</div>
+            <div class="uVal" id="uDep">0.0000</div>
+          </div>
+          <div class="uCard">
+            <div class="uLab">累计提现（成功）</div>
+            <div class="uVal" id="uWd">0.0000</div>
+          </div>
+          <div class="uCard">
+            <div class="uLab">充值待处理</div>
+            <div class="uVal" id="uDepP">0</div>
+          </div>
+          <div class="uCard">
+            <div class="uLab">提现待处理</div>
+            <div class="uVal" id="uWdP">0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB：人工调整 -->
+      <section class="card tab" id="tab-adjust" style="display:none">
+        <div class="cardTop">
+          <div>
+            <div class="ct">人工调整余额</div>
+            <div class="cs">增加或减少余额，自动写入日志，并生成一条“充值完成”的记录</div>
+          </div>
+        </div>
+
+        <div class="formRow">
+          <div class="field2">
+            <div class="lab">金额（正数加，负数减）</div>
+            <input class="inp" id="adjAmt" placeholder="例如 10 或 -5" />
+          </div>
+          <div class="field2">
+            <div class="lab">备注</div>
+            <input class="inp" id="adjNote" placeholder="例如 手工补偿/修正" />
+          </div>
+          <div class="field2">
+            <div class="lab">链类型</div>
+            <select class="sel" id="adjChain">
+              <option value="TRC20">TRC20</option>
+              <option value="ERC20">ERC20</option>
+            </select>
+          </div>
+          <button class="btn" id="adjBtn">确认调整</button>
+        </div>
+
+        <div class="msg" id="adjMsg" style="display:none"></div>
+      </section>
+
+      <!-- TAB：操作日志 -->
+      <section class="card tab" id="tab-logs" style="display:none">
+        <div class="cardTop">
+          <div>
+            <div class="ct">操作日志</div>
+            <div class="cs">记录所有审核与余额调整动作</div>
+          </div>
+          <div class="filters">
+            <button class="btn2" id="logRefresh">刷新</button>
+            <button class="btn2 ghost" id="logClear">清空日志</button>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:170px">时间</th>
+                <th style="width:160px">操作员</th>
+                <th style="width:220px">用户</th>
+                <th style="width:180px">动作</th>
+                <th style="width:120px">金额</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody id="logBody"></tbody>
+          </table>
+        </div>
+
+        <div class="empty" id="logEmpty" style="display:none">暂无日志</div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/admin_pc.js" defer></script>
+</body>
+</html>

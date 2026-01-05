@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>交易明细</title>
+  <link rel="stylesheet" href="./css/app.css?v=2" />
+  <link rel="stylesheet" href="./css/nav.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">我的财务</div>
+          <div class="brandSub">交易明细</div>
+        </div>
+      </div>
+      <div class="topActions">
+        <button class="iconbtn" id="backBtn" title="返回">←</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">筛选</div>
+          <div class="cardSub">按类型/状态筛选，默认最新在前</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <div class="filterGrid">
+          <div>
+            <div class="label">类型</div>
+            <select class="input" id="typeSel">
+              <option value="ALL">全部</option>
+              <option value="DEPOSIT">充值</option>
+              <option value="WITHDRAW">提现</option>
+              <option value="LOTTERY">抽奖</option>
+              <option value="TASK">任务</option>
+            </select>
+          </div>
+          <div>
+            <div class="label">状态</div>
+            <select class="input" id="statusSel">
+              <option value="ALL">全部</option>
+              <option value="PENDING">待处理</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILED">失败</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="hint" id="hintLine"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">流水列表</div>
+          <div class="cardSub">点击可展开查看详情</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <div class="list" id="list"></div>
+        <div class="empty" id="empty" style="display:none;">暂无流水</div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/transactions.js" defer></script>
+  <div class="pagePadBottom"></div>
+
+  <nav class="tabbar" role="navigation" aria-label="底部导航">
+    <div class="tabs">
+      <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+    </div>
+  </nav>
+
+  <script src="./js/nav.js" defer></script>
+</body>
+</html>

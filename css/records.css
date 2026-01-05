@@ -1,0 +1,56 @@
+.notice{
+  margin-top:12px;
+  background:linear-gradient(180deg,#fff6d6,#ffe9a8);
+  border:1px solid rgba(245,158,11,.25);
+  border-radius:22px;
+  padding:14px;
+  box-shadow:0 14px 40px rgba(0,0,0,.10);
+}
+.notice .nTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.notice .nTitle{font-weight:900;font-size:16px;color:#111827}
+.notice .nSub{margin-top:8px;color:#6b7280;font-weight:800;line-height:1.6}
+.notice .nBtns{margin-top:12px;display:flex;gap:10px;justify-content:flex-end}
+.notice .nBtn{
+  border:0;border-radius:999px;padding:12px 14px;font-weight:900;cursor:pointer;
+  background:#1f6fff;color:#fff;box-shadow:0 12px 26px rgba(31,111,255,.22)
+}
+.notice .nBtn.ghost{
+  background:#fff;color:#1f6fff;border:1px solid #cfe0ff;box-shadow:none
+}
+
+.segRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.seg{
+  border:1px solid #d0d5dd;background:#fff;color:#101828;font-weight:900;
+  border-radius:999px;padding:10px 14px;cursor:pointer
+}
+.seg.active{border-color:#cfe0ff;background:#eaf0ff;color:#1f6fff}
+
+.rList{margin-top:12px}
+.rCard{
+  background:#fff;border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.10);
+  padding:14px;margin-top:12px;
+}
+.rTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.rTitle{font-weight:900}
+.rSub{color:#667085;font-weight:800;font-size:13px;margin-top:6px}
+.rTag{
+  font-weight:900;font-size:12px;padding:6px 10px;border-radius:999px;
+}
+.rTag.pending{background:#fff3e6;color:#f59e0b}
+.rTag.done{background:#ecfdf3;color:#16a34a}
+.rTag.fail{background:#fee2e2;color:#ef4444}
+
+.rGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.rBox{background:#f7f8fb;border-radius:16px;padding:12px}
+.rK{color:#667085;font-weight:800;font-size:13px}
+.rV{margin-top:6px;font-weight:900;color:#111827}
+.rV.blue{color:#1f6fff}
+
+.rBtnRow{margin-top:12px;display:flex;justify-content:flex-end;gap:10px}
+.rBtn{
+  border:0;border-radius:999px;padding:12px 16px;font-weight:900;cursor:pointer;
+  background:#1f6fff;color:#fff;box-shadow:0 12px 26px rgba(31,111,255,.22)
+}
+.rBtn.ghost{background:#fff;color:#1f6fff;border:1px solid #cfe0ff;box-shadow:none}
+
+.empty{margin-top:12px;color:#667085;font-weight:800;text-align:center;padding:14px}

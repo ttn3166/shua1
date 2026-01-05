@@ -1,0 +1,21 @@
+.doCard{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.doThumb{
+  width:110px;height:110px;border-radius:22px;background:#f2f2f7;overflow:hidden;flex:0 0 auto;
+}
+.doThumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+.doInfo{flex:1;min-width:220px}
+.doTitle{font-weight:900;font-size:18px;color:#101828}
+.doSub{margin-top:6px;color:#667085;font-weight:900;font-size:13px}
+
+.doGrid{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.doBox{background:#f7f8fb;border-radius:18px;padding:12px}
+.doBox .k{color:#667085;font-weight:900;font-size:13px}
+.doBox .v{margin-top:6px;font-weight:900;color:#101828}
+.doBox .v.blue{color:#1f6fff}
+
+.balanceLine{margin-top:12px;color:#667085;font-weight:900}
+.balanceLine b{color:#101828}
+
+.doBtn{width:100%;margin-top:12px;height:48px;border-radius:999px}
+.hint{margin-top:10px;color:#667085;font-weight:900;font-size:13px;line-height:1.6}

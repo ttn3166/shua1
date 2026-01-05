@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>登录</title>
+  <style>
+    :root{
+      --blue:#1f6fff;
+      --text:#111;
+      --muted:#666;
+      --line:#e9e9ee;
+      --card:#fff;
+      --bg:#f3f4f7;
+      --danger:#e53935;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      padding:14px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .phone{
+      width:420px;
+      max-width:100%;
+      background:var(--card);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 14px 40px rgba(0,0,0,.12);
+    }
+
+    /* 顶部大图 */
+    .hero{
+      position:relative;
+      height:250px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55)),
+        url("./assets/hero.jpg") center/cover no-repeat,
+        linear-gradient(135deg,#0b2b7a,#0b6bd3);
+    }
+    .hero-top{
+      position:absolute;
+      top:14px; left:14px; right:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .dots{display:flex; gap:6px}
+    .dot{width:10px;height:18px;border-radius:2px}
+    .dot.r{background:#ff3b30}
+    .dot.b{background:#0a84ff}
+    .dot.y{background:#ffd60a}
+    .dot.g{background:#34c759}
+    .lang{
+      width:38px;height:38px;border-radius:999px;
+      border:0; cursor:pointer;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.95);
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
+    }
+    .lang svg{width:20px;height:20px;opacity:.85}
+
+    .hero-text{
+      position:absolute;
+      left:18px; right:18px;
+      bottom:18px;
+      color:#fff;
+    }
+    .hero-text .small{opacity:.9; font-size:14px; margin-bottom:6px}
+    .hero-text .big{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:.5px;
+      line-height:1.1;
+      text-shadow:0 8px 20px rgba(0,0,0,.35);
+    }
+
+    /* 表单区 */
+    .content{padding:18px}
+    h2{margin:10px 0 12px; font-size:30px; letter-spacing:.5px}
+    .tips{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    label{
+      display:block;
+      margin-top:14px;
+      font-size:15px;
+      font-weight:800;
+    }
+    .field{
+      position:relative;
+      margin-top:10px;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--line);
+    }
+    input{
+      width:100%;
+      border:0;
+      outline:none;
+      font-size:16px;
+      padding:10px 38px 10px 0;
+      background:transparent;
+    }
+    input::placeholder{color:#b3b3bb}
+    .eye{
+      position:absolute;
+      right:0; top:4px;
+      width:34px; height:34px;
+      border:0; background:transparent;
+      cursor:pointer;
+      opacity:.65;
+    }
+
+    .btn{
+      margin-top:18px;
+      width:100%;
+      border:0;
+      border-radius:999px;
+      padding:16px 18px;
+      font-size:18px;
+      font-weight:900;
+      cursor:pointer;
+      background:var(--blue);
+      color:#fff;
+      box-shadow:0 12px 26px rgba(31,111,255,.28);
+    }
+    .btn:active{transform:scale(.99)}
+    .btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+
+    .msg{
+      margin-top:12px;
+      color:var(--danger);
+      font-size:13px;
+      display:none;
+      line-height:1.5;
+    }
+
+    .foot{
+      margin-top:16px;
+      text-align:center;
+      color:#777;
+      font-size:14px;
+    }
+    .foot a{
+      color:var(--blue);
+      text-decoration:none;
+      font-weight:800;
+      margin-left:6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="phone">
+    <div class="hero">
+      <div class="hero-top">
+        <div class="dots" aria-hidden="true">
+          <div class="dot r"></div>
+          <div class="dot b"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+
+        <button type="button" class="lang" id="langBtn" title="语言">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M3 12h18" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 3c3 3 3 15 0 18" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="hero-text">
+        <div class="small">欢迎回来。</div>
+        <div class="big">让我们开始登录吧。</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>参与营销</h2>
+
+      <form id="loginForm">
+        <label>邮箱地址</label>
+        <div class="field">
+          <input id="email" type="email" placeholder="请输入邮箱" autocomplete="username" />
+        </div>
+
+        <label>登录密码</label>
+        <div class="field">
+          <input id="pwd" type="password" placeholder="登录密码" autocomplete="current-password" />
+          <button type="button" class="eye" id="togglePwd" title="显示/隐藏密码">👁️</button>
+        </div>
+
+        <button class="btn" id="loginBtn" type="submit">登录</button>
+        <div class="msg" id="msg"></div>
+      </form>
+
+      <div class="foot">
+        没有账号？<a href="./register.html" id="regBtn">注册</a>
+      </div>
+    </div>
+  </div>
+
+<script src="./js/login.js" defer></script>
+</body>
+</html>

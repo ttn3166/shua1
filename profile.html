@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>我的资料</title>
+  <link rel="stylesheet" href="./css/finance.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <button class="backBtn" id="backBtn">‹</button>
+      <div class="title">我的资料</div>
+      <div style="width:42px"></div>
+    </header>
+
+    <section class="card">
+      <div class="hd">
+        <div class="h1">编辑资料</div>
+        <div class="sub">更新昵称信息（保存到本地登录态）。</div>
+      </div>
+      <div class="body">
+        <div class="field">
+          <div class="label">邮箱</div>
+          <input id="email" type="text" readonly value="-" />
+        </div>
+        <div class="field">
+          <div class="label">昵称</div>
+          <input id="nickname" type="text" placeholder="请输入昵称" />
+        </div>
+        <button class="btn" id="saveBtn">保存</button>
+        <div class="small" id="tip"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/profile.page.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>提现</title>
+  <link rel="stylesheet" href="./css/app.css?v=1" />
+  <link rel="stylesheet" href="./css/nav.css?v=1" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">我的财务</div>
+          <div class="brandSub">提现（人工审核）</div>
+        </div>
+      </div>
+      <div class="topActions">
+        <button class="iconbtn" id="backBtn" title="返回">←</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">账户余额</div>
+          <div class="cardSub">提交提现后金额会进入冻结，等待运营处理</div>
+        </div>
+      </div>
+      <div class="cardBody" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="miniStat">
+          <div class="k">可用余额</div>
+          <div class="v"><span id="bal">0.0000</span> USDT</div>
+        </div>
+        <div class="miniStat">
+          <div class="k">冻结余额</div>
+          <div class="v"><span id="frozen">0.0000</span> USDT</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">提交提现申请</div>
+          <div class="cardSub">填写地址与金额，提交后状态为待处理</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <label class="label">提现链类型</label>
+        <select class="input" id="chain">
+          <option value="TRC20">USDT-TRC20</option>
+          <option value="ERC20">USDT-ERC20</option>
+          <option value="BEP20">USDT-BEP20</option>
+        </select>
+
+        <label class="label" style="margin-top:12px;">提现地址</label>
+        <input class="input" id="addr" type="text" placeholder="请输入你的 USDT 收款地址" />
+
+        <label class="label" style="margin-top:12px;">提现金额（USDT）</label>
+        <input class="input" id="amount" type="number" step="0.0001" placeholder="例如 10" />
+
+        <button class="primaryBtn" id="submitBtn" type="button" style="margin-top:14px;width:100%;">提交提现申请</button>
+
+        <div id="msg" class="msg" style="display:none;margin-top:12px;"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">提现记录</div>
+          <div class="cardSub">仅显示最近 20 条</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <div class="list" id="list"></div>
+        <div class="empty" id="empty" style="display:none;">暂无记录</div>
+      </div>
+    </section>
+
+    <div style="height:86px"></div>
+
+
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/withdraw.js" defer></script>
+  <div class="pagePadBottom"></div>
+
+  <nav class="tabbar" role="navigation" aria-label="底部导航">
+    <div class="tabs">
+      <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+    </div>
+  </nav>
+
+  <script src="./js/nav.js" defer></script>
+</body>
+</html>

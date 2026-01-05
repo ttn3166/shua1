@@ -1,0 +1,22 @@
+.tabs2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.tbtn{
+  border:1px solid #e7e7ee;
+  background:#fff;
+  padding:12px 12px;
+  border-radius:18px;
+  font-weight:900;
+  cursor:pointer;
+}
+.tbtn.active{
+  border-color:rgba(31,111,255,.40);
+  box-shadow:0 0 0 4px rgba(31,111,255,.10);
+}
+.ctrlRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.smallInput{
+  width:160px;
+  border:1px solid #e7e7ee;
+  border-radius:16px;
+  padding:10px 10px;
+  font-size:13px;
+}
+.noteLine{color:#667085;font-size:12px;line-height:1.6;margin-top:8px;word-break:break-all}

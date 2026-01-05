@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>工具中心</title>
+  <link rel="stylesheet" href="./css/finance.css?v=2" />
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <button class="back" id="backBtn" aria-label="返回">‹</button>
+      <div class="ttl">工具中心</div>
+      <button class="icon" id="helpBtn" title="帮助" aria-label="帮助">🎧</button>
+    </header>
+
+    <!-- 用户卡片 -->
+    <section class="card userCard">
+      <div class="userRow">
+        <div class="avatar" aria-hidden="true"></div>
+        <div class="uinfo">
+          <div class="uname" id="uName">--</div>
+          <div class="usub" id="uSub">--</div>
+        </div>
+        <button class="pill" id="logoutBtn">退出</button>
+      </div>
+
+      <div class="barRow">
+        <div class="bar">
+          <div class="barFill" id="barFill" style="width:64%"></div>
+        </div>
+        <div class="barText"><span id="barPct">64</span>%</div>
+      </div>
+
+      <div class="miniGrid">
+        <div class="mini">
+          <div class="k">今日数据</div>
+          <div class="v" id="todayNum">0</div>
+        </div>
+        <div class="mini">
+          <div class="k">总计数据</div>
+          <div class="v" id="totalNum">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 公告 -->
+    <section class="card noticeCard">
+      <div class="noticeIcon" aria-hidden="true">📢</div>
+      <div class="noticeText">
+        <div class="noticeT">公告</div>
+        <div class="noticeS" id="noticeLine">系统维护时间将提前通知，请关注页面提示。</div>
+      </div>
+      <button class="ghost" id="noticeBtn">查看</button>
+    </section>
+
+    <!-- 快捷入口 -->
+    <section class="card">
+      <div class="hd">
+        <div class="h1">快捷入口</div>
+        <div class="sub">常用功能快速进入。</div>
+      </div>
+
+      <div class="grid">
+        <button class="gitem" data-go="./deposit.html">
+          <div class="gicon">💳</div>
+          <div class="gtext">入口 A</div>
+        </button>
+        <button class="gitem" data-go="./withdraw.html">
+          <div class="gicon">🧾</div>
+          <div class="gtext">入口 B</div>
+        </button>
+        <button class="gitem" data-go="./transactions.html">
+          <div class="gicon">📒</div>
+          <div class="gtext">记录</div>
+        </button>
+        <button class="gitem" data-go="./lottery.html">
+          <div class="gicon">🎁</div>
+          <div class="gtext">活动</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- 最近记录 -->
+    <section class="card">
+      <div class="hd rowBetween">
+        <div>
+          <div class="h1">最近记录</div>
+          <div class="sub">仅展示最近 10 条（本地记录）。</div>
+        </div>
+        <button class="ghost" id="clearLogBtn">清空</button>
+      </div>
+
+      <div class="log" id="logBox"></div>
+      <div class="empty" id="emptyBox" style="display:none">
+        <div class="emptyIcon">🗂️</div>
+        <div class="emptyT">暂无记录</div>
+        <div class="emptyS">你进行的操作会在这里显示。</div>
+      </div>
+    </section>
+
+    <!-- 帮助与安全提示 -->
+    <section class="card helpCard">
+      <div class="helpLeft">
+        <div class="helpT">需要帮助？</div>
+        <div class="helpS">随时联系我们，我们会尽快回复。</div>
+        <div class="helpBtns">
+          <button class="outline" id="faqBtn">常见问题</button>
+          <button class="outline" id="contactBtn">联系客服</button>
+        </div>
+      </div>
+      <div class="shield" aria-hidden="true">🛡️</div>
+    </section>
+
+    <div style="height:18px"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" style="display:none"></div>
+
+  <!-- Modal -->
+  <div class="mask" id="mask" style="display:none">
+    <div class="modal">
+      <div class="modalHd">
+        <div class="modalT" id="modalTitle">提示</div>
+        <button class="x" id="closeModal">✕</button>
+      </div>
+      <div class="modalBd" id="modalBody"></div>
+      <div class="modalFt">
+        <button class="primary" id="okModal">我知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/finances.js" defer></script>
+</body>
+</html>

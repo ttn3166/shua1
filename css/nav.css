@@ -1,0 +1,82 @@
+:root{
+  --nav-blue:#1f6fff;
+  --nav-text:#111827;
+  --nav-muted:#667085;
+  --nav-line:#e7e7ee;
+}
+
+/* 给页面底部留出空间，避免被 tabbar 挡住 */
+.pagePadBottom{height:86px}
+
+/* 统一 tabbar（用 !important 防止被 tasks/me 等页面覆盖成深色或缩小） */
+.tabbar{
+  position:fixed !important;
+  left:0 !important; right:0 !important; bottom:0 !important;
+  z-index:9999 !important;
+
+  height:72px !important;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+
+  background:rgba(255,255,255,.94) !important;
+  border-top:1px solid var(--nav-line) !important;
+  box-shadow:0 -12px 30px rgba(16,24,40,.10) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.tabbar .tabs{
+  max-width:460px !important;
+  margin:0 auto !important;
+  height:52px !important;
+
+  display:grid !important;
+  grid-template-columns:repeat(4, 1fr) !important;
+  gap:6px !important;
+  align-items:center !important;
+}
+
+.tabbar .tab{
+  appearance:none !important;
+  -webkit-appearance:none !important;
+
+  border:0 !important;
+  background:transparent !important;
+  cursor:pointer !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  height:52px !important;
+  border-radius:16px !important;
+  padding:6px 0 !important;
+
+  color:var(--nav-muted) !important;
+  font-weight:800 !important;
+  font-size:12px !important;
+  line-height:1.1 !important;
+
+  user-select:none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.tabbar .tab .ico{
+  font-size:22px !important;
+  line-height:1 !important;
+  margin-bottom:4px !important;
+}
+
+.tabbar .tab span{
+  display:block !important;
+  transform: translateY(0px) !important;
+}
+
+.tabbar .tab.active{
+  color:var(--nav-blue) !important;
+  background:rgba(31,111,255,.10) !important;
+}
+
+.tabbar .tab:active{
+  transform:scale(.99) !important;
+}

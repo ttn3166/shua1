@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>做单</title>
+  <link rel="stylesheet" href="./css/app.css?v=3" />
+  <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/taskdo.css?v=3" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">订单提交</div>
+          <div class="brandSub" id="taskNameLine">—</div>
+        </div>
+      </div>
+      <div class="topActions">
+        <button class="iconbtn" id="backBtn" title="返回">←</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">当前订单</div>
+          <div class="cardSub">完成后才能继续下一单</div>
+        </div>
+      </div>
+
+      <div class="cardBody">
+        <div class="doCard">
+          <div class="doThumb"><img id="pImg" src="./assets/product.svg" alt="product"></div>
+
+          <div class="doInfo">
+            <div class="doTitle" id="pTitle">—</div>
+            <div class="doSub" id="pSub">—</div>
+
+            <div class="doGrid">
+              <div class="doBox">
+                <div class="k">订单金额</div>
+                <div class="v blue"><span id="needLine">0.0000</span> USDT</div>
+              </div>
+              <div class="doBox">
+                <div class="k">返利比例</div>
+                <div class="v"><span id="rateLine">5</span>%</div>
+              </div>
+              <div class="doBox">
+                <div class="k">预计返利</div>
+                <div class="v blue"><span id="rewardLine">0.0000</span> USDT</div>
+              </div>
+              <div class="doBox">
+                <div class="k">进度</div>
+                <div class="v"><span id="stepLine">0</span>/<span id="totalLine">20</span></div>
+              </div>
+            </div>
+
+            <div class="balanceLine">
+              可用余额：<b id="balLine">0.0000</b> USDT
+            </div>
+
+            <button class="primaryBtn doBtn" id="submitBtn">提交订单</button>
+            <div class="hint" id="hintLine"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pagePadBottom"></div>
+
+    <nav class="tabbar">
+      <div class="tabs">
+        <button class="tab" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
+        <button class="tab" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
+        <button class="tab" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
+        <button class="tab active" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
+      </div>
+    </nav>
+
+  </div>
+
+  <script src="./js/common.js" defer></script>
+  <script src="./js/nav.js" defer></script>
+  <script src="./js/task-do.js" defer></script>
+</body>
+</html>

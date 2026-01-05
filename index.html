@@ -3,212 +3,168 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>登录</title>
-  <style>
-    :root{
-      --blue:#1f6fff;
-      --text:#111;
-      --muted:#666;
-      --line:#e9e9ee;
-      --card:#fff;
-      --bg:#f3f4f7;
-      --danger:#e53935;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      display:flex;
-      justify-content:center;
-      padding:14px;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .phone{
-      width:420px;
-      max-width:100%;
-      background:var(--card);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 14px 40px rgba(0,0,0,.12);
-    }
-
-    /* 顶部大图 */
-    .hero{
-      position:relative;
-      height:250px;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55)),
-        url("./assets/hero.jpg") center/cover no-repeat,
-        linear-gradient(135deg,#0b2b7a,#0b6bd3);
-    }
-    .hero-top{
-      position:absolute;
-      top:14px; left:14px; right:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .dots{display:flex; gap:6px}
-    .dot{width:10px;height:18px;border-radius:2px}
-    .dot.r{background:#ff3b30}
-    .dot.b{background:#0a84ff}
-    .dot.y{background:#ffd60a}
-    .dot.g{background:#34c759}
-    .lang{
-      width:38px;height:38px;border-radius:999px;
-      border:0; cursor:pointer;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.95);
-      box-shadow:0 6px 16px rgba(0,0,0,.18);
-    }
-    .lang svg{width:20px;height:20px;opacity:.85}
-
-    .hero-text{
-      position:absolute;
-      left:18px; right:18px;
-      bottom:18px;
-      color:#fff;
-    }
-    .hero-text .small{opacity:.9; font-size:14px; margin-bottom:6px}
-    .hero-text .big{
-      font-size:34px;
-      font-weight:900;
-      letter-spacing:.5px;
-      line-height:1.1;
-      text-shadow:0 8px 20px rgba(0,0,0,.35);
-    }
-
-    /* 表单区 */
-    .content{padding:18px}
-    h2{margin:10px 0 12px; font-size:30px; letter-spacing:.5px}
-    .tips{
-      margin:0 0 12px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    label{
-      display:block;
-      margin-top:14px;
-      font-size:15px;
-      font-weight:800;
-    }
-    .field{
-      position:relative;
-      margin-top:10px;
-      padding-bottom:10px;
-      border-bottom:1px solid var(--line);
-    }
-    input{
-      width:100%;
-      border:0;
-      outline:none;
-      font-size:16px;
-      padding:10px 38px 10px 0;
-      background:transparent;
-    }
-    input::placeholder{color:#b3b3bb}
-    .eye{
-      position:absolute;
-      right:0; top:4px;
-      width:34px; height:34px;
-      border:0; background:transparent;
-      cursor:pointer;
-      opacity:.65;
-    }
-
-    .btn{
-      margin-top:18px;
-      width:100%;
-      border:0;
-      border-radius:999px;
-      padding:16px 18px;
-      font-size:18px;
-      font-weight:900;
-      cursor:pointer;
-      background:var(--blue);
-      color:#fff;
-      box-shadow:0 12px 26px rgba(31,111,255,.28);
-    }
-    .btn:active{transform:scale(.99)}
-    .btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-
-    .msg{
-      margin-top:12px;
-      color:var(--danger);
-      font-size:13px;
-      display:none;
-      line-height:1.5;
-    }
-
-    .foot{
-      margin-top:16px;
-      text-align:center;
-      color:#777;
-      font-size:14px;
-    }
-    .foot a{
-      color:var(--blue);
-      text-decoration:none;
-      font-weight:800;
-      margin-left:6px;
-    }
-  </style>
+  <title>BITIC · 任务营销平台</title>
+  <link rel="stylesheet" href="./css/home.css?v=1" />
 </head>
-
 <body>
-  <div class="phone">
-    <div class="hero">
-      <div class="hero-top">
-        <div class="dots" aria-hidden="true">
-          <div class="dot r"></div>
-          <div class="dot b"></div>
-          <div class="dot y"></div>
-          <div class="dot g"></div>
+  <div class="page">
+    <header class="site-header">
+      <div class="logo">
+        <div class="mark">B</div>
+        <div>
+          <div>BITIC</div>
+          <div style="color:#6b7280;font-weight:800;font-size:13px">为品牌提供可落地的增长方案</div>
         </div>
-
-        <button type="button" class="lang" id="langBtn" title="语言">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M3 12h18" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 3c3 3 3 15 0 18" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </button>
       </div>
 
-      <div class="hero-text">
-        <div class="small">欢迎回来。</div>
-        <div class="big">让我们开始登录吧。</div>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#products">产品</a>
+        <a href="#modules">方案</a>
+        <a href="#faq">FAQ</a>
+        <a href="./dashboard.html">控制台</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn ghost" href="./register.html">注册</a>
+        <a class="btn primary" href="./dashboard.html">进入控制台</a>
       </div>
-    </div>
+    </header>
 
-    <div class="content">
-      <h2>参与营销</h2>
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <div class="hero-badge">✨ 一站式任务 · 资金 · 会员服务</div>
+          <h1 class="hero-title">让你的用户增长策略跑得更快。</h1>
+          <p class="hero-sub">
+            营销任务、充值提现、交易流水、抽奖互动……我们已经为你准备好模板、数据结构与前台页面，随时可接入真实接口。
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="./tasks.html">查看任务中心</a>
+            <a class="btn secondary" href="./contact.html">联系运营</a>
+          </div>
 
-      <form id="loginForm">
-        <label>邮箱地址</label>
-        <div class="field">
-          <input id="email" type="email" placeholder="请输入邮箱" autocomplete="username" />
+          <div class="hero-fig">
+            <div><div class="k">累计任务</div><div class="v">120k+</div></div>
+            <div><div class="k">任务成功率</div><div class="v">99.3%</div></div>
+            <div><div class="k">覆盖地区</div><div class="v">18 个市场</div></div>
+          </div>
         </div>
 
-        <label>登录密码</label>
-        <div class="field">
-          <input id="pwd" type="password" placeholder="登录密码" autocomplete="current-password" />
-          <button type="button" class="eye" id="togglePwd" title="显示/隐藏密码">👁️</button>
+        <div class="login-panel">
+          <div class="login-head">
+            <div>
+              <h2 class="login-title">登录账户</h2>
+              <p class="login-sub">使用邮箱进入控制台，继续你的任务</p>
+            </div>
+            <button type="button" class="lang-btn" id="langBtn" title="语言">🌍</button>
+          </div>
+
+          <form id="loginForm" class="login-card">
+            <label class="label" for="email">邮箱地址</label>
+            <div class="field">
+              <input id="email" class="input" type="email" placeholder="请输入邮箱" autocomplete="username" />
+            </div>
+
+            <label class="label" for="pwd">登录密码</label>
+            <div class="field">
+              <input id="pwd" class="input" type="password" placeholder="登录密码" autocomplete="current-password" />
+              <button type="button" class="eye" id="togglePwd" title="显示/隐藏密码">👁️</button>
+            </div>
+
+            <div class="small-action">
+              <span style="color:#6b7280;font-weight:800;font-size:13px">还没有账号？</span>
+              <a class="btn link" id="regBtn" href="./register.html">立即注册</a>
+            </div>
+
+            <button class="btn primary login-btn" id="loginBtn" type="submit">登录</button>
+            <div class="msg" id="msg"></div>
+          </form>
         </div>
+      </section>
 
-        <button class="btn" id="loginBtn" type="submit">登录</button>
-        <div class="msg" id="msg"></div>
-      </form>
+      <section class="section">
+        <h2 class="section-title">一切为增长而设计</h2>
+        <p class="section-sub">沉淀任务、财务、抽奖、会员四大能力，移动端体验已经打磨完成。</p>
+        <div class="feature-grid">
+          <div class="tile"><div class="k">任务全链路</div><div class="v">分配、做单、审核、记录全流程</div><div class="tag">任务</div></div>
+          <div class="tile"><div class="k">充值提现</div><div class="v">USDT 链路 + 冻结机制，状态可控</div><div class="tag">资金</div></div>
+          <div class="tile"><div class="k">交易流水</div><div class="v">记录明细、列表筛选、分页展示</div><div class="tag">明细</div></div>
+          <div class="tile"><div class="k">抽奖互动</div><div class="v">余额消耗 + 中奖记录，提升活跃</div><div class="tag">运营</div></div>
+        </div>
+      </section>
 
-      <div class="foot">
-        没有账号？<a href="./register.html" id="regBtn">注册</a>
-      </div>
-    </div>
+      <section class="section" id="modules">
+        <h2 class="section-title">产品模块</h2>
+        <p class="section-sub">每个模块都是独立的卡片布局，适合直接换成你的接口。</p>
+        <div class="cards">
+          <div class="card">
+            <h3>任务中心</h3>
+            <p>任务匹配、进行中状态、提交订单，流程完备且移动端友好。</p>
+            <a class="cta-link" href="./tasks.html">前往任务中心 →</a>
+          </div>
+          <div class="card">
+            <h3>记录中心</h3>
+            <p>任务记录与交易流水两大维度切换，方便运营与用户查看。</p>
+            <a class="cta-link" href="./records.html">查看记录 →</a>
+          </div>
+          <div class="card">
+            <h3>我的账户</h3>
+            <p>账户资料、银行卡、客服入口、抽奖入口，全在同一个「我的」。</p>
+            <a class="cta-link" href="./me.html">打开个人中心 →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <h2 class="section-title">场景模板</h2>
+        <p class="section-sub">精选组件示例，方便你替换成自己的业务文案与数据。</p>
+        <div class="product-grid">
+          <div class="product">
+            <h4>充值 / 提现</h4>
+            <p>支持多链类型、TxHash 填写与状态追踪，包含最近 20 条记录。</p>
+            <div class="meta"><span>资金流</span><span>安全校验</span></div>
+            <a class="btn" href="./deposit.html">立即体验</a>
+          </div>
+          <div class="product">
+            <h4>交易明细</h4>
+            <p>列表式流水 + 详情展开，适配深色卡片与可点击行。</p>
+            <div class="meta"><span>交易</span><span>统计</span></div>
+            <a class="btn" href="./transactions.html">查看明细</a>
+          </div>
+          <div class="product">
+            <h4>幸运抽奖</h4>
+            <p>余额消耗 + 中奖概率示例，结果同步写入交易明细。</p>
+            <div class="meta"><span>互动</span><span>增长</span></div>
+            <a class="btn" href="./lottery.html">开始抽奖</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-band">
+        <div>
+          <h3>准备好让增长跑起来了吗？</h3>
+          <p>控制台、任务、财务、记录全部现成。接入你的 API，即刻上线。</p>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+          <a class="btn ghost" href="./dashboard.html">预览控制台</a>
+          <a class="btn primary" href="./register.html">注册并体验</a>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <h2 class="section-title">常见问题</h2>
+        <p class="section-sub">你可以直接替换问答文案，作为帮助中心的雏形。</p>
+        <div class="faq">
+          <div class="item"><div class="q">如何接入真实数据？</div><div class="a">在对应页面的 JS 中替换接口请求即可。所有 dom id 已经预留。</div></div>
+          <div class="item"><div class="q">可以直接上线移动端吗？</div><div class="a">布局已经适配小屏与安全区，底部导航统一使用 nav.css + nav.js。</div></div>
+          <div class="item"><div class="q">登录信息存在哪里？</div><div class="a">示例环境使用 localStorage。接入你的鉴权接口后可替换为真实 token。</div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">© 2024 BITIC · 你的下一次增长，从这里开始。</footer>
   </div>
 
-<script src="./js/login.js" defer></script>
+  <script src="./js/login.js" defer></script>
 </body>
 </html>

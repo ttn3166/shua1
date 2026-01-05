@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
   <title>抽奖</title>
   <link rel="stylesheet" href="./css/app.css?v=1" />
+  <link rel="stylesheet" href="./css/nav.css?v=5" />
   <link rel="stylesheet" href="./css/lottery.css?v=1" />
 </head>
 <body>
@@ -74,18 +75,21 @@
       </div>
     </section>
 
-    <div style="height:86px"></div>
+    <div class="pagePadBottom"></div>
 
-    <nav class="tabbar">
-      <button class="tab" data-go="./dashboard.html">🏠<span>首页</span></button>
-      <button class="tab" data-go="./me.html">👤<span>我的</span></button>
-      <button class="tab" data-go="./records.html">🕘<span>记录</span></button>
-      <button class="tab" data-go="./tasks.html">📌<span>任务</span></button>
+    <nav class="tabbar" role="navigation" aria-label="底部导航">
+      <div class="tabs">
+        <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
+        <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
+        <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
+        <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+      </div>
     </nav>
 
   </div>
 
   <script src="./js/common.js" defer></script>
   <script src="./js/lottery.js" defer></script>
+  <script src="./js/nav.js" defer></script>
 </body>
 </html>

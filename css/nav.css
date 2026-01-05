@@ -3,39 +3,44 @@
   --nav-text:#111827;
   --nav-muted:#667085;
   --nav-line:#e7e7ee;
+  --tabbar-height:86px;
 }
 
-/* 给页面底部留出空间，避免被 tabbar 挡住 */
-.pagePadBottom{height:86px}
+/* 给页面底部留出空间，避免被 tabbar 挡住（含安全区） */
+.pagePadBottom{height:calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px))}
 
-/* 统一 tabbar（用 !important 防止被 tasks/me 等页面覆盖成深色或缩小） */
+/* 统一 tabbar（用 !important 防止被覆盖） */
 .tabbar{
   position:fixed !important;
   left:0 !important; right:0 !important; bottom:0 !important;
   z-index:9999 !important;
 
-  height:72px !important;
-  padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  min-height:var(--tabbar-height) !important;
+  padding:12px 14px calc(12px + env(safe-area-inset-bottom, 0px)) !important;
 
-  background:rgba(255,255,255,.94) !important;
+  background:rgba(255,255,255,.96) !important;
   border-top:1px solid var(--nav-line) !important;
   box-shadow:0 -12px 30px rgba(16,24,40,.10) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+
+  touch-action:manipulation !important;
+  pointer-events:auto !important;
 }
 
 .tabbar .tabs{
-  max-width:460px !important;
+  max-width:520px !important;
   margin:0 auto !important;
-  height:52px !important;
+  min-height:52px !important;
 
   display:grid !important;
   grid-template-columns:repeat(4, 1fr) !important;
-  gap:6px !important;
+  gap:8px !important;
   align-items:center !important;
 }
 
 .tabbar .tab{
+  position:relative !important;
   appearance:none !important;
   -webkit-appearance:none !important;
 
@@ -47,14 +52,15 @@
   flex-direction:column !important;
   align-items:center !important;
   justify-content:center !important;
+  gap:4px !important;
 
   height:52px !important;
   border-radius:16px !important;
-  padding:6px 0 !important;
+  padding:8px 0 !important;
 
   color:var(--nav-muted) !important;
   font-weight:800 !important;
-  font-size:12px !important;
+  font-size:13px !important;
   line-height:1.1 !important;
 
   user-select:none !important;
@@ -64,7 +70,6 @@
 .tabbar .tab .ico{
   font-size:22px !important;
   line-height:1 !important;
-  margin-bottom:4px !important;
 }
 
 .tabbar .tab span{
@@ -75,6 +80,20 @@
 .tabbar .tab.active{
   color:var(--nav-blue) !important;
   background:rgba(31,111,255,.10) !important;
+  box-shadow:inset 0 0 0 1.5px rgba(31,111,255,.18) !important;
+}
+
+.tabbar .tab.active::after{
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important;
+  bottom:6px !important;
+  transform:translateX(-50%) !important;
+
+  width:8px !important;
+  height:8px !important;
+  border-radius:999px !important;
+  background:var(--nav-blue) !important;
 }
 
 .tabbar .tab:active{

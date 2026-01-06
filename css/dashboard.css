@@ -1,94 +1,160 @@
+/* =========================================================
+   dashboard.css (FULL REPLACE VERSION)
+   - Conflict markers removed
+   - Adds robust bottom tabbar styles
+   - Adds non-home page spacing utilities (.page/.panel/.tile)
+   ========================================================= */
+
+/* ---------- Theme tokens ---------- */
 :root{
   --blue:#1f6fff;
   --bg:#f4f6fb;
-  --card:#fff;
+  --card:#ffffff;
   --text:#101828;
   --muted:#667085;
   --line:#e7e7ee;
-  --shadow:0 18px 48px rgba(17,24,39,.12);
 
-  /* 非首页页面布局参数（防挤） */
-  --tabbar-h: 74px;
-  --page-pad: 16px;
-  --panel-gap: 16px;
-  --grid-gap: 12px;
+  --shadow:0 18px 48px rgba(17,24,39,.12);
+  --shadow-soft:0 10px 22px rgba(0,0,0,.06);
+
+  /* Layout */
+  --radius-lg:22px;
+  --radius-md:18px;
+  --radius-sm:14px;
+
+  /* Tabbar */
+  --tabbar-h:74px;
+  --tabbar-maxw:520px;
+
+  /* Page spacing */
+  --page-pad:16px;
+  --panel-gap:16px;
+  --grid-gap:12px;
+
+  /* Typography */
+  --fs-title:24px;
+  --fs-h2:20px;
 }
 
-*{box-sizing:border-box}
+/* ---------- Reset-ish ---------- */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 body{
   margin:0;
   background:var(--bg);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
   color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-a{color:inherit;text-decoration:none}
+/* 兜底：有些页面不在 .app 容器里时，也别被 tabbar 挡住 */
+@media (max-width: 768px){
+  body{
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 18px);
+  }
+}
 
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; height:auto; display:block; }
+
+:focus-visible{
+  outline:3px solid rgba(31,111,255,.25);
+  outline-offset:2px;
+  border-radius:12px;
+}
+
+/* ---------- App wrapper ---------- */
 .app{
-  max-width:500px;
+  max-width:var(--tabbar-maxw);
   margin:0 auto;
-  padding:14px 14px calc(120px + env(safe-area-inset-bottom,0px));
+  padding:14px 14px calc(var(--tabbar-h) + env(safe-area-inset-bottom,0px) + 28px);
 }
 
+/* ---------- Top bar ---------- */
 .topbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:12px;
   margin-bottom:14px;
 }
 
-.brand{display:flex;align-items:center;gap:10px}
-.logoDots{display:flex;gap:6px}
-.logoDots .d{width:10px;height:18px;border-radius:3px}
-.logoDots .r{background:#ff3b30}
-.logoDots .b{background:#0a84ff}
-.logoDots .y{background:#ffd60a}
-.logoDots .g{background:#34c759}
-.brandName{font-weight:1000;font-size:18px}
-.brandSub{color:var(--muted);font-size:12px;margin-top:2px}
+.brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+.logoDots{ display:flex; gap:6px; flex:0 0 auto; }
+.logoDots .d{ width:10px; height:18px; border-radius:3px; }
+.logoDots .r{ background:#ff3b30; }
+.logoDots .b{ background:#0a84ff; }
+.logoDots .y{ background:#ffd60a; }
+.logoDots .g{ background:#34c759; }
 
-.topActions{display:flex;gap:10px;align-items:center}
+.brandText{ min-width:0; }
+.brandName{ font-weight:900; font-size:18px; line-height:1.1; }
+.brandSub{ color:var(--muted); font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.topActions{ display:flex; gap:10px; align-items:center; flex:0 0 auto; }
+
 .pill{
   border:1px solid var(--line);
   background:#fff;
   border-radius:999px;
   padding:10px 14px;
-  font-weight:900;
+  font-weight:800;
   cursor:pointer;
-  box-shadow:0 10px 22px rgba(0,0,0,.06);
+  box-shadow:var(--shadow-soft);
 }
-.pill.ghost{background:transparent}
+.pill.ghost{ background:transparent; box-shadow:none; }
+
 .iconbtn{
-  width:40px;height:40px;border-radius:14px;
+  width:40px; height:40px;
+  border-radius:14px;
   border:1px solid var(--line);
   background:#fff;
-  display:grid;place-items:center;
+  display:grid; place-items:center;
   box-shadow:0 10px 22px rgba(0,0,0,.08);
-  font-weight:1000;
+  font-weight:900;
   cursor:pointer;
 }
-.iconbtn.ghost{background:transparent}
+.iconbtn.ghost{ background:transparent; box-shadow:none; }
 
+/* ---------- Hero / Dashboard header ---------- */
 .heroCard{
   background:linear-gradient(135deg,#0b6bd3,#2b0a6b);
   color:#fff;
-  border-radius:22px;
+  border-radius:var(--radius-lg);
   padding:18px;
   box-shadow:var(--shadow);
 }
-.heroTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.heroTitle{font-size:24px;font-weight:1000;letter-spacing:.3px}
-.tiny{opacity:.9;font-size:13px;margin-bottom:4px}
-.vip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.14);font-weight:900;border:1px solid rgba(255,255,255,.22)}
-.heroBalance{margin:12px 0 10px;display:flex;align-items:flex-end;gap:10px}
-.balanceValue{font-size:36px;font-weight:1000;line-height:1}
-.balanceUnit{opacity:.9;font-weight:800}
-.heroActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.heroTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.heroTitle{ font-size:var(--fs-title); font-weight:900; letter-spacing:.3px; }
+.tiny{ opacity:.9; font-size:13px; margin-bottom:4px; }
+.vip{
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.22);
+}
+.heroBalance{
+  margin:12px 0 10px;
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+}
+.balanceValue{ font-size:36px; font-weight:900; line-height:1; }
+.balanceUnit{ opacity:.9; font-weight:800; }
+
+.heroActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:6px;
+}
 .primaryBtn{
   text-align:center;
   border-radius:14px;
   padding:12px 10px;
-  font-weight:1000;
+  font-weight:900;
   background:#fff;
   color:#0b3b8f;
   box-shadow:0 12px 28px rgba(0,0,0,.16);
@@ -97,39 +163,56 @@ a{color:inherit;text-decoration:none}
   text-align:center;
   border-radius:14px;
   padding:12px 10px;
-  font-weight:1000;
+  font-weight:900;
   border:1px solid rgba(255,255,255,.32);
   color:#fff;
   background:rgba(255,255,255,.12);
 }
+
 .heroStats{
   margin-top:14px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:10px;
 }
-.heroStats .k{opacity:.85;font-size:12px}
-.heroStats .v{font-size:18px;font-weight:900;margin-top:4px}
+.heroStats .k{ opacity:.85; font-size:12px; }
+.heroStats .v{ font-size:18px; font-weight:900; margin-top:4px; }
 
+/* ---------- Cards ---------- */
 .card{
   background:var(--card);
-  border-radius:22px;
+  border-radius:var(--radius-lg);
   box-shadow:var(--shadow);
   margin-top:14px;
   padding:16px;
   border:1px solid var(--line);
 }
-.cardHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:8px}
-.cardTitle{margin:0;font-size:20px;font-weight:1000}
-.cardSub{margin-top:4px;color:var(--muted);font-size:13px}
-.link{color:var(--blue);font-weight:900;font-size:13px;text-decoration:none;border-bottom:1px dashed rgba(31,111,255,.35)}
+.cardHead{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.cardTitle{ margin:0; font-size:var(--fs-h2); font-weight:900; }
+.cardSub{ margin-top:4px; color:var(--muted); font-size:13px; }
+.link{
+  color:var(--blue);
+  font-weight:800;
+  font-size:13px;
+  text-decoration:none;
+  border-bottom:1px dashed rgba(31,111,255,.35);
+}
 
+/* ---------- Quick entries ---------- */
 .quickGrid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
-@media (max-width:520px){.quickGrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){
+  .quickGrid{ grid-template-columns:repeat(2,1fr); }
+}
 .quick{
   border:1px solid var(--line);
   border-radius:16px;
@@ -139,37 +222,44 @@ a{color:inherit;text-decoration:none}
   align-items:center;
   gap:8px;
   background:#fff;
-  box-shadow:0 10px 22px rgba(0,0,0,.06);
+  box-shadow:var(--shadow-soft);
 }
-.quick .ico{font-size:20px}
-.quick .text{font-weight:900;font-size:14px}
+.quick .ico{ font-size:20px; }
+.quick .text{ font-weight:800; font-size:14px; }
 
+/* ---------- Mini stats row ---------- */
 .statRow{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-@media (max-width:520px){.statRow{grid-template-columns:1fr}}
+@media (max-width:520px){
+  .statRow{ grid-template-columns:1fr; }
+}
 .miniCard{
   border:1px solid var(--line);
   border-radius:18px;
   padding:12px;
   background:#fff;
-  box-shadow:0 10px 22px rgba(0,0,0,.06);
+  box-shadow:var(--shadow-soft);
 }
-.miniCard .label{color:var(--muted);font-weight:900;font-size:12px}
-.miniCard .value{margin-top:6px;font-weight:1000;font-size:20px}
-.miniCard .foot{margin-top:6px;color:var(--muted);font-size:12px}
+.miniCard .label{ color:var(--muted); font-weight:800; font-size:12px; }
+.miniCard .value{ margin-top:6px; font-weight:900; font-size:20px; }
+.miniCard .foot{ margin-top:6px; color:var(--muted); font-size:12px; }
 
-.ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.ctaRow .pill{flex:1;text-align:center}
+/* ---------- CTA row ---------- */
+.ctaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.ctaRow .pill{ flex:1; text-align:center; }
 
+/* ---------- Product ---------- */
 .productGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-@media (max-width:520px){.productGrid{grid-template-columns:1fr}}
+@media (max-width:520px){
+  .productGrid{ grid-template-columns:1fr; }
+}
 .productCard{
   border:1px solid var(--line);
   border-radius:18px;
@@ -177,65 +267,62 @@ a{color:inherit;text-decoration:none}
   background:#fff;
   box-shadow:0 12px 26px rgba(0,0,0,.08);
 }
-.productCard img{width:100%;height:auto;display:block}
-.productCard.small img{object-fit:cover}
-.pTitle{font-weight:1000;font-size:16px;padding:12px 12px 4px}
-.pDesc{padding:0 12px 12px;color:var(--muted);font-size:13px}
+.productCard img{ width:100%; height:auto; display:block; }
+.pTitle{ font-weight:900; font-size:16px; padding:12px 12px 4px; }
+.pDesc{ padding:0 12px 12px; color:var(--muted); font-size:13px; }
 
-.faqList{display:flex;flex-direction:column;gap:10px}
+/* ---------- FAQ ---------- */
+.faqList{ display:flex; flex-direction:column; gap:10px; }
 .faqItem{
   border:1px solid var(--line);
   border-radius:16px;
   padding:12px;
   background:#f9f9fb;
 }
-.faqItem .q{font-weight:1000;font-size:14px}
-.faqItem .a{margin-top:6px;color:var(--muted);line-height:1.5;font-size:13px}
+.faqItem .q{ font-weight:900; font-size:14px; }
+.faqItem .a{ margin-top:6px; color:var(--muted); line-height:1.5; font-size:13px; }
 
-/* =========================
-   非首页页面：更松、更不挤
-   用法：把非首页 main 写成 <main class="page"> 或者外层容器加 class="page"
-   ========================= */
+/* =========================================================
+   Non-home pages spacing helpers
+   Use: <main class="page"> ... </main>
+   ========================================================= */
 main.page{
   padding: var(--page-pad);
-  padding-bottom: calc(var(--tabbar-h) + 20px);
+  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom,0px) + 20px);
 }
 
-/* 每个区块卡片 */
+/* Panel sections */
 .panel{
   background:#fff;
   border-radius:22px;
   padding:18px;
-  box-shadow:0 18px 48px rgba(17,24,39,.12);
+  box-shadow:var(--shadow);
   margin-bottom: var(--panel-gap);
+  border:1px solid var(--line);
 }
-
 .panel .panel-title{
-  font-size:26px;
-  font-weight:800;
+  font-size:22px;
+  font-weight:900;
   margin:0;
 }
-
 .panel .panel-sub{
   margin-top:6px;
   color:var(--muted);
   font-size:14px;
 }
 
-/* 区块内入口：默认两列 + 留出缝隙 */
+/* Two-column grid inside panel */
 .panel-grid{
   margin-top:14px;
   display:grid;
   grid-template-columns:repeat(2, minmax(0, 1fr));
   gap: var(--grid-gap);
 }
-
-/* 小屏自动一列，彻底不挤 */
 @media (max-width:420px){
   .panel-grid{ grid-template-columns:1fr; }
 }
 
-/* 入口按钮（你截图里“编辑资料/银行卡/联系我们/记录”那种） */
+/* Tile buttons */
 .tile{
   display:flex;
   align-items:center;
@@ -245,7 +332,6 @@ main.page{
   border:1px solid rgba(17,24,39,.10);
   background:#f9fafb;
 }
-
 .tile .tile-ico{
   width:46px;
   height:46px;
@@ -255,18 +341,19 @@ main.page{
   align-items:center;
   justify-content:center;
   flex:0 0 46px;
+  border:1px solid rgba(17,24,39,.06);
 }
-
 .tile .tile-main{ min-width:0; }
-
 .tile .tile-name{
   font-size:16px;
-  font-weight:800;
+  font-weight:900;
   margin:0;
 }
-
 .tile .tile-desc{
   margin-top:3px;
   font-size:12px;
   color:var(--muted);
 }
+
+/* =========================================================
+   Bottom Tabbar (关键：让“首页/我的/记录/任务”不

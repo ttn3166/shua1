@@ -2,124 +2,166 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>首页</title>
 
-  <link rel="stylesheet" href="./css/nav.css?v=1" />
-  <link rel="stylesheet" href="./css/dashboard.css?v=4" />
+  <link rel="stylesheet" href="./css/nav.css?v=5" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=5" />
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="container">
+  <div class="app">
+    <header class="topbar">
       <div class="brand">
-        <div class="brand__logo">B</div>
-        <div style="min-width:0">
-          <div class="brand__name">BITIC</div>
-          <div class="brand__sub">控制台</div>
+        <div class="logoDots" aria-hidden="true">
+          <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
+        </div>
+        <div class="brandText">
+          <div class="brandName">Bitic</div>
+          <div class="brandSub">官方前台</div>
         </div>
       </div>
-      <a class="btn btn--ghost" href="./me.html">账户</a>
+      <div class="topActions">
+        <button class="pill">VIP 专区</button>
+        <a class="iconbtn ghost" href="./me.html" aria-label="个人中心">👤</a>
+      </div>
+    </header>
+
+    <section class="heroCard">
+      <div class="heroTop">
+        <div>
+          <div class="tiny">欢迎回来</div>
+          <div class="heroTitle">账户概览</div>
+        </div>
+        <div class="vip">VIP</div>
+      </div>
+      <div class="heroBalance">
+        <div class="balanceValue" id="balanceValue">0.00</div>
+        <div class="balanceUnit" id="balanceUnit">USDT</div>
+      </div>
+      <div class="heroActions">
+        <a class="primaryBtn" href="./deposit.html">充值</a>
+        <a class="ghostBtn" href="./withdraw.html">提现</a>
+      </div>
+      <div class="heroStats">
+        <div>
+          <div class="k">进行中任务</div>
+          <div class="v" id="kpiTasks">--</div>
+        </div>
+        <div>
+          <div class="k">今日收益</div>
+          <div class="v" id="kpiProfit">--</div>
+        </div>
+        <div>
+          <div class="k">今日交易</div>
+          <div class="v" id="kpiTx">--</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">快捷入口</div>
+          <div class="cardSub">充值 / 提现 / 常见问题 / 会员</div>
+        </div>
+      </div>
+      <div class="quickGrid">
+        <a class="quick" href="./deposit.html"><span class="ico">⬆️</span><span class="text">充值</span></a>
+        <a class="quick" href="./withdraw.html"><span class="ico">⬇️</span><span class="text">提现</span></a>
+        <a class="quick" href="./contact.html"><span class="ico">❓</span><span class="text">常见问题</span></a>
+        <a class="quick" href="./me.html"><span class="ico">💎</span><span class="text">会员</span></a>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">任务与收益</div>
+          <div class="cardSub">进行中任务 / 最新收益 / 记录</div>
+        </div>
+        <a class="link" href="./tasks.html">进入任务</a>
+      </div>
+      <div class="statRow">
+        <div class="miniCard">
+          <div class="label">任务进度</div>
+          <div class="value">--</div>
+          <div class="foot">正在进行</div>
+        </div>
+        <div class="miniCard">
+          <div class="label">累计收益</div>
+          <div class="value">--</div>
+          <div class="foot">查看记录</div>
+        </div>
+      </div>
+      <div class="ctaRow">
+        <a class="pill ghost" href="./records.html">查看记录</a>
+        <a class="pill" href="./transactions.html">交易明细</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">产品展示区</div>
+          <div class="cardSub">热销单品 / 最新活动</div>
+        </div>
+      </div>
+      <div class="productGrid">
+        <div class="productCard">
+          <img src="./banner.svg" alt="主推产品" />
+          <div class="pTitle">热销单品</div>
+          <div class="pDesc">限时优惠·随时可购</div>
+        </div>
+        <div class="productCard small">
+          <img src="./product.svg" alt="新品" />
+          <div class="pTitle">热门任务</div>
+          <div class="pDesc">高佣金·自动结算</div>
+        </div>
+        <div class="productCard small">
+          <img src="./product.svg" alt="精选" />
+          <div class="pTitle">精选专区</div>
+          <div class="pDesc">严格挑选·值得信赖</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">FAQ</div>
+          <div class="cardSub">常见问题快速查看</div>
+        </div>
+        <a class="link" href="./contact.html">联系客服</a>
+      </div>
+      <div class="faqList">
+        <div class="faqItem">
+          <div class="q">如何完成任务并领取收益？</div>
+          <div class="a">在任务中心选择任务，完成后收益自动累积，可在记录中查看。</div>
+        </div>
+        <div class="faqItem">
+          <div class="q">资金是否安全？</div>
+          <div class="a">充值、提现全程加密传输，结算透明可追踪。</div>
+        </div>
+        <div class="faqItem">
+          <div class="q">遇到问题怎么办？</div>
+          <div class="a">可通过客服或 FAQ 获取帮助，处理结果会在记录中心同步。</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="pagePadBottom" aria-hidden="true"></div>
+
+  <nav class="tabbar" aria-label="底部导航">
+    <div class="tabs">
+      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
+      <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-    <div class="grid grid-2">
-      <section class="card">
-        <div class="section-title">资产概览</div>
-
-        <div class="balance">
-          <div>
-            <div class="muted">总余额</div>
-            <div class="balance__value" id="balanceValue">0.00</div>
-            <div class="muted" id="balanceUnit">USD</div>
-          </div>
-
-          <div class="balance__actions">
-            <a class="btn btn--primary" href="./deposit.html">充值</a>
-            <a class="btn" href="./withdraw.html">提现</a>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="quick">
-          <a class="quick__item" href="./transactions.html">
-            <strong>交易明细</strong><span>资金进出/历史记录</span>
-          </a>
-          <a class="quick__item" href="./records.html">
-            <strong>记录</strong><span>查看所有记录</span>
-          </a>
-          <a class="quick__item" href="./tasks.html">
-            <strong>任务</strong><span>进行中/已完成</span>
-          </a>
-          <a class="quick__item" href="./me.html">
-            <strong>我的</strong><span>账户与设置</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="section-title">今日概况</div>
-
-        <div class="kpi-grid">
-          <div class="kpi">
-            <div class="muted">今日收益</div>
-            <div class="kpi__v" id="kpiProfit">--</div>
-          </div>
-          <div class="kpi">
-            <div class="muted">进行中任务</div>
-            <div class="kpi__v" id="kpiTasks">--</div>
-          </div>
-          <div class="kpi">
-            <div class="muted">今日交易</div>
-            <div class="kpi__v" id="kpiTx">--</div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="notice">
-          <div class="section-title" style="margin-bottom:8px">公告</div>
-          <ul>
-            <li>底部导航已统一（tasks/records/dashboard 不再缩小或跑位）。</li>
-            <li>如需接入真实数据：用你原有 JS 把 kpi/balance 的 ID 填值即可。</li>
-          </ul>
-        </div>
-      </section>
-    </div>
-
-    <div class="grid grid-2" style="margin-top:14px">
-      <section class="card">
-        <div class="card-head">
-          <div class="section-title" style="margin:0">最新记录</div>
-          <a class="link" href="./records.html">查看全部</a>
-        </div>
-
-        <div class="list" id="recentRecords">
-          <div class="list-item">
-            <div>暂无记录</div>
-            <div class="badge">—</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-head">
-          <div class="section-title" style="margin:0">任务</div>
-          <a class="link" href="./tasks.html">查看全部</a>
-        </div>
-
-        <div class="list" id="recentTasks">
-          <div class="list-item">
-            <div>暂无任务</div>
-            <div class="badge">—</div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="footer-space"></div>
-  </main>
-
-  <!-- 占位：nav.js 会统一重建并移动到 body 底部 -->
+  <script src="./js/nav.js" defer></script>
+</body>
+</html>

@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>记录</title>
   <link rel="stylesheet" href="./css/app.css?v=3" />
-  <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/nav.css?v=5" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/records.css?v=2" />
 </head>
 <body>
-  <div class="app">
+  <main class="app page">
     <header class="topbar">
       <div class="brand">
         <div class="logoDots" aria-hidden="true">
@@ -28,7 +29,7 @@
     <!-- 余额不足提示（自动出现） -->
     <div id="notice"></div>
 
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">筛选</div>
@@ -43,24 +44,28 @@
       </div>
     </section>
 
-    <div class="rList" id="list"></div>
-    <div class="empty" id="empty" style="display:none;">暂无记录</div>
+    <section class="panel">
+      <div class="panel-title">记录列表</div>
+      <p class="panel-sub">任务与交易记录</p>
+      <div class="rList" id="list"></div>
+      <div class="empty" id="empty" style="display:none;">暂无记录</div>
+    </section>
 
-  </div>
+  </main>
 
-  <script src="./js/common.js" defer></script>
-  <script src="./js/records.js" defer></script>
-  <div class="pagePadBottom"></div>
+  <div class="pagePadBottom" aria-hidden="true"></div>
 
-  <nav class="tabbar" role="navigation" aria-label="底部导航">
+  <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
-      <button class="tab" data-go="./dashboard.html" type="button"><div class="ico">🏠</div><span>首页</span></button>
-      <button class="tab" data-go="./me.html" type="button"><div class="ico">👤</div><span>我的</span></button>
-      <button class="tab" data-go="./records.html" type="button"><div class="ico">🕘</div><span>记录</span></button>
-      <button class="tab" data-go="./tasks.html" type="button"><div class="ico">🛒</div><span>任务</span></button>
+      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
+      <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
     </div>
   </nav>
 
+  <script src="./js/common.js" defer></script>
+  <script src="./js/records.js" defer></script>
   <script src="./js/nav.js" defer></script>
 </body>
 </html>

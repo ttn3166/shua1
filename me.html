@@ -11,7 +11,6 @@
 </head>
 <body>
   <main class="app page">
-
     <header class="topbar">
       <div class="brand">
         <div class="logoDots" aria-hidden="true">
@@ -23,7 +22,7 @@
         </div>
       </div>
       <div class="topActions">
-        <button class="iconbtn" id="logoutBtn" title="退出">⎋</button>
+        <button class="iconbtn" id="logoutBtn" title="退出" type="button">⎋</button>
       </div>
     </header>
 
@@ -54,7 +53,7 @@
 
       <div class="cardBody">
         <div class="panel-grid">
-          <button class="tile" data-go="./deposit.html">
+          <button class="tile" data-go="./deposit.html" type="button">
             <div class="tile-ico">⬆️</div>
             <div class="tile-main">
               <p class="tile-name">充值</p>
@@ -62,7 +61,7 @@
             </div>
           </button>
 
-          <button class="tile" data-go="./withdraw.html">
+          <button class="tile" data-go="./withdraw.html" type="button">
             <div class="tile-ico">⬇️</div>
             <div class="tile-main">
               <p class="tile-name">提现</p>
@@ -70,7 +69,7 @@
             </div>
           </button>
 
-          <button class="tile" data-go="./transactions.html">
+          <button class="tile" data-go="./transactions.html" type="button">
             <div class="tile-ico">📒</div>
             <div class="tile-main">
               <p class="tile-name">交易明细</p>
@@ -78,7 +77,7 @@
             </div>
           </button>
 
-          <button class="tile" data-go="./lottery.html">
+          <button class="tile" data-go="./lottery.html" type="button">
             <div class="tile-ico">🎁</div>
             <div class="tile-main">
               <p class="tile-name">抽奖</p>
@@ -100,7 +99,7 @@
 
       <div class="cardBody">
         <div class="panel-grid">
-          <button class="tile" data-go="./profile.html">
+          <button class="tile" data-go="./profile.html" type="button">
             <div class="tile-ico">📝</div>
             <div class="tile-main">
               <p class="tile-name">编辑资料</p>
@@ -108,7 +107,7 @@
             </div>
           </button>
 
-          <button class="tile" data-go="./bank.html">
+          <button class="tile" data-go="./bank.html" type="button">
             <div class="tile-ico">🏦</div>
             <div class="tile-main">
               <p class="tile-name">银行卡</p>
@@ -130,7 +129,7 @@
 
       <div class="cardBody">
         <div class="panel-grid">
-          <button class="tile" data-go="./contact.html">
+          <button class="tile" data-go="./contact.html" type="button">
             <div class="tile-ico">🎧</div>
             <div class="tile-main">
               <p class="tile-name">联系我们</p>
@@ -138,7 +137,7 @@
             </div>
           </button>
 
-          <button class="tile" data-go="./records.html">
+          <button class="tile" data-go="./records.html" type="button">
             <div class="tile-ico">🕘</div>
             <div class="tile-main">
               <p class="tile-name">记录</p>
@@ -148,19 +147,10 @@
         </div>
       </div>
     </section>
-
   </main>
 
+  <!-- 给底部 tabbar 预留空间（nav.js 会自动设置高度） -->
   <div class="pagePadBottom" aria-hidden="true"></div>
-
-  <nav class="tabbar" aria-label="底部导航">
-    <div class="tabs">
-      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
-      <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
-      <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
-      <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
-    </div>
-  </nav>
 
   <script src="./js/common.js" defer></script>
   <script src="./js/me.js" defer></script>

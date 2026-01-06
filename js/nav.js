@@ -46,7 +46,6 @@
       nav.className = "tabbar";
       nav.setAttribute("role","navigation");
       nav.setAttribute("aria-label","底部导航");
-      document.body.appendChild(nav);
     }
 
     var tabs = document.createElement("div");
@@ -71,6 +70,13 @@
 
     nav.innerHTML = "";
     nav.appendChild(tabs);
+
+    // 确保导航在 body 最后，避免被父容器 overflow 截断
+    if (nav.parentElement !== document.body){
+      document.body.appendChild(nav);
+    } else {
+      document.body.appendChild(nav);
+    }
 
     return nav;
   }

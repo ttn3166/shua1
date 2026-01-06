@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>任务</title>
   <link rel="stylesheet" href="./css/app.css?v=3" />
   <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/tasks.css?v=3" />
 </head>
 <body>
-  <div class="app">
+  <main class="app page">
 
     <header class="topbar">
       <div class="brand">
@@ -23,12 +24,12 @@
       </div>
 
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
       </div>
     </header>
 
     <!-- 顶部状态卡 -->
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">任务概览</div>
@@ -61,7 +62,7 @@
             </select>
           </div>
 
-          <button class="primaryBtn tBtnBig" id="matchBtn">分配任务</button>
+          <button class="primaryBtn tBtnBig" id="matchBtn" type="button">分配任务</button>
         </div>
 
         <div class="tHint" id="hintLine"></div>
@@ -69,7 +70,7 @@
     </section>
 
     <!-- 当前任务卡 -->
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">当前任务</div>
@@ -91,8 +92,7 @@
       </div>
     </div>
 
-
-  </div>
+  </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 

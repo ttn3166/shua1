@@ -29,10 +29,13 @@
 
   function setPadHeight(nav){
     if (!nav) return;
+
     var h = (nav.getBoundingClientRect().height || nav.offsetHeight || 0);
     if (!h) h = 64;
 
     if (padEl) padEl.style.height = h + "px";
+
+    // 让页面内容不会被 tabbar 挡住
     document.body.style.paddingBottom = h + "px";
 
     var app = document.querySelector(".app");
@@ -51,6 +54,7 @@
 
     var tabs = document.createElement("div");
     tabs.className = "tabs";
+
     NAV_ITEMS.forEach(function(item){
       var btn = document.createElement("button");
       btn.className = "tab";
@@ -71,6 +75,13 @@
 
     nav.innerHTML = "";
     nav.appendChild(tabs);
+
+    // 确保 nav 在 body 最后（如果别的地方插入过，就挪到最后）
+    if (nav.parentElement !== document.body) {
+      document.body.appendChild(nav);
+    } else if (document.body.lastElementChild !== nav) {
+      document.body.appendChild(nav);
+    }
 
     return nav;
   }

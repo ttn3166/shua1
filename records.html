@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>记录</title>
   <link rel="stylesheet" href="./css/app.css?v=3" />
   <link rel="stylesheet" href="./css/nav.css?v=3" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/records.css?v=2" />
 </head>
 <body>
-  <div class="app">
+  <main class="app page">
     <header class="topbar">
       <div class="brand">
         <div class="logoDots" aria-hidden="true">
@@ -21,14 +22,14 @@
         </div>
       </div>
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
       </div>
     </header>
 
     <!-- 余额不足提示（自动出现） -->
     <div id="notice"></div>
 
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">筛选</div>
@@ -37,16 +38,19 @@
       </div>
       <div class="cardBody">
         <div class="segRow">
-          <button class="seg active" data-tab="TASK">任务记录</button>
-          <button class="seg" data-tab="TX">交易流水</button>
+          <button class="seg active" data-tab="TASK" type="button">任务记录</button>
+          <button class="seg" data-tab="TX" type="button">交易流水</button>
         </div>
       </div>
     </section>
 
-    <div class="rList" id="list"></div>
-    <div class="empty" id="empty" style="display:none;">暂无记录</div>
-
-  </div>
+    <section class="panel">
+      <div class="panel-title">记录列表</div>
+      <p class="panel-sub">任务与交易记录</p>
+      <div class="rList" id="list"></div>
+      <div class="empty" id="empty" style="display:none;">暂无记录</div>
+    </section>
+  </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 

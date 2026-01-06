@@ -4,6 +4,25 @@
 
   const $ = (id)=>document.getElementById(id);
 
+  const dict = {
+    zh:{
+      progress:'进度', rebate:'返利', enter:'进入',
+      pendingHint:'已有进行中的任务，已为你打开做单。',
+      matchedSub:(cnt,rate)=>`共 ${cnt} 单 · 返利 ${rate}%`,
+    },
+    en:{
+      progress:'Progress', rebate:'Rebate', enter:'Enter',
+      pendingHint:'You already have a task; opening it for you.',
+      matchedSub:(cnt,rate)=>`Total ${cnt} orders · Rebate ${rate}%`,
+    }
+  };
+
+  const curLang = ()=> (window.Lang ? Lang.get() : 'zh');
+  const tr = (key)=>{
+    const lang = curLang();
+    return (dict[lang] && dict[lang][key]) || (dict.zh && dict.zh[key]) || key;
+  };
+
   function readJSON(k, d){
     try{ return JSON.parse(localStorage.getItem(k) || JSON.stringify(d)); }catch(e){ return d; }
   }
@@ -58,8 +77,8 @@
     const empty = $("currentEmpty");
 
     const tasks = loadTasks();
-    const t = tasks.find(x=>x.status==="PENDING");
-    if(!t){
+    const task = tasks.find(x=>x.status==="PENDING");
+    if(!task){
       empty.style.display="block";
       box.innerHTML="";
       return;
@@ -68,21 +87,21 @@
 
     box.innerHTML = `
       <div class="curCard">
-        <div class="curThumb"><img src="${t.img||'./assets/product.svg'}" alt="product"></div>
+        <div class="curThumb"><img src="${task.img||'./assets/product.svg'}" alt="product"></div>
         <div class="curInfo">
-          <div class="curTitle">${t.title||"任务"}</div>
-          <div class="curSub">编号 ${t.code||"-"} · ${t.createdAt||""}</div>
+          <div class="curTitle">${task.title||"任务"}</div>
+          <div class="curSub">编号 ${task.code||"-"} · ${task.createdAt||""}</div>
           <div class="curMeta">
-            <span class="badge">进度 ${Number(t.step||0)}/${Number(t.totalSteps||20)}</span>
-            <span class="badge">返利 ${Number(t.rewardRate||5)}%</span>
+            <span class="badge">${tr("progress")} ${Number(task.step||0)}/${Number(task.totalSteps||20)}</span>
+            <span class="badge">${tr("rebate")} ${Number(task.rewardRate||5)}%</span>
           </div>
         </div>
-        <button class="curBtn" id="goDoBtn">进入</button>
+        <button class="curBtn" id="goDoBtn">${tr("enter")}</button>
       </div>
     `;
 
     document.getElementById("goDoBtn").onclick = ()=>{
-      window.location.href = "./task-do.html?tid=" + encodeURIComponent(t.id);
+      window.location.href = "./task-do.html?tid=" + encodeURIComponent(task.id);
     };
   }
 
@@ -90,13 +109,35 @@
     $("matching").style.display = on ? "flex" : "none";
   }
 
-  $("langBtn").onclick = ()=>alert("语言功能稍后接入");
+  function showDone(t){
+    if(!t) return;
+    $("doneTitle").innerText = t.title || "任务已分配";
+    $("doneSub").innerText = tr("matchedSub")(Number(t.totalSteps||0), Number(t.rewardRate||5));
+    $("doneRate").innerText = `${Number(t.rewardRate||5)}%`;
+    $("doneCount").innerText = `${Number(t.totalSteps||0)} 单`;
+    $("doneCode").innerText = t.code || "-";
+    $("matchDone").dataset.tid = t.id;
+    $("matchDone").style.display = "flex";
+  }
+
+  $("laterBtn").onclick = ()=>{
+    $("matchDone").style.display = "none";
+  };
+
+  $("goDoBtnDone").onclick = ()=>{
+    const tid = $("matchDone").dataset.tid;
+    if(tid){
+      window.location.href = "./task-do.html?tid=" + encodeURIComponent(tid);
+    }
+  };
+
+  if(window.Lang) Lang.bindToggle($("langBtn"));
 
   $("matchBtn").onclick = ()=>{
     const tasks = loadTasks();
     const pending = tasks.find(t=>t.status==="PENDING");
     if(pending){
-      $("hintLine").innerText = "已有进行中的任务，已为你打开做单。";
+      $("hintLine").innerText = tr("pendingHint");
       window.location.href = "./task-do.html?tid=" + encodeURIComponent(pending.id);
       return;
     }
@@ -130,13 +171,21 @@
       saveState(st);
 
       showMatching(false);
+      showDone(t);
       renderTop();
       renderCurrent();
-
-      window.location.href = "./task-do.html?tid=" + encodeURIComponent(t.id);
+      if(window.Lang) Lang.apply();
     }, 1200);
   };
 
   renderTop();
   renderCurrent();
+  if(window.Lang){
+    Lang.apply();
+    document.addEventListener('lang:change', ()=>{
+      renderTop();
+      renderCurrent();
+      Lang.apply();
+    });
+  }
 })();

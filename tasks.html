@@ -1,8 +1,3 @@
-cd /www/wwwroot/185.39.31.27
-
-cp -a tasks.html "tasks.html.bak.$(date +%F-%H%M%S)"
-
-cat > tasks.html <<'EOF'
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -13,7 +8,7 @@ cat > tasks.html <<'EOF'
   <link rel="stylesheet" href="./css/app.css?v=3" />
   <link rel="stylesheet" href="./css/nav.css?v=5" />
   <link rel="stylesheet" href="./css/dashboard.css?v=3" />
-  <link rel="stylesheet" href="./css/tasks.css?v=3" />
+  <link rel="stylesheet" href="./css/tasks.css?v=4" />
 </head>
 
 <body>
@@ -24,13 +19,13 @@ cat > tasks.html <<'EOF'
           <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
         </div>
         <div class="brandText">
-          <div class="brandName">任务中心</div>
-          <div class="brandSub">分配任务 · 做单返利</div>
+          <div class="brandName" data-i18n-zh="任务中心" data-i18n-en="Task Center">任务中心</div>
+          <div class="brandSub" data-i18n-zh="分配任务 · 做单返利" data-i18n-en="Assign tasks · Earn rewards">分配任务 · 做单返利</div>
         </div>
       </div>
 
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
+        <button class="iconbtn" id="langBtn" data-i18n-title-zh="切换语言" data-i18n-title-en="Toggle language" type="button">EN</button>
       </div>
     </header>
 
@@ -38,37 +33,37 @@ cat > tasks.html <<'EOF'
     <section class="card panel">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">任务概览</div>
-          <div class="cardSub">一次只能进行一个任务，完成后才能继续接单</div>
+          <div class="cardTitle" data-i18n-zh="任务概览" data-i18n-en="Task overview">任务概览</div>
+          <div class="cardSub" data-i18n-zh="一次只能进行一个任务，完成后才能继续接单" data-i18n-en="You can process one task at a time; finish it before matching a new one">一次只能进行一个任务，完成后才能继续接单</div>
         </div>
       </div>
 
       <div class="cardBody">
         <div class="tTopGrid">
           <div class="tBox">
-            <div class="tK">可用余额</div>
+            <div class="tK" data-i18n-zh="可用余额" data-i18n-en="Available balance">可用余额</div>
             <div class="tV blue"><span id="balLine">0.0000</span> USDT</div>
           </div>
           <div class="tBox">
-            <div class="tK">进行中</div>
+            <div class="tK" data-i18n-zh="进行中" data-i18n-en="In progress">进行中</div>
             <div class="tV"><span id="doingLine">0</span>/<span id="totalLine">55</span></div>
           </div>
           <div class="tBox">
-            <div class="tK">今日收益</div>
+            <div class="tK" data-i18n-zh="今日收益" data-i18n-en="Today’s profit">今日收益</div>
             <div class="tV"><span id="todayLine">0.0000</span> USDT</div>
           </div>
         </div>
 
         <div class="tRow">
           <div class="tSelectWrap">
-            <div class="tK2">订单数量</div>
+            <div class="tK2" data-i18n-zh="订单数量" data-i18n-en="Order count">订单数量</div>
             <select class="tSelect" id="countSel">
-              <option value="5">5 单</option>
-              <option value="20" selected>20 单</option>
+              <option value="5" data-i18n-zh="5 单" data-i18n-en="5 orders">5 单</option>
+              <option value="20" selected data-i18n-zh="20 单" data-i18n-en="20 orders">20 单</option>
             </select>
           </div>
 
-          <button class="primaryBtn tBtnBig" id="matchBtn" type="button">分配任务</button>
+          <button class="primaryBtn tBtnBig" id="matchBtn" type="button" data-i18n-zh="分配任务" data-i18n-en="Match tasks">分配任务</button>
         </div>
 
         <div class="tHint" id="hintLine"></div>
@@ -79,13 +74,13 @@ cat > tasks.html <<'EOF'
     <section class="card panel">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">当前任务</div>
-          <div class="cardSub">有进行中的任务时，点击进入做单</div>
+          <div class="cardTitle" data-i18n-zh="当前任务" data-i18n-en="Current task">当前任务</div>
+          <div class="cardSub" data-i18n-zh="有进行中的任务时，点击进入做单" data-i18n-en="Enter the task when one is in progress">有进行中的任务时，点击进入做单</div>
         </div>
       </div>
       <div class="cardBody">
         <div id="currentBox"></div>
-        <div class="empty" id="currentEmpty" style="display:none;">暂无进行中的任务</div>
+        <div class="empty" id="currentEmpty" style="display:none;" data-i18n-zh="暂无进行中的任务" data-i18n-en="No task in progress">暂无进行中的任务</div>
       </div>
     </section>
 
@@ -93,13 +88,48 @@ cat > tasks.html <<'EOF'
     <div class="matching" id="matching" style="display:none;">
       <div class="mCard">
         <div class="spinner"></div>
-        <div class="mTitle">正在为您匹配任务</div>
-        <div class="mSub">请稍候，系统正在分配订单…</div>
+        <div class="mTitle" data-i18n-zh="正在为您匹配任务" data-i18n-en="Matching tasks for you">正在为您匹配任务</div>
+        <div class="mSub" data-i18n-zh="请稍候，系统正在分配订单…" data-i18n-en="Please wait while we assign your orders">请稍候，系统正在分配订单…</div>
+      </div>
+    </div>
+
+    <!-- 匹配完成弹窗 -->
+    <div class="matching done" id="matchDone" style="display:none;">
+      <div class="mCard successCard">
+        <div class="successBadge" aria-hidden="true">✨</div>
+        <div class="mTitle" id="doneTitle" data-i18n-zh="任务已分配" data-i18n-en="Task matched">任务已分配</div>
+        <div class="mSub" id="doneSub" data-i18n-zh="请确认任务信息并开始执行" data-i18n-en="Review details before you start">请确认任务信息并开始执行</div>
+        <div class="doneInfo">
+          <div class="doneRow">
+            <span data-i18n-zh="返利比例" data-i18n-en="Rebate">返利比例</span>
+            <strong id="doneRate">5%</strong>
+          </div>
+          <div class="doneRow">
+            <span data-i18n-zh="订单数量" data-i18n-en="Orders">订单数量</span>
+            <strong id="doneCount">20 单</strong>
+          </div>
+          <div class="doneRow">
+            <span data-i18n-zh="任务编号" data-i18n-en="Task ID">任务编号</span>
+            <strong id="doneCode">-</strong>
+          </div>
+        </div>
+        <div class="btnRow">
+          <button class="ghostBtn" id="laterBtn" type="button" data-i18n-zh="稍后再做" data-i18n-en="Do later">稍后再做</button>
+          <button class="primaryBtn" id="goDoBtnDone" type="button" data-i18n-zh="立即去做" data-i18n-en="Start now">立即去做</button>
+        </div>
       </div>
     </div>
   </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
+
+  <a class="supportFab" href="./contact.html" data-go="./contact.html">
+    <div class="s-ico">🎧</div>
+    <div class="s-text" data-i18n-zh="客服支持" data-i18n-en="Support">
+      客服支持
+      <small data-i18n-zh="7×24 小时" data-i18n-en="24/7 online">7×24 小时</small>
+    </div>
+  </a>
 
   <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
@@ -111,12 +141,9 @@ cat > tasks.html <<'EOF'
     </div>
   </nav>
 
+  <script src="./js/i18n.js" defer></script>
   <script src="./js/common.js" defer></script>
   <script src="./js/tasks-center.js" defer></script>
   <script src="./js/nav.js" defer></script>
 </body>
 </html>
-EOF
-
-# 确认冲突标记清零（必须无输出）
-grep -n '<<<<<<<\|=======\|>>>>>>>' tasks.html

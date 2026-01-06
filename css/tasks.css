@@ -67,3 +67,16 @@
 @keyframes spin{to{transform:rotate(360deg)}}
 .mTitle{font-weight:900;font-size:18px;color:#101828}
 .mSub{margin-top:8px;color:#667085;font-weight:900;font-size:13px;line-height:1.6}
+
+/* 完成弹窗 */
+.matching.done{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.successCard{background:linear-gradient(145deg,#0b5bd3,#7a3aff);color:#fff;border:0;padding:26px}
+.successBadge{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:28px;margin:0 auto 12px;border:1px solid rgba(255,255,255,.25)}
+.successCard .mTitle{color:#fff;font-size:20px}
+.successCard .mSub{color:rgba(255,255,255,.88)}
+.doneInfo{margin:14px 0;background:rgba(255,255,255,.12);border-radius:18px;padding:14px;border:1px solid rgba(255,255,255,.12);text-align:left}
+.doneRow{display:flex;align-items:center;justify-content:space-between;padding:6px 0;color:#f0f4ff;font-weight:800;font-size:13px}
+.doneRow strong{color:#fff;font-size:15px}
+.btnRow{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
+.ghostBtn{border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:12px 14px;font-weight:900;min-width:120px;cursor:pointer}
+.ghostBtn:active,.primaryBtn:active{transform:scale(.99)}

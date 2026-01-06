@@ -4,6 +4,41 @@
 
   const $ = (id)=>document.getElementById(id);
 
+  const dict = {
+    zh:{
+      status:{PENDING:'待处理', DONE:'已完成', REJECTED:'已拒绝'},
+      txStatus:{SUCCESS:'成功', FAILED:'失败', PENDING:'待处理'},
+      insufficientTitle:'余额不足',
+      insufficientBody:(amt)=>`当前任务需要可用余额 ≥ <b>${amt || '0.0000'}</b>（USDT）。请先充值或完成资金准备，然后继续任务。`,
+      goDeposit:'去充值', goTask:'返回任务',
+      segTask:'任务记录', segTx:'交易流水',
+      amount:'金额', progress:'进度', currency:'币种',
+      continue:'继续', viewTx:'查看流水',
+      txDetail:'交易明细'
+    },
+    en:{
+      status:{PENDING:'Pending', DONE:'Completed', REJECTED:'Rejected'},
+      txStatus:{SUCCESS:'Success', FAILED:'Failed', PENDING:'Pending'},
+      insufficientTitle:'Insufficient balance',
+      insufficientBody:(amt)=>`This task requires available funds ≥ <b>${amt || '0.0000'}</b> USDT. Please top up before continuing.`,
+      goDeposit:'Deposit', goTask:'Back to tasks',
+      segTask:'Task history', segTx:'Transactions',
+      amount:'Amount', progress:'Progress', currency:'Currency',
+      continue:'Continue', viewTx:'View transactions',
+      txDetail:'Transaction details'
+    }
+  };
+
+  const curLang = ()=> (window.Lang ? Lang.get() : 'zh');
+  const tr = (key, fallback)=>{
+    const lang = curLang();
+    if(key.includes('.')){
+      const [k1,k2] = key.split('.');
+      return (dict[lang] && dict[lang][k1] && dict[lang][k1][k2]) || (dict.zh && dict.zh[k1] && dict.zh[k1][k2]) || fallback || key;
+    }
+    return (dict[lang] && dict[lang][key]) || (dict.zh && dict.zh[key]) || fallback || key;
+  };
+
   function readJSON(k, d){
     try{ return JSON.parse(localStorage.getItem(k) || JSON.stringify(d)); }catch(e){ return d; }
   }
@@ -22,10 +57,7 @@
   }
 
   function statusCN(s){
-    if(s==="PENDING") return "待处理";
-    if(s==="DONE") return "已完成";
-    if(s==="REJECTED") return "已拒绝";
-    return "待处理";
+    return tr(`status.${s||'PENDING'}`, tr('status.PENDING'));
   }
   function statusClass(s){
     if(s==="PENDING") return "pending";
@@ -43,14 +75,14 @@
     box.innerHTML = `
       <div class="notice">
         <div class="nTop">
-          <div class="nTitle">余额不足</div>
+          <div class="nTitle">${tr('insufficientTitle')}</div>
         </div>
         <div class="nSub">
-          当前任务需要可用余额 ≥ <b>${amt || "0.0000"}</b>（USDT）。请先充值或完成资金准备，然后继续任务。
+          ${tr('insufficientBody')(amt)}
         </div>
         <div class="nBtns">
-          <button class="nBtn ghost" id="goDeposit">去充值</button>
-          <button class="nBtn" id="goTask">返回任务</button>
+          <button class="nBtn ghost" id="goDeposit">${tr('goDeposit')}</button>
+          <button class="nBtn" id="goTask">${tr('goTask')}</button>
         </div>
       </div>
     `;
@@ -95,17 +127,17 @@
 
             <div class="rGrid">
               <div class="rBox">
-                <div class="rK">金额</div>
+                <div class="rK">${tr('amount')}</div>
                 <div class="rV">${Number(t.amount||0).toFixed(4)}</div>
               </div>
               <div class="rBox">
-                <div class="rK">进度</div>
+                <div class="rK">${tr('progress')}</div>
                 <div class="rV blue">${Number(t.step||0)}/${Number(t.totalSteps||20)}</div>
               </div>
             </div>
 
             <div class="rBtnRow">
-              ${ (t.status==="PENDING") ? `<button class="rBtn" data-go="${t.id}">继续</button>` : `<button class="rBtn ghost" data-go="tx">查看流水</button>` }
+              ${ (t.status==="PENDING") ? `<button class="rBtn" data-go="${t.id}">${tr('continue')}</button>` : `<button class="rBtn ghost" data-go="tx">${tr('viewTx')}</button>` }
             </div>
           </div>
         `;
@@ -140,7 +172,7 @@
     listEl.innerHTML = tx.map(t=>{
       const typ = t.type || "TX";
       const st = t.status || "PENDING";
-      const tag = (st==="SUCCESS"?"成功":(st==="FAILED"?"失败":"待处理"));
+      const tag = tr(`txStatus.${st}`, tr('txStatus.PENDING'));
       const cls = (st==="SUCCESS"?"done":(st==="FAILED"?"fail":"pending"));
       return `
         <div class="rCard">
@@ -154,17 +186,17 @@
 
           <div class="rGrid">
             <div class="rBox">
-              <div class="rK">金额</div>
+              <div class="rK">${tr('amount')}</div>
               <div class="rV blue">${Number(t.amount||0).toFixed(4)}</div>
             </div>
             <div class="rBox">
-              <div class="rK">币种</div>
+              <div class="rK">${tr('currency')}</div>
               <div class="rV">${t.chain || "USDT"}</div>
             </div>
           </div>
 
           <div class="rBtnRow">
-            <button class="rBtn ghost" onclick="window.location.href='./transactions.html'">交易明细</button>
+            <button class="rBtn ghost" onclick="window.location.href='./transactions.html'">${tr('txDetail')}</button>
           </div>
         </div>
       `;
@@ -181,8 +213,17 @@
     };
   });
 
-  $("langBtn").onclick = ()=>alert("语言功能稍后接入");
+  if(window.Lang) Lang.bindToggle($("langBtn"));
 
   renderNotice();
   render();
+
+  if(window.Lang){
+    Lang.apply();
+    document.addEventListener('lang:change', ()=>{
+      renderNotice();
+      render();
+      Lang.apply();
+    });
+  }
 })();

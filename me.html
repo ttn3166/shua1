@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>我的</title>
   <link rel="stylesheet" href="./css/app.css?v=1" />
+  <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/me.css?v=1" />
   <link rel="stylesheet" href="./css/nav.css?v=1" />
 </head>
 <body>
-  <div class="app">
+  <main class="app page">
 
     <header class="topbar">
       <div class="brand">
@@ -27,7 +28,7 @@
     </header>
 
     <!-- 个人卡 -->
-    <section class="meCard">
+    <section class="panel meCard">
       <div class="meLeft">
         <div class="avatar" aria-hidden="true">
           <img src="./assets/avatar.svg" alt="avatar">
@@ -43,7 +44,7 @@
     </section>
 
     <!-- 我的财务 -->
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">我的财务</div>
@@ -52,36 +53,36 @@
       </div>
 
       <div class="cardBody">
-        <div class="grid2">
+        <div class="panel-grid">
           <button class="tile" data-go="./deposit.html">
-            <div class="tileIcon">⬆️</div>
-            <div class="tileText">
-              <div class="t1">充值</div>
-              <div class="t2">USDT-TRC20</div>
+            <div class="tile-ico">⬆️</div>
+            <div class="tile-main">
+              <p class="tile-name">充值</p>
+              <p class="tile-desc">USDT-TRC20</p>
             </div>
           </button>
 
           <button class="tile" data-go="./withdraw.html">
-            <div class="tileIcon">⬇️</div>
-            <div class="tileText">
-              <div class="t1">提现</div>
-              <div class="t2">人工审核</div>
+            <div class="tile-ico">⬇️</div>
+            <div class="tile-main">
+              <p class="tile-name">提现</p>
+              <p class="tile-desc">人工审核</p>
             </div>
           </button>
 
           <button class="tile" data-go="./transactions.html">
-            <div class="tileIcon">📒</div>
-            <div class="tileText">
-              <div class="t1">交易明细</div>
-              <div class="t2">流水记录</div>
+            <div class="tile-ico">📒</div>
+            <div class="tile-main">
+              <p class="tile-name">交易明细</p>
+              <p class="tile-desc">流水记录</p>
             </div>
           </button>
 
           <button class="tile" data-go="./lottery.html">
-            <div class="tileIcon">🎁</div>
-            <div class="tileText">
-              <div class="t1">抽奖</div>
-              <div class="t2">消耗余额</div>
+            <div class="tile-ico">🎁</div>
+            <div class="tile-main">
+              <p class="tile-name">抽奖</p>
+              <p class="tile-desc">消耗余额</p>
             </div>
           </button>
         </div>
@@ -89,7 +90,7 @@
     </section>
 
     <!-- 我的资料 -->
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">我的资料</div>
@@ -98,20 +99,20 @@
       </div>
 
       <div class="cardBody">
-        <div class="grid2">
+        <div class="panel-grid">
           <button class="tile" data-go="./profile.html">
-            <div class="tileIcon">📝</div>
-            <div class="tileText">
-              <div class="t1">编辑资料</div>
-              <div class="t2">昵称 / 头像</div>
+            <div class="tile-ico">📝</div>
+            <div class="tile-main">
+              <p class="tile-name">编辑资料</p>
+              <p class="tile-desc">昵称 / 头像</p>
             </div>
           </button>
 
           <button class="tile" data-go="./bank.html">
-            <div class="tileIcon">🏦</div>
-            <div class="tileText">
-              <div class="t1">银行卡</div>
-              <div class="t2">功能保留</div>
+            <div class="tile-ico">🏦</div>
+            <div class="tile-main">
+              <p class="tile-name">银行卡</p>
+              <p class="tile-desc">功能保留</p>
             </div>
           </button>
         </div>
@@ -119,7 +120,7 @@
     </section>
 
     <!-- 支持 -->
-    <section class="card">
+    <section class="card panel">
       <div class="cardHead">
         <div>
           <div class="cardTitle">支持</div>
@@ -128,27 +129,27 @@
       </div>
 
       <div class="cardBody">
-        <div class="grid2">
+        <div class="panel-grid">
           <button class="tile" data-go="./contact.html">
-            <div class="tileIcon">🎧</div>
-            <div class="tileText">
-              <div class="t1">联系我们</div>
-              <div class="t2">客服入口</div>
+            <div class="tile-ico">🎧</div>
+            <div class="tile-main">
+              <p class="tile-name">联系我们</p>
+              <p class="tile-desc">客服入口</p>
             </div>
           </button>
 
           <button class="tile" data-go="./records.html">
-            <div class="tileIcon">🕘</div>
-            <div class="tileText">
-              <div class="t1">记录</div>
-              <div class="t2">操作记录</div>
+            <div class="tile-ico">🕘</div>
+            <div class="tile-main">
+              <p class="tile-name">记录</p>
+              <p class="tile-desc">操作记录</p>
             </div>
           </button>
         </div>
       </div>
     </section>
 
-  </div>
+  </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 

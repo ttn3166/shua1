@@ -179,3 +179,32 @@ a{color:inherit}
 }
 .ghostBtn:disabled{opacity:.5; cursor:not-allowed}
 
+/* 全局客服悬浮按钮 */
+.supportFab{
+  position:fixed;
+  right:16px;
+  bottom:calc(var(--tabbar-height, 72px) + env(safe-area-inset-bottom,0px) + 16px);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#1f6fff,#4ba2ff);
+  color:#fff;
+  font-weight:900;
+  box-shadow:0 16px 30px rgba(31,111,255,.28);
+  text-decoration:none;
+  z-index:80;
+}
+.supportFab .s-ico{
+  width:32px;
+  height:32px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.18);
+  font-size:16px;
+}
+.supportFab .s-text{line-height:1.2; font-size:14px;}
+.supportFab small{display:block; opacity:.82; font-weight:700; font-size:12px;}
+

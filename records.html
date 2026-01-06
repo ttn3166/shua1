@@ -1,8 +1,3 @@
-cd /www/wwwroot/185.39.31.27
-
-cp -a records.html "records.html.bak.$(date +%F-%H%M%S)"
-
-cat > records.html <<'EOF'
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -24,12 +19,12 @@ cat > records.html <<'EOF'
           <span class="d r"></span><span class="d b"></span><span class="d y"></span><span class="d g"></span>
         </div>
         <div class="brandText">
-          <div class="brandName">记录中心</div>
-          <div class="brandSub">任务记录 · 交易流水</div>
+          <div class="brandName" data-i18n-zh="记录中心" data-i18n-en="Records Center">记录中心</div>
+          <div class="brandSub" data-i18n-zh="任务记录 · 交易流水" data-i18n-en="Task history · Transactions">任务记录 · 交易流水</div>
         </div>
       </div>
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
+        <button class="iconbtn" id="langBtn" data-i18n-title-zh="切换语言" data-i18n-title-en="Toggle language" type="button">EN</button>
       </div>
     </header>
 
@@ -39,27 +34,35 @@ cat > records.html <<'EOF'
     <section class="card panel">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">筛选</div>
-          <div class="cardSub">切换查看任务/流水</div>
+          <div class="cardTitle" data-i18n-zh="筛选" data-i18n-en="Filter">筛选</div>
+          <div class="cardSub" data-i18n-zh="切换查看任务/流水" data-i18n-en="Switch between tasks and transactions">切换查看任务/流水</div>
         </div>
       </div>
       <div class="cardBody">
         <div class="segRow">
-          <button class="seg active" data-tab="TASK" type="button">任务记录</button>
-          <button class="seg" data-tab="TX" type="button">交易流水</button>
+          <button class="seg active" data-tab="TASK" type="button" data-i18n-zh="任务记录" data-i18n-en="Task history">任务记录</button>
+          <button class="seg" data-tab="TX" type="button" data-i18n-zh="交易流水" data-i18n-en="Transactions">交易流水</button>
         </div>
       </div>
     </section>
 
     <section class="panel">
-      <div class="panel-title">记录列表</div>
-      <p class="panel-sub">任务与交易记录</p>
+      <div class="panel-title" data-i18n-zh="记录列表" data-i18n-en="Record list">记录列表</div>
+      <p class="panel-sub" data-i18n-zh="任务与交易记录" data-i18n-en="Tasks and transactions">任务与交易记录</p>
       <div class="rList" id="list"></div>
-      <div class="empty" id="empty" style="display:none;">暂无记录</div>
+      <div class="empty" id="empty" style="display:none;" data-i18n-zh="暂无记录" data-i18n-en="No records yet">暂无记录</div>
     </section>
   </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
+
+  <a class="supportFab" href="./contact.html" data-go="./contact.html">
+    <div class="s-ico">🎧</div>
+    <div class="s-text" data-i18n-zh="客服支持" data-i18n-en="Support">
+      客服支持
+      <small data-i18n-zh="7×24 小时" data-i18n-en="24/7 online">7×24 小时</small>
+    </div>
+  </a>
 
   <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
@@ -71,12 +74,9 @@ cat > records.html <<'EOF'
     </div>
   </nav>
 
+  <script src="./js/i18n.js" defer></script>
   <script src="./js/common.js" defer></script>
   <script src="./js/records.js" defer></script>
   <script src="./js/nav.js" defer></script>
 </body>
 </html>
-EOF
-
-# 确认冲突标记清零（必须无输出）
-grep -n '<<<<<<<\|=======\|>>>>>>>' records.html

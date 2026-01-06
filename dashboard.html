@@ -19,11 +19,12 @@
         </div>
         <div class="brandText">
           <div class="brandName">Bitic</div>
-          <div class="brandSub">官方前台</div>
+          <div class="brandSub" data-i18n-zh="官方前台" data-i18n-en="Official portal">官方前台</div>
         </div>
       </div>
       <div class="topActions">
         <button class="pill" type="button">VIP 专区</button>
+        <button class="iconbtn" id="langBtn" data-i18n-title-zh="切换语言" data-i18n-title-en="Toggle language" type="button">EN</button>
         <a class="iconbtn ghost" href="./me.html" aria-label="个人中心">👤</a>
       </div>
     </header>
@@ -31,8 +32,8 @@
     <section class="heroCard">
       <div class="heroTop">
         <div>
-          <div class="tiny">欢迎回来</div>
-          <div class="heroTitle">账户概览</div>
+          <div class="tiny" data-i18n-zh="欢迎回来" data-i18n-en="Welcome back">欢迎回来</div>
+          <div class="heroTitle" data-i18n-zh="账户概览" data-i18n-en="Account overview">账户概览</div>
         </div>
         <div class="vip">VIP</div>
       </div>
@@ -46,15 +47,15 @@
       </div>
       <div class="heroStats">
         <div>
-          <div class="k">进行中任务</div>
+          <div class="k" data-i18n-zh="进行中任务" data-i18n-en="Active tasks">进行中任务</div>
           <div class="v" id="kpiTasks">--</div>
         </div>
         <div>
-          <div class="k">今日收益</div>
+          <div class="k" data-i18n-zh="今日收益" data-i18n-en="Today’s profit">今日收益</div>
           <div class="v" id="kpiProfit">--</div>
         </div>
         <div>
-          <div class="k">今日交易</div>
+          <div class="k" data-i18n-zh="今日交易" data-i18n-en="Today’s trades">今日交易</div>
           <div class="v" id="kpiTx">--</div>
         </div>
       </div>
@@ -63,68 +64,99 @@
     <section class="card">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">快捷入口</div>
-          <div class="cardSub">充值 / 提现 / 常见问题 / 会员</div>
+          <div class="cardTitle" data-i18n-zh="快捷入口" data-i18n-en="Quick actions">快捷入口</div>
+          <div class="cardSub" data-i18n-zh="充值 / 提现 / 常见问题 / 会员" data-i18n-en="Deposit / Withdraw / FAQ / Membership">充值 / 提现 / 常见问题 / 会员</div>
         </div>
       </div>
       <div class="quickGrid">
-        <a class="quick" href="./deposit.html"><span class="ico">⬆️</span><span class="text">充值</span></a>
-        <a class="quick" href="./withdraw.html"><span class="ico">⬇️</span><span class="text">提现</span></a>
-        <a class="quick" href="./contact.html"><span class="ico">❓</span><span class="text">常见问题</span></a>
-        <a class="quick" href="./me.html"><span class="ico">💎</span><span class="text">会员</span></a>
+        <a class="quick" href="./deposit.html"><span class="ico">⬆️</span><span class="text" data-i18n-zh="充值" data-i18n-en="Deposit">充值</span></a>
+        <a class="quick" href="./withdraw.html"><span class="ico">⬇️</span><span class="text" data-i18n-zh="提现" data-i18n-en="Withdraw">提现</span></a>
+        <a class="quick" href="./contact.html"><span class="ico">❓</span><span class="text" data-i18n-zh="常见问题" data-i18n-en="FAQ">常见问题</span></a>
+        <a class="quick" href="./me.html"><span class="ico">💎</span><span class="text" data-i18n-zh="会员" data-i18n-en="Membership">会员</span></a>
       </div>
     </section>
 
     <section class="card">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">任务与收益</div>
-          <div class="cardSub">进行中任务 / 最新收益 / 记录</div>
+          <div class="cardTitle" data-i18n-zh="任务与收益" data-i18n-en="Tasks & earnings">任务与收益</div>
+          <div class="cardSub" data-i18n-zh="进行中任务 / 最新收益 / 记录" data-i18n-en="Active tasks / Latest earnings / Records">进行中任务 / 最新收益 / 记录</div>
         </div>
-        <a class="link" href="./tasks.html">进入任务</a>
+        <a class="link" href="./tasks.html" data-i18n-zh="进入任务" data-i18n-en="Go to tasks">进入任务</a>
       </div>
       <div class="statRow">
         <div class="miniCard">
-          <div class="label">任务进度</div>
+          <div class="label" data-i18n-zh="任务进度" data-i18n-en="Task progress">任务进度</div>
           <div class="value">--</div>
-          <div class="foot">正在进行</div>
+          <div class="foot" data-i18n-zh="正在进行" data-i18n-en="In progress">正在进行</div>
         </div>
         <div class="miniCard">
-          <div class="label">累计收益</div>
+          <div class="label" data-i18n-zh="累计收益" data-i18n-en="Total earnings">累计收益</div>
           <div class="value">--</div>
-          <div class="foot">查看记录</div>
+          <div class="foot" data-i18n-zh="查看记录" data-i18n-en="View records">查看记录</div>
         </div>
       </div>
       <div class="ctaRow">
-        <a class="pill ghost" href="./records.html">查看记录</a>
-        <a class="pill" href="./transactions.html">交易明细</a>
+        <a class="pill ghost" href="./records.html" data-i18n-zh="查看记录" data-i18n-en="View records">查看记录</a>
+        <a class="pill" href="./transactions.html" data-i18n-zh="交易明细" data-i18n-en="Transactions">交易明细</a>
+      </div>
+    </section>
+
+    <section class="card" id="invite">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle" data-i18n-zh="邀请好友" data-i18n-en="Invite friends">邀请好友</div>
+          <div class="cardSub" data-i18n-zh="分享专属链接，好友注册即可获得奖励" data-i18n-en="Share your link to earn rewards when friends join">分享专属链接，好友注册即可获得奖励</div>
+        </div>
+        <span class="pillLabel" data-i18n-zh="推荐计划" data-i18n-en="Referral">推荐计划</span>
+      </div>
+
+      <div class="cardBody inviteBody">
+        <div class="inviteIntro" data-i18n-zh="邀请好友共同完成任务，双方均可获得额外奖励。分享前请确认好友已知晓流程与风险提示。" data-i18n-en="Invite friends to complete tasks together and both of you earn extra rewards. Make sure they understand the steps and risk notes before joining.">邀请好友共同完成任务，双方均可获得额外奖励。分享前请确认好友已知晓流程与风险提示。</div>
+
+        <div class="inviteGrid">
+          <div class="inviteStep">
+            <div class="stepTitle"><span class="dot"></span><span data-i18n-zh="发送邀请" data-i18n-en="Send invite">发送邀请</span></div>
+            <div class="stepText" data-i18n-zh="复制你的专属链接，通过社交平台或短信发送给好友。" data-i18n-en="Copy your personal link and share it via chat or SMS.">复制你的专属链接，通过社交平台或短信发送给好友。</div>
+          </div>
+          <div class="inviteStep">
+            <div class="stepTitle"><span class="dot"></span><span data-i18n-zh="好友注册" data-i18n-en="Friend joins">好友注册</span></div>
+            <div class="stepText" data-i18n-zh="好友完成注册并开始任务后，奖励将自动计入账户。" data-i18n-en="Once they sign up and start tasks, bonuses are credited automatically.">好友完成注册并开始任务后，奖励将自动计入账户。</div>
+          </div>
+        </div>
+
+        <div class="inviteLinkBox">
+          <div class="inviteLink" id="inviteLink">https://example.com/ref</div>
+          <button class="copyBtn" id="copyInvite" type="button" data-i18n-zh="复制链接" data-i18n-en="Copy link">复制链接</button>
+        </div>
+        <div class="copyHint" id="copyHint" data-i18n-zh="提示：好友完成注册后，奖励将自动发放。" data-i18n-en="Tip: Rewards unlock after your friend registers.">提示：好友完成注册后，奖励将自动发放。</div>
       </div>
     </section>
 
     <section class="card">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">产品展示区</div>
-          <div class="cardSub">热销单品 / 最新活动</div>
+          <div class="cardTitle" data-i18n-zh="产品展示区" data-i18n-en="Showcase">产品展示区</div>
+          <div class="cardSub" data-i18n-zh="热销单品 / 最新活动" data-i18n-en="Hot picks / Latest offers">热销单品 / 最新活动</div>
         </div>
       </div>
       <div class="productGrid">
         <div class="productCard">
           <img src="./banner.svg" alt="主推产品" />
-          <div class="pTitle">热销单品</div>
-          <div class="pDesc">限时优惠·随时可购</div>
+          <div class="pTitle" data-i18n-zh="热销单品" data-i18n-en="Top seller">热销单品</div>
+          <div class="pDesc" data-i18n-zh="限时优惠·随时可购" data-i18n-en="Limited-time offers, always available">限时优惠·随时可购</div>
         </div>
 
         <div class="productCard small">
           <img src="./product.svg" alt="新品" />
-          <div class="pTitle">热门任务</div>
-          <div class="pDesc">高佣金·自动结算</div>
+          <div class="pTitle" data-i18n-zh="热门任务" data-i18n-en="Hot tasks">热门任务</div>
+          <div class="pDesc" data-i18n-zh="高佣金·自动结算" data-i18n-en="High commission · Auto settlement">高佣金·自动结算</div>
         </div>
 
         <div class="productCard small">
           <img src="./product.svg" alt="精选" />
-          <div class="pTitle">精选专区</div>
-          <div class="pDesc">严格挑选·值得信赖</div>
+          <div class="pTitle" data-i18n-zh="精选专区" data-i18n-en="Selected picks">精选专区</div>
+          <div class="pDesc" data-i18n-zh="严格挑选·值得信赖" data-i18n-en="Curated and reliable">严格挑选·值得信赖</div>
         </div>
       </div>
     </section>
@@ -132,29 +164,76 @@
     <section class="card">
       <div class="cardHead">
         <div>
-          <div class="cardTitle">FAQ</div>
-          <div class="cardSub">常见问题快速查看</div>
+          <div class="cardTitle" data-i18n-zh="FAQ" data-i18n-en="FAQ">FAQ</div>
+          <div class="cardSub" data-i18n-zh="常见问题快速查看" data-i18n-en="Quick answers to common questions">常见问题快速查看</div>
         </div>
-        <a class="link" href="./contact.html">联系客服</a>
+        <a class="link" href="./contact.html" data-i18n-zh="联系客服" data-i18n-en="Contact support">联系客服</a>
       </div>
       <div class="faqList">
         <div class="faqItem">
-          <div class="q">如何完成任务并领取收益？</div>
-          <div class="a">在任务中心选择任务，完成后收益自动累积，可在记录中查看。</div>
+          <div class="faqTop">
+            <div class="faqIcon">🚀</div>
+            <div>
+              <div class="q" data-i18n-zh="如何完成任务并领取收益？" data-i18n-en="How do I finish tasks and earn rewards?">如何完成任务并领取收益？</div>
+              <div class="faqTag" data-i18n-zh="流程 · 新手必看" data-i18n-en="Process · Start here">流程 · 新手必看</div>
+            </div>
+            <span class="pillLabel">极速到账</span>
+          </div>
+          <div class="a">
+            <ul class="faqPoints">
+              <li data-i18n-zh="前往任务中心，选择标记为“高佣金”的任务。" data-i18n-en="Head to Tasks and pick items labeled high commission.">前往任务中心，选择标记为“高佣金”的任务。</li>
+              <li data-i18n-zh="按提示完成后系统自动结算，收益实时累计。" data-i18n-en="Follow the guide; rewards settle automatically and accumulate in real time.">按提示完成后系统自动结算，收益实时累计。</li>
+              <li data-i18n-zh="打开记录中心即可查看明细或发起提现。" data-i18n-en="Open Records to review details or initiate withdrawal.">打开记录中心即可查看明细或发起提现。</li>
+            </ul>
+          </div>
         </div>
         <div class="faqItem">
-          <div class="q">资金是否安全？</div>
-          <div class="a">充值、提现全程加密传输，结算透明可追踪。</div>
+          <div class="faqTop">
+            <div class="faqIcon">🛡️</div>
+            <div>
+              <div class="q" data-i18n-zh="资金是否安全？" data-i18n-en="Is my money safe?">资金是否安全？</div>
+              <div class="faqTag" data-i18n-zh="安全 · 专业托管" data-i18n-en="Security · Custody">安全 · 专业托管</div>
+            </div>
+            <span class="pillLabel neutral">加密防护</span>
+          </div>
+          <div class="a">
+            <ul class="faqPoints">
+              <li data-i18n-zh="充值、提现采用全链路加密，资金独立托管。" data-i18n-en="Deposits and withdrawals are encrypted end-to-end with segregated custody.">充值、提现采用全链路加密，资金独立托管。</li>
+              <li data-i18n-zh="每笔结算可追踪，账单留痕便于核对。" data-i18n-en="Each settlement is traceable with billing history for audits.">每笔结算可追踪，账单留痕便于核对。</li>
+              <li data-i18n-zh="异常会自动预警，必要时将临时冻结风险交易。" data-i18n-en="Anomalies trigger alerts and risky trades may be temporarily frozen.">异常会自动预警，必要时将临时冻结风险交易。</li>
+            </ul>
+          </div>
         </div>
         <div class="faqItem">
-          <div class="q">遇到问题怎么办？</div>
-          <div class="a">可通过客服或 FAQ 获取帮助，处理结果会在记录中心同步。</div>
+          <div class="faqTop">
+            <div class="faqIcon">💬</div>
+            <div>
+              <div class="q" data-i18n-zh="遇到问题怎么办？" data-i18n-en="What if I run into issues?">遇到问题怎么办？</div>
+              <div class="faqTag" data-i18n-zh="服务 · 响应升级" data-i18n-en="Service · Priority response">服务 · 响应升级</div>
+            </div>
+            <span class="pillLabel accent">7×24h</span>
+          </div>
+          <div class="a">
+            <ul class="faqPoints">
+              <li data-i18n-zh="可先在 FAQ 检索解决方案，快速自助处理。" data-i18n-en="Search the FAQ first for quick self-serve answers.">可先在 FAQ 检索解决方案，快速自助处理。</li>
+              <li data-i18n-zh="复杂问题点击“联系客服”，由专属顾问一对一跟进。" data-i18n-en="For complex cases, tap Contact Support for one-on-one assistance.">复杂问题点击“联系客服”，由专属顾问一对一跟进。</li>
+              <li data-i18n-zh="处理进度与结果会同步到记录中心，方便随时查阅。" data-i18n-en="Progress and results sync to Records for easy tracking.">处理进度与结果会同步到记录中心，方便随时查阅。</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   </div>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
+
+  <a class="supportFab" href="./contact.html" data-go="./contact.html">
+    <div class="s-ico">🎧</div>
+    <div class="s-text" data-i18n-zh="客服支持" data-i18n-en="Support">
+      客服支持
+      <small data-i18n-zh="7×24 小时" data-i18n-en="24/7 online">7×24 小时</small>
+    </div>
+  </a>
 
   <!-- ✅ 保留底部导航：不依赖 JS 也能显示 -->
   <nav class="tabbar" aria-label="底部导航">
@@ -167,6 +246,9 @@
   </nav>
 
   <!-- ✅ 仍然加载 nav.js：负责点击跳转、其它页面自动高亮 -->
+  <script src="./js/i18n.js" defer></script>
+  <script src="./js/common.js" defer></script>
+  <script src="./js/dashboard-page.js" defer></script>
   <script src="./js/nav.js" defer></script>
 </body>
 </html>

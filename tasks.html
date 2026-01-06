@@ -1,17 +1,23 @@
+cd /www/wwwroot/185.39.31.27
+
+cp -a tasks.html "tasks.html.bak.$(date +%F-%H%M%S)"
+
+cat > tasks.html <<'EOF'
 <!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>任务</title>
+
   <link rel="stylesheet" href="./css/app.css?v=3" />
   <link rel="stylesheet" href="./css/nav.css?v=5" />
   <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/tasks.css?v=3" />
 </head>
+
 <body>
   <main class="app page">
-
     <header class="topbar">
       <div class="brand">
         <div class="logoDots" aria-hidden="true">
@@ -24,7 +30,7 @@
       </div>
 
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
       </div>
     </header>
 
@@ -62,7 +68,7 @@
             </select>
           </div>
 
-          <button class="primaryBtn tBtnBig" id="matchBtn">分配任务</button>
+          <button class="primaryBtn tBtnBig" id="matchBtn" type="button">分配任务</button>
         </div>
 
         <div class="tHint" id="hintLine"></div>
@@ -91,16 +97,15 @@
         <div class="mSub">请稍候，系统正在分配订单…</div>
       </div>
     </div>
-
-
   </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 
+  <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
       <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
-      <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
+      <button class="tab active" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
       <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
       <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
     </div>
@@ -111,3 +116,7 @@
   <script src="./js/nav.js" defer></script>
 </body>
 </html>
+EOF
+
+# 确认冲突标记清零（必须无输出）
+grep -n '<<<<<<<\|=======\|>>>>>>>' tasks.html

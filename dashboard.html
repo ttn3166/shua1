@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
   <title>首页</title>
 
+  <!-- ✅ 统一保留较新的版本号，避免缓存 -->
   <link rel="stylesheet" href="./css/nav.css?v=5" />
   <link rel="stylesheet" href="./css/dashboard.css?v=5" />
 </head>
@@ -22,7 +23,7 @@
         </div>
       </div>
       <div class="topActions">
-        <button class="pill">VIP 专区</button>
+        <button class="pill" type="button">VIP 专区</button>
         <a class="iconbtn ghost" href="./me.html" aria-label="个人中心">👤</a>
       </div>
     </header>
@@ -113,11 +114,13 @@
           <div class="pTitle">热销单品</div>
           <div class="pDesc">限时优惠·随时可购</div>
         </div>
+
         <div class="productCard small">
           <img src="./product.svg" alt="新品" />
           <div class="pTitle">热门任务</div>
           <div class="pDesc">高佣金·自动结算</div>
         </div>
+
         <div class="productCard small">
           <img src="./product.svg" alt="精选" />
           <div class="pTitle">精选专区</div>
@@ -153,15 +156,17 @@
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 
+  <!-- ✅ 保留底部导航：不依赖 JS 也能显示 -->
   <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
-      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
+      <button class="tab active" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
       <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
       <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
       <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
     </div>
   </nav>
 
+  <!-- ✅ 仍然加载 nav.js：负责点击跳转、其它页面自动高亮 -->
   <script src="./js/nav.js" defer></script>
 </body>
 </html>

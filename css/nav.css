@@ -4,18 +4,24 @@
   --nav-muted:#667085;
   --nav-line:#e7e7ee;
   --safe-bottom:env(safe-area-inset-bottom, 0px);
+
+  /* ✅ 统一一个值：建议 74 */
   --tabbar-height:74px;
+
   --tab-radius:14px;
 }
 
+/* 给页面底部留出空间，避免被 tabbar 挡住 */
 body, .app{
   padding-bottom:calc(var(--tabbar-height) + var(--safe-bottom));
 }
 
-/* 给页面底部留出空间，避免被 tabbar 挡住；高度跟随实际 tabbar 高度 */
-.pagePadBottom{height:calc(var(--tabbar-height) + var(--safe-bottom))}
+/* 给页面底部留出空间（如果你页面用这个占位） */
+.pagePadBottom{
+  height:calc(var(--tabbar-height) + var(--safe-bottom));
+}
 
-/* 统一 tabbar（用 !important 防止被 tasks/me 等页面覆盖成深色或缩小） */
+/* 统一 tabbar（用 !important 防止被其他页面覆盖） */
 .tabbar{
   position:fixed !important;
   left:0 !important; right:0 !important; bottom:0 !important;
@@ -32,8 +38,11 @@ body, .app{
   -webkit-backdrop-filter: blur(12px);
 }
 
-.tabbar, .tabbar *{box-sizing:border-box !important;}
+.tabbar, .tabbar *{
+  box-sizing:border-box !important;
+}
 
+/* tab 容器 */
 .tabbar .tabs{
   width:100% !important;
   max-width:520px !important;
@@ -47,6 +56,7 @@ body, .app{
   justify-items:stretch !important;
 }
 
+/* 单个 tab */
 .tabbar .tab{
   appearance:none !important;
   -webkit-appearance:none !important;
@@ -55,12 +65,11 @@ body, .app{
   background:transparent !important;
   cursor:pointer !important;
 
+  width:100% !important;
   display:flex !important;
   flex-direction:column !important;
   align-items:center !important;
   justify-content:center !important;
-
-  width:100% !important;
 
   height:calc(var(--tabbar-height) - 14px) !important;
   border-radius:var(--tab-radius) !important;

@@ -1,14 +1,21 @@
+cd /www/wwwroot/185.39.31.27
+
+cp -a records.html "records.html.bak.$(date +%F-%H%M%S)"
+
+cat > records.html <<'EOF'
 <!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
   <title>记录</title>
+
   <link rel="stylesheet" href="./css/app.css?v=3" />
   <link rel="stylesheet" href="./css/nav.css?v=5" />
   <link rel="stylesheet" href="./css/dashboard.css?v=3" />
   <link rel="stylesheet" href="./css/records.css?v=2" />
 </head>
+
 <body>
   <main class="app page">
     <header class="topbar">
@@ -22,7 +29,7 @@
         </div>
       </div>
       <div class="topActions">
-        <button class="iconbtn" id="langBtn" title="语言">🌍</button>
+        <button class="iconbtn" id="langBtn" title="语言" type="button">🌍</button>
       </div>
     </header>
 
@@ -38,8 +45,8 @@
       </div>
       <div class="cardBody">
         <div class="segRow">
-          <button class="seg active" data-tab="TASK">任务记录</button>
-          <button class="seg" data-tab="TX">交易流水</button>
+          <button class="seg active" data-tab="TASK" type="button">任务记录</button>
+          <button class="seg" data-tab="TX" type="button">交易流水</button>
         </div>
       </div>
     </section>
@@ -50,16 +57,16 @@
       <div class="rList" id="list"></div>
       <div class="empty" id="empty" style="display:none;">暂无记录</div>
     </section>
-
   </main>
 
   <div class="pagePadBottom" aria-hidden="true"></div>
 
+  <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
       <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
       <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
-      <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
+      <button class="tab active" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
       <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
     </div>
   </nav>
@@ -69,3 +76,7 @@
   <script src="./js/nav.js" defer></script>
 </body>
 </html>
+EOF
+
+# 确认冲突标记清零（必须无输出）
+grep -n '<<<<<<<\|=======\|>>>>>>>' records.html

@@ -123,3 +123,13 @@ npm run migrate
 - 任务模板/任务分配支持金额占比区间与幸运订单奖励配置（任务相关接口：`/api/tasks/*`）。
 - 订单素材上传入口：`POST /api/order-uploads`（先用 `/api/uploads` 上传图片获取 URL）。
 - 语言列表：`GET /api/users/meta/languages`，用户可通过 `POST /api/users/me/language` 自主切换语言。
+ codex/setup-complete-system-on-ubuntu
+- 后台登录入口：`/admin-login.html`，登录后进入 `/admin.html`。
+
+## 11. 避免线上冲突的部署流程建议
+
+1. 线上目录仅允许 CI/CD 更新代码，禁止手动修改文件。
+2. 如需临时修复：在 Git 分支提交后合并进 `main`，触发 GitHub Actions 部署。
+3. 所有环境变量（如 `JWT_SECRET`、`DB_PATH`）通过系统服务或 `.env` 管理，不进代码库。
+
+

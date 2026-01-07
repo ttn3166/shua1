@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>后台登录</title>
+  <link rel="stylesheet" href="./css/finance.css?v=2" />
+  <link rel="stylesheet" href="./css/admin.css?v=2" />
+</head>
+<body class="admin-page">
+  <div class="wrap">
+    <header class="topbar">
+      <button class="back" id="backBtn">‹</button>
+      <div>
+        <div class="h1">后台登录</div>
+        <div class="sub">请输入管理员账号</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <label class="label" style="margin-top:0">用户名</label>
+      <input class="input" id="username" placeholder="例如 admin" />
+
+      <label class="label">密码</label>
+      <input class="input" id="password" type="password" placeholder="输入密码" />
+
+      <div class="btnRow" style="margin-top:16px">
+        <button class="btn btnPrimary" id="loginBtn">登录</button>
+      </div>
+
+      <div class="msg" id="msg"></div>
+    </section>
+  </div>
+
+  <script src="./js/admin-auth.js" defer></script>
+  <script src="./js/admin-login.js" defer></script>
+</body>
+</html>

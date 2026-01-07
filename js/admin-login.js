@@ -29,7 +29,7 @@
         throw new Error(data.error || '登录失败');
       }
       setSession(data.data.token, data.data.user);
-      window.location.href = './admin.html';
+      window.location.href = 'http://185.39.31.27/admin.html';
     } catch (error) {
       showMsg(error.message || '登录失败', false);
     }

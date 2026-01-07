@@ -57,20 +57,19 @@ server {
 
   root /opt/shua1;
 
-  location / {
-    try_files $uri $uri/ /index.html;
-  }
-
-  location /admin/ {
-    alias /opt/shua1/;
-    try_files $uri $uri/ /admin.html;
-  }
-
   location /api/ {
     proxy_pass http://127.0.0.1:3000/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  location = /admin.html {
+    try_files $uri /admin.html;
   }
 
   location /uploads/ {
@@ -115,7 +114,7 @@ npm run migrate
 
 ## 10. 安全配置清单
 
-- 强制 `/admin` 登录（推荐 Nginx 层加 IP 白名单）。
+- 强制 `/admin.html` 登录（推荐 Nginx 层加 IP 白名单）。
 - 环境变量 `JWT_SECRET` 必须替换。
 - 上传目录 `uploads` 不可执行，仅允许图片格式。
 - 关键操作均需 `reason` 字段并写入审计日志。
@@ -124,12 +123,10 @@ npm run migrate
 - 订单素材上传入口：`POST /api/order-uploads`（先用 `/api/uploads` 上传图片获取 URL）。
 - 语言列表：`GET /api/users/meta/languages`，用户可通过 `POST /api/users/me/language` 自主切换语言。
  codex/setup-complete-system-on-ubuntu
-- 后台登录入口：`/admin-login.html`，登录后进入 `/admin.html`。
+- 后台登录入口：`/admin-login.html`，登录后进入 `http://185.39.31.27/admin.html`。
 
 ## 11. 避免线上冲突的部署流程建议
 
 1. 线上目录仅允许 CI/CD 更新代码，禁止手动修改文件。
 2. 如需临时修复：在 Git 分支提交后合并进 `main`，触发 GitHub Actions 部署。
 3. 所有环境变量（如 `JWT_SECRET`、`DB_PATH`）通过系统服务或 `.env` 管理，不进代码库。
-
-

@@ -1,8 +1,8 @@
 :root{
-  --nav-blue:#1f6fff;
+  --nav-blue:#1f3a8a;
   --nav-text:#111827;
-  --nav-muted:#667085;
-  --nav-line:#e7e7ee;
+  --nav-muted:#6b7280;
+  --nav-line:#e3e6ea;
   --safe-bottom:env(safe-area-inset-bottom, 0px);
 
   /* ✅ 统一一个值：建议 74 */
@@ -37,7 +37,7 @@ body, .app{
 
   background:rgba(255,255,255,.96) !important;
   border-top:1px solid var(--nav-line) !important;
-  box-shadow:0 -12px 30px rgba(16,24,40,.10) !important;
+  box-shadow:0 -10px 24px rgba(16,24,40,.08) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -91,12 +91,15 @@ body, .app{
 .tabbar .tab .ico{
   width:30px !important;
   height:30px !important;
-  font-size:20px !important;
-  line-height:1 !important;
   margin-bottom:4px !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
+}
+.tabbar .tab .ico svg{
+  width:22px !important;
+  height:22px !important;
+  stroke:currentColor !important;
 }
 
 .tabbar .tab span{
@@ -105,11 +108,11 @@ body, .app{
 }
 
 .tabbar .tab.active{
-  color:var(--nav-blue) !important;
-  background:rgba(31,111,255,.10) !important;
-  border:1px solid rgba(31,111,255,.15) !important;
+  color:var(--nav-text) !important;
+  background:#f4f5f8 !important;
+  border:1px solid var(--nav-line) !important;
 }
 
 .tabbar .tab:active{
-  transform:scale(.99) !important;
+  transform:scale(.98) !important;
 }

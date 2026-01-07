@@ -43,21 +43,64 @@
           <button class="seg active" data-tab="TASK" type="button" data-i18n-zh="任务记录" data-i18n-en="Task history">任务记录</button>
           <button class="seg" data-tab="TX" type="button" data-i18n-zh="交易流水" data-i18n-en="Transactions">交易流水</button>
         </div>
+        <div class="filterGrid">
+          <div class="filterItem">
+            <label class="filterLabel" for="statusFilter">状态</label>
+            <select class="filterInput" id="statusFilter">
+              <option value="ALL">全部</option>
+              <option value="PENDING">处理中</option>
+              <option value="DONE">已完成</option>
+              <option value="FAILED">失败/拒绝</option>
+            </select>
+          </div>
+          <div class="filterItem">
+            <label class="filterLabel" for="timeFilter">时间</label>
+            <select class="filterInput" id="timeFilter">
+              <option value="ALL">全部时间</option>
+              <option value="7">近 7 天</option>
+              <option value="30">近 30 天</option>
+            </select>
+          </div>
+        </div>
+        <div class="searchRow">
+          <input class="searchInput" id="orderSearch" type="search" placeholder="搜索订单号/记录号" />
+        </div>
       </div>
     </section>
 
     <section class="panel">
       <div class="panel-title" data-i18n-zh="记录列表" data-i18n-en="Record list">记录列表</div>
       <p class="panel-sub" data-i18n-zh="任务与交易记录" data-i18n-en="Tasks and transactions">任务与交易记录</p>
+      <div class="skeletonList" id="skeleton">
+        <div class="skeletonCard"></div>
+        <div class="skeletonCard"></div>
+        <div class="skeletonCard"></div>
+      </div>
       <div class="rList" id="list"></div>
       <div class="empty" id="empty" style="display:none;" data-i18n-zh="暂无记录" data-i18n-en="No records yet">暂无记录</div>
     </section>
   </main>
 
+  <div class="modalMask" id="detailMask" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalTitle">回执详情</div>
+      <div class="modalSub" id="detailSub">记录已生成，可在记录中心查询。</div>
+      <div class="bill" id="detailBill"></div>
+      <div class="modalActions">
+        <button class="ghostBtn" id="detailClose">关闭</button>
+      </div>
+    </div>
+  </div>
+
   <div class="pagePadBottom" aria-hidden="true"></div>
 
   <a class="supportFab" href="./contact.html" data-go="./contact.html">
-    <div class="s-ico">🎧</div>
+    <div class="s-ico">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+        <path d="M4 13v3a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2zM20 13v3a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M4 13a8 8 0 0 1 16 0" stroke-linecap="round"></path>
+      </svg>
+    </div>
     <div class="s-text" data-i18n-zh="客服支持" data-i18n-en="Support">
       客服支持
       <small data-i18n-zh="7×24 小时" data-i18n-en="24/7 online">7×24 小时</small>
@@ -67,10 +110,43 @@
   <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
-      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
-      <button class="tab" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
-      <button class="tab active" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
-      <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" type="button" data-go="./dashboard.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M3 10.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>首页</span>
+      </button>
+      <button class="tab" type="button" data-go="./tasks.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M6 6h15l-1.5 9H7.2L6 6z" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="9" cy="20" r="1.5"></circle>
+            <circle cx="17" cy="20" r="1.5"></circle>
+            <path d="M6 6l-2-3" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <span>任务</span>
+      </button>
+      <button class="tab active" type="button" data-go="./records.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M8 6h8M8 12h8M8 18h5" stroke-linecap="round"></path>
+            <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>记录</span>
+      </button>
+      <button class="tab" type="button" data-go="./me.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M20 21a8 8 0 0 0-16 0" stroke-linecap="round"></path>
+            <circle cx="12" cy="8" r="4" stroke-linecap="round"></circle>
+          </svg>
+        </div>
+        <span>我的</span>
+      </button>
     </div>
   </nav>
 

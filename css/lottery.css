@@ -1,13 +1,14 @@
 .heroBox{
-  background:linear-gradient(135deg,#2b0a6b,#0b5bd3);
-  color:#fff;
+  background:#fff;
+  color:#101828;
   border-radius:22px;
   padding:16px;
+  border:1px solid var(--line);
   box-shadow:var(--shadow);
   margin-top:6px;
 }
 .heroTitle{font-size:22px;font-weight:1000}
-.heroDesc{margin-top:8px;opacity:.9;font-size:13px;line-height:1.5}
+.heroDesc{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.5}
 
 .heroStat{
   margin-top:12px;
@@ -16,12 +17,12 @@
   gap:10px;
 }
 .hsItem{
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.18);
+  background:#f8fafc;
+  border:1px solid var(--line);
   border-radius:18px;
   padding:12px;
 }
-.hsItem .k{opacity:.9;font-size:12px;font-weight:900}
+.hsItem .k{color:var(--muted);font-size:12px;font-weight:900}
 .hsItem .v{margin-top:6px;font-weight:1000;font-size:16px}
 
 .primaryBtn.big{
@@ -36,8 +37,8 @@
   margin-top:12px;
   padding:12px;
   border-radius:16px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.18);
+  background:#f8fafc;
+  border:1px solid var(--line);
   font-weight:900;
   line-height:1.4;
 }
@@ -49,4 +50,3 @@
   font-weight:900;
 }
 .ruleLine:first-child{border-top:0}
-

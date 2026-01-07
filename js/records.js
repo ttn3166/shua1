@@ -6,21 +6,21 @@
 
   const dict = {
     zh:{
-      status:{PENDING:'待处理', DONE:'已完成', REJECTED:'已拒绝'},
-      txStatus:{SUCCESS:'成功', FAILED:'失败', PENDING:'待处理'},
-      insufficientTitle:'余额不足',
-      insufficientBody:(amt)=>`当前任务需要可用余额 ≥ <b>${amt || '0.0000'}</b>（USDT）。请先充值或完成资金准备，然后继续任务。`,
+      status:{PENDING:'处理中', DONE:'已完成', REJECTED:'已拒绝'},
+      txStatus:{SUCCESS:'成功', FAILED:'失败', PENDING:'处理中'},
+      insufficientTitle:'余额不足提醒',
+      insufficientBody:(amt)=>`当前订单需要可用余额 ≥ <b>${amt || '0.0000'}</b>（USDT）。记录已生成，可在记录中心查询，请先完成充值后继续。`,
       goDeposit:'去充值', goTask:'返回任务',
       segTask:'任务记录', segTx:'交易流水',
       amount:'金额', progress:'进度', currency:'币种',
-      continue:'继续', viewTx:'查看流水',
+      continue:'继续提交', viewTx:'查看流水',
       txDetail:'交易明细'
     },
     en:{
-      status:{PENDING:'Pending', DONE:'Completed', REJECTED:'Rejected'},
-      txStatus:{SUCCESS:'Success', FAILED:'Failed', PENDING:'Pending'},
+      status:{PENDING:'In progress', DONE:'Completed', REJECTED:'Rejected'},
+      txStatus:{SUCCESS:'Success', FAILED:'Failed', PENDING:'In progress'},
       insufficientTitle:'Insufficient balance',
-      insufficientBody:(amt)=>`This task requires available funds ≥ <b>${amt || '0.0000'}</b> USDT. Please top up before continuing.`,
+      insufficientBody:(amt)=>`This order requires available funds ≥ <b>${amt || '0.0000'}</b> USDT. A record has been created. Please top up before continuing.`,
       goDeposit:'Deposit', goTask:'Back to tasks',
       segTask:'Task history', segTx:'Transactions',
       amount:'Amount', progress:'Progress', currency:'Currency',
@@ -44,6 +44,8 @@
   }
 
   let tab = "TASK";
+  const filters = {status:"ALL", time:"ALL", search:""};
+  let detailItems = [];
 
   function loadTasks(){
     const list = readJSON("tasks", []);
@@ -63,6 +65,39 @@
     if(s==="PENDING") return "pending";
     if(s==="DONE") return "done";
     return "fail";
+  }
+
+  function toTs(str){
+    if(!str) return null;
+    const parsed = Date.parse(str.replace(/-/g, "/"));
+    if(!Number.isNaN(parsed)) return parsed;
+    return null;
+  }
+
+  function inTimeRange(ts){
+    if(filters.time === "ALL") return true;
+    if(!ts) return true;
+    const days = Number(filters.time || 0);
+    if(!days) return true;
+    return (Date.now() - ts) <= days * 86400000;
+  }
+
+  function matchStatus(item){
+    if(filters.status === "ALL") return true;
+    if(tab === "TASK"){
+      if(filters.status === "FAILED") return item.status === "REJECTED";
+      return item.status === filters.status;
+    }
+    if(filters.status === "DONE") return item.status === "SUCCESS";
+    if(filters.status === "FAILED") return item.status === "FAILED";
+    return item.status === "PENDING";
+  }
+
+  function matchSearch(item){
+    const q = (filters.search || "").trim().toLowerCase();
+    if(!q) return true;
+    const pool = [item.code, item.id, item.note, item.title].filter(Boolean).join(" ").toLowerCase();
+    return pool.includes(q);
   }
 
   function renderNotice(){
@@ -102,9 +137,13 @@
   function render(){
     const listEl = $("list");
     const empty = $("empty");
+    detailItems = [];
 
     if(tab==="TASK"){
-      const tasks = loadTasks();
+      const tasks = loadTasks()
+        .filter(t=>matchStatus(t))
+        .filter(t=>matchSearch(t))
+        .filter(t=>inTimeRange(t.createdAtTs || toTs(t.createdAt)));
       if(tasks.length===0){
         listEl.innerHTML = "";
         empty.style.display="block";
@@ -115,29 +154,39 @@
       listEl.innerHTML = tasks.map(t=>{
         const tag = statusCN(t.status||"PENDING");
         const cls = statusClass(t.status||"PENDING");
+        const reward = Number(t.amount||0) * Number(t.rewardRate||5) / 100;
+        const detailIndex = detailItems.length;
+        detailItems.push({
+          title:"任务回执",
+          sub:"记录已生成，可在记录中心查询。",
+          rows:[
+            {k:"订单编号", v:t.code||"-"},
+            {k:"记录类型", v:"任务提交"},
+            {k:"提交时间", v:t.createdAt || "-"},
+            {k:"订单金额", v:`${Number(t.amount||0).toFixed(4)} USDT`, highlight:true},
+            {k:"返利金额", v:`${reward.toFixed(4)} USDT`, highlight:true},
+            {k:"处理状态", v:tag}
+          ]
+        });
         return `
           <div class="rCard">
-            <div class="rTop">
-              <div>
-                <div class="rTitle">${t.title||"任务"}</div>
-                <div class="rSub">${t.createdAt||""} · 编号 ${t.code||"-"}</div>
-              </div>
-              <div class="rTag ${cls}">${tag}</div>
+            <div class="ledgerRow ledgerHead">
+              <div>类型</div>
+              <div>订单号</div>
+              <div>时间</div>
+              <div style="text-align:right;">金额</div>
+              <div style="text-align:right;">状态</div>
             </div>
-
-            <div class="rGrid">
-              <div class="rBox">
-                <div class="rK">${tr('amount')}</div>
-                <div class="rV">${Number(t.amount||0).toFixed(4)}</div>
-              </div>
-              <div class="rBox">
-                <div class="rK">${tr('progress')}</div>
-                <div class="rV blue">${Number(t.step||0)}/${Number(t.totalSteps||20)}</div>
-              </div>
+            <div class="ledgerRow">
+              <div class="ledgerCell">${t.title||"任务"}</div>
+              <div class="ledgerCell">${t.code||"-"}</div>
+              <div class="ledgerCell sub">${t.createdAt || "-"}</div>
+              <div class="ledgerCell amount">${Number(t.amount||0).toFixed(4)}</div>
+              <div class="ledgerCell status"><span class="ledgerBadge ${cls}">${tag}</span></div>
             </div>
-
-            <div class="rBtnRow">
+            <div class="ledgerActions">
               ${ (t.status==="PENDING") ? `<button class="rBtn" data-go="${t.id}">${tr('continue')}</button>` : `<button class="rBtn ghost" data-go="tx">${tr('viewTx')}</button>` }
+              <button class="rBtn ghost" data-detail="${detailIndex}">查看回执</button>
             </div>
           </div>
         `;
@@ -161,7 +210,10 @@
     }
 
     // TX
-    const tx = loadTx();
+    const tx = loadTx()
+      .filter(t=>matchStatus(t))
+      .filter(t=>matchSearch(t))
+      .filter(t=>inTimeRange(toTs(t.time)));
     if(tx.length===0){
       listEl.innerHTML = "";
       empty.style.display="block";
@@ -174,33 +226,82 @@
       const st = t.status || "PENDING";
       const tag = tr(`txStatus.${st}`, tr('txStatus.PENDING'));
       const cls = (st==="SUCCESS"?"done":(st==="FAILED"?"fail":"pending"));
+      const rebate = (typ && String(typ).includes("TASK")) ? Number(t.amount||0).toFixed(4) : "-";
+      const detailIndex = detailItems.length;
+      detailItems.push({
+        title:"交易回执",
+        sub:"记录已生成，可在记录中心查询。",
+        rows:[
+          {k:"记录号", v:t.id || "-"},
+          {k:"交易类型", v:typ},
+          {k:"交易时间", v:t.time || "-"},
+          {k:"金额", v:`${Number(t.amount||0).toFixed(4)} ${t.chain || "USDT"}`, highlight:true},
+          {k:"返利金额", v:rebate === "-" ? "-" : `${rebate} USDT`, highlight:rebate !== "-"},
+          {k:"处理状态", v:tag},
+          {k:"说明", v:t.note || "-"}
+        ]
+      });
       return `
         <div class="rCard">
-          <div class="rTop">
-            <div>
-              <div class="rTitle">${typ} · ${t.note || ""}</div>
-              <div class="rSub">${t.time || ""}</div>
-            </div>
-            <div class="rTag ${cls}">${tag}</div>
+          <div class="ledgerRow ledgerHead">
+            <div>类型</div>
+            <div>订单号</div>
+            <div>时间</div>
+            <div style="text-align:right;">金额</div>
+            <div style="text-align:right;">状态</div>
           </div>
-
-          <div class="rGrid">
-            <div class="rBox">
-              <div class="rK">${tr('amount')}</div>
-              <div class="rV blue">${Number(t.amount||0).toFixed(4)}</div>
-            </div>
-            <div class="rBox">
-              <div class="rK">${tr('currency')}</div>
-              <div class="rV">${t.chain || "USDT"}</div>
-            </div>
+          <div class="ledgerRow">
+            <div class="ledgerCell">${typ}</div>
+            <div class="ledgerCell">${t.id || "-"}</div>
+            <div class="ledgerCell sub">${t.time || "-"}</div>
+            <div class="ledgerCell amount">${Number(t.amount||0).toFixed(4)}</div>
+            <div class="ledgerCell status"><span class="ledgerBadge ${cls}">${tag}</span></div>
           </div>
-
-          <div class="rBtnRow">
+          <div class="ledgerActions">
+            <button class="rBtn ghost" data-detail="${detailIndex}">查看回执</button>
             <button class="rBtn ghost" onclick="window.location.href='./transactions.html'">${tr('txDetail')}</button>
           </div>
         </div>
       `;
     }).join("");
+  }
+
+  function showSkeleton(){
+    const skeleton = $("skeleton");
+    if(skeleton) skeleton.style.display = "block";
+    $("list").style.display = "none";
+    $("empty").style.display = "none";
+  }
+
+  function hideSkeleton(){
+    const skeleton = $("skeleton");
+    if(skeleton) skeleton.style.display = "none";
+    $("list").style.display = "";
+  }
+
+  function renderWithSkeleton(){
+    showSkeleton();
+    setTimeout(()=>{
+      hideSkeleton();
+      render();
+      bindDetailActions();
+    }, 320);
+  }
+
+  function bindDetailActions(){
+    Array.from(document.querySelectorAll("[data-detail]")).forEach(btn=>{
+      btn.onclick = ()=>{
+        const idx = Number(btn.getAttribute("data-detail"));
+        const detail = detailItems[idx];
+        if(!detail) return;
+        $("detailSub").innerText = detail.sub || "";
+        $("detailBill").innerHTML = detail.rows.map(row=>{
+          const cls = row.highlight ? "keyNum" : "";
+          return `<div class="billRow"><span>${row.k}</span><b class="${cls}">${row.v}</b></div>`;
+        }).join("");
+        $("detailMask").classList.add("show");
+      };
+    });
   }
 
   // seg
@@ -209,20 +310,37 @@
       Array.from(document.querySelectorAll(".seg")).forEach(x=>x.classList.remove("active"));
       b.classList.add("active");
       tab = b.getAttribute("data-tab") || "TASK";
-      render();
+      renderWithSkeleton();
     };
   });
 
   if(window.Lang) Lang.bindToggle($("langBtn"));
 
   renderNotice();
-  render();
+  renderWithSkeleton();
+
+  $("detailClose").addEventListener("click", ()=>{
+    $("detailMask").classList.remove("show");
+  });
+
+  $("statusFilter").addEventListener("change", (e)=>{
+    filters.status = e.target.value;
+    renderWithSkeleton();
+  });
+  $("timeFilter").addEventListener("change", (e)=>{
+    filters.time = e.target.value;
+    renderWithSkeleton();
+  });
+  $("orderSearch").addEventListener("input", (e)=>{
+    filters.search = e.target.value;
+    renderWithSkeleton();
+  });
 
   if(window.Lang){
     Lang.apply();
     document.addEventListener('lang:change', ()=>{
       renderNotice();
-      render();
+      renderWithSkeleton();
       Lang.apply();
     });
   }

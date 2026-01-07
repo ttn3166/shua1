@@ -1,8 +1,9 @@
 .meCard{
-  background:linear-gradient(135deg,#2b0a6b,#0b5bd3);
-  color:#fff;
+  background:#fff;
+  color:var(--text);
   border-radius:22px;
   padding:16px;
+  border:1px solid var(--line);
   box-shadow:var(--shadow);
   display:flex;
   align-items:center;
@@ -20,32 +21,33 @@
 .versionTag{
   padding:4px 10px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(255,255,255,.14);
+  border:1px solid var(--line);
+  background:#f3f4f6;
   font-size:12px;
   font-weight:800;
-  color:#fff;
+  color:var(--text);
 }
 
 .meLeft{display:flex;align-items:center;gap:12px}
 .avatar{
   width:54px;height:54px;border-radius:18px;
-  overflow:hidden;background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.22);
+  overflow:hidden;background:#f3f4f6;
+  border:1px solid var(--line);
   display:grid;place-items:center;
 }
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
 .meName{font-weight:1000;font-size:18px;line-height:1.1}
-.meEmail{opacity:.9;font-size:12px;margin-top:6px}
+.meEmail{color:var(--muted);font-size:12px;margin-top:6px}
 
 .vipPill{
   padding:6px 12px;
   border-radius:999px;
-  background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.22);
+  background:#eef2ff;
+  border:1px solid #dfe3f0;
   font-weight:1000;
   font-size:12px;
+  color:var(--blue);
 }
 
 .grid2{
@@ -66,15 +68,16 @@
   gap:10px;
   box-shadow:0 10px 22px rgba(0,0,0,.06);
 }
-.tile:active{transform:scale(.99)}
-.tileIcon{
+.tile:active{transform:scale(.98)}
+.tileIcon,
+.tile-ico{
   width:44px;height:44px;
   border-radius:16px;
-  background:#f3f6ff;
+  background:#f4f5f8;
   display:grid;place-items:center;
-  font-size:20px;
+  color:#101828;
 }
+.tile-ico svg{width:20px;height:20px;stroke:currentColor}
 .tileText{min-width:0}
 .tileText .t1{font-weight:1000}
 .tileText .t2{color:var(--muted);font-size:12px;margin-top:3px}
-

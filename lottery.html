@@ -77,10 +77,45 @@
     <div style="height:86px"></div>
 
     <nav class="tabbar">
-      <button class="tab" data-go="./dashboard.html">🏠<span>首页</span></button>
-      <button class="tab" data-go="./me.html">👤<span>我的</span></button>
-      <button class="tab" data-go="./records.html">🕘<span>记录</span></button>
-      <button class="tab" data-go="./tasks.html">📌<span>任务</span></button>
+      <div class="tabs">
+        <button class="tab" data-go="./dashboard.html">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M3 10.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span>首页</span>
+        </button>
+        <button class="tab" data-go="./me.html">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M20 21a8 8 0 0 0-16 0" stroke-linecap="round"></path>
+              <circle cx="12" cy="8" r="4" stroke-linecap="round"></circle>
+            </svg>
+          </div>
+          <span>我的</span>
+        </button>
+        <button class="tab" data-go="./records.html">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M8 6h8M8 12h8M8 18h5" stroke-linecap="round"></path>
+              <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span>记录</span>
+        </button>
+        <button class="tab" data-go="./tasks.html">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M6 6h15l-1.5 9H7.2L6 6z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="9" cy="20" r="1.5"></circle>
+              <circle cx="17" cy="20" r="1.5"></circle>
+              <path d="M6 6l-2-3" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <span>任务</span>
+        </button>
+      </div>
     </nav>
 
   </div>

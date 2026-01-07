@@ -26,9 +26,8 @@
   flex:0 0 auto;
   height:140px;
   background:
-    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55)),
-    url("./assets/task_bg.svg") center/cover no-repeat,
-    linear-gradient(135deg,#0b2b7a,#0b6bd3);
+    url("./assets/task_bg.svg") center/cover no-repeat;
+  background-color:#f3f4f6;
   position:relative;
 }
 

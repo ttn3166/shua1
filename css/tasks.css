@@ -3,7 +3,7 @@
 .tBox{background:#f7f8fb;border-radius:18px;padding:12px}
 .tK{color:#667085;font-weight:900;font-size:13px}
 .tV{margin-top:6px;font-weight:900;font-size:18px;color:#101828}
-.tV.blue{color:#1f6fff}
+.tV.blue{color:#1f3a8a}
 
 .tRow{display:flex;gap:12px;align-items:flex-end;justify-content:space-between;margin-top:14px;flex-wrap:wrap}
 .tSelectWrap{flex:1;min-width:140px}
@@ -35,11 +35,11 @@
 .curMeta{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
 .badge{
   font-weight:900;font-size:12px;padding:6px 10px;border-radius:999px;
-  background:#eaf0ff;color:#1f6fff;border:1px solid #cfe0ff;
+  background:#eef2ff;color:#1f3a8a;border:1px solid #dfe3f0;
 }
 .curBtn{
   border:0;border-radius:999px;padding:12px 14px;font-weight:900;cursor:pointer;
-  background:#1f6fff;color:#fff;box-shadow:0 12px 26px rgba(31,111,255,.22);
+  background:#1f3a8a;color:#fff;box-shadow:0 10px 20px rgba(31,58,138,.18);
   flex:0 0 auto;
 }
 
@@ -60,7 +60,7 @@
 }
 .spinner{
   width:46px;height:46px;border-radius:999px;
-  border:4px solid #e5e7eb;border-top-color:#1f6fff;
+  border:4px solid #e5e7eb;border-top-color:#1f3a8a;
   margin:0 auto 14px;
   animation:spin .9s linear infinite;
 }
@@ -70,13 +70,13 @@
 
 /* 完成弹窗 */
 .matching.done{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.successCard{background:linear-gradient(145deg,#0b5bd3,#7a3aff);color:#fff;border:0;padding:26px}
-.successBadge{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:28px;margin:0 auto 12px;border:1px solid rgba(255,255,255,.25)}
-.successCard .mTitle{color:#fff;font-size:20px}
-.successCard .mSub{color:rgba(255,255,255,.88)}
-.doneInfo{margin:14px 0;background:rgba(255,255,255,.12);border-radius:18px;padding:14px;border:1px solid rgba(255,255,255,.12);text-align:left}
-.doneRow{display:flex;align-items:center;justify-content:space-between;padding:6px 0;color:#f0f4ff;font-weight:800;font-size:13px}
-.doneRow strong{color:#fff;font-size:15px}
+.successCard{background:#fff;color:#101828;border:1px solid #e3e6ea;padding:26px;box-shadow:0 10px 18px rgba(15,23,42,.08)}
+.successBadge{width:64px;height:64px;border-radius:20px;background:#eef2ff;display:grid;place-items:center;font-size:28px;margin:0 auto 12px;border:1px solid #dfe3f0;color:#1f3a8a}
+.successCard .mTitle{color:#101828;font-size:20px}
+.successCard .mSub{color:#6b7280}
+.doneInfo{margin:14px 0;background:#f8fafc;border-radius:18px;padding:14px;border:1px solid #e3e6ea;text-align:left}
+.doneRow{display:flex;align-items:center;justify-content:space-between;padding:6px 0;color:#6b7280;font-weight:800;font-size:13px}
+.doneRow strong{color:#101828;font-size:15px}
 .btnRow{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
-.ghostBtn{border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:12px 14px;font-weight:900;min-width:120px;cursor:pointer}
+.ghostBtn{border:1px solid #e3e6ea;background:#fff;color:#101828;border-radius:12px;padding:12px 14px;font-weight:900;min-width:120px;cursor:pointer}
 .ghostBtn:active,.primaryBtn:active{transform:scale(.99)}

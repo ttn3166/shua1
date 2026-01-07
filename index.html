@@ -117,6 +117,7 @@
       cursor:pointer;
       opacity:.65;
     }
+    .eye svg{width:18px;height:18px;stroke:currentColor}
 
     .btn{
       margin-top:18px;
@@ -196,7 +197,12 @@
         <label>登录密码</label>
         <div class="field">
           <input id="pwd" type="password" placeholder="登录密码" autocomplete="current-password" />
-          <button type="button" class="eye" id="togglePwd" title="显示/隐藏密码">👁️</button>
+          <button type="button" class="eye" id="togglePwd" title="显示/隐藏密码">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round"></circle>
+            </svg>
+          </button>
         </div>
 
         <button class="btn" id="loginBtn" type="submit">登录</button>

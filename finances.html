@@ -12,7 +12,12 @@
     <header class="top">
       <button class="back" id="backBtn" aria-label="返回">‹</button>
       <div class="ttl">工具中心</div>
-      <button class="icon" id="helpBtn" title="帮助" aria-label="帮助">🎧</button>
+      <button class="icon" id="helpBtn" title="帮助" aria-label="帮助">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+          <path d="M4 13v3a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2zM20 13v3a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M4 13a8 8 0 0 1 16 0" stroke-linecap="round"></path>
+        </svg>
+      </button>
     </header>
 
     <!-- 用户卡片 -->
@@ -47,7 +52,11 @@
 
     <!-- 公告 -->
     <section class="card noticeCard">
-      <div class="noticeIcon" aria-hidden="true">📢</div>
+      <div class="noticeIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+          <path d="M4 11v2a3 3 0 0 0 3 3h2v4l3-4h6a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-6l-3-4v4H7a3 3 0 0 0-3 3z" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
       <div class="noticeText">
         <div class="noticeT">公告</div>
         <div class="noticeS" id="noticeLine">系统维护时间将提前通知，请关注页面提示。</div>
@@ -64,19 +73,40 @@
 
       <div class="grid">
         <button class="gitem" data-go="./deposit.html">
-          <div class="gicon">💳</div>
+          <div class="gicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+              <path d="M3 10h18" stroke-linecap="round"></path>
+            </svg>
+          </div>
           <div class="gtext">入口 A</div>
         </button>
         <button class="gitem" data-go="./withdraw.html">
-          <div class="gicon">🧾</div>
+          <div class="gicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M9 8h6M9 12h6M9 16h4" stroke-linecap="round"></path>
+            </svg>
+          </div>
           <div class="gtext">入口 B</div>
         </button>
         <button class="gitem" data-go="./transactions.html">
-          <div class="gicon">📒</div>
+          <div class="gicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M9 7h6M9 11h6M9 15h4" stroke-linecap="round"></path>
+            </svg>
+          </div>
           <div class="gtext">记录</div>
         </button>
         <button class="gitem" data-go="./lottery.html">
-          <div class="gicon">🎁</div>
+          <div class="gicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M4 8h16v4H4zM12 22V8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M12 8c-2-4-6-2-6 0 0 2 3 2 6 2M12 8c2-4 6-2 6 0 0 2-3 2-6 2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
           <div class="gtext">活动</div>
         </button>
       </div>
@@ -94,7 +124,12 @@
 
       <div class="log" id="logBox"></div>
       <div class="empty" id="emptyBox" style="display:none">
-        <div class="emptyIcon">🗂️</div>
+        <div class="emptyIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M3 6h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M3 6V4a1 1 0 0 1 1-1h5l2 2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
         <div class="emptyT">暂无记录</div>
         <div class="emptyS">你进行的操作会在这里显示。</div>
       </div>
@@ -110,7 +145,11 @@
           <button class="outline" id="contactBtn">联系客服</button>
         </div>
       </div>
-      <div class="shield" aria-hidden="true">🛡️</div>
+      <div class="shield" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+          <path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
     </section>
 
     <div style="height:18px"></div>

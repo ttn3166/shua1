@@ -124,7 +124,12 @@
   <div class="pagePadBottom" aria-hidden="true"></div>
 
   <a class="supportFab" href="./contact.html" data-go="./contact.html">
-    <div class="s-ico">🎧</div>
+    <div class="s-ico">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+        <path d="M4 13v3a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2zM20 13v3a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M4 13a8 8 0 0 1 16 0" stroke-linecap="round"></path>
+      </svg>
+    </div>
     <div class="s-text" data-i18n-zh="客服支持" data-i18n-en="Support">
       客服支持
       <small data-i18n-zh="7×24 小时" data-i18n-en="24/7 online">7×24 小时</small>
@@ -134,10 +139,43 @@
   <!-- 保险：就算 nav.js 没加载，底部导航也存在；nav.js 会自动高亮当前页 -->
   <nav class="tabbar" aria-label="底部导航">
     <div class="tabs">
-      <button class="tab" type="button" data-go="./dashboard.html"><div class="ico">🏠</div><span>首页</span></button>
-      <button class="tab active" type="button" data-go="./tasks.html"><div class="ico">🛒</div><span>任务</span></button>
-      <button class="tab" type="button" data-go="./records.html"><div class="ico">🕘</div><span>记录</span></button>
-      <button class="tab" type="button" data-go="./me.html"><div class="ico">👤</div><span>我的</span></button>
+      <button class="tab" type="button" data-go="./dashboard.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M3 10.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>首页</span>
+      </button>
+      <button class="tab active" type="button" data-go="./tasks.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M6 6h15l-1.5 9H7.2L6 6z" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="9" cy="20" r="1.5"></circle>
+            <circle cx="17" cy="20" r="1.5"></circle>
+            <path d="M6 6l-2-3" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <span>任务</span>
+      </button>
+      <button class="tab" type="button" data-go="./records.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M8 6h8M8 12h8M8 18h5" stroke-linecap="round"></path>
+            <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>记录</span>
+      </button>
+      <button class="tab" type="button" data-go="./me.html">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M20 21a8 8 0 0 0-16 0" stroke-linecap="round"></path>
+            <circle cx="12" cy="8" r="4" stroke-linecap="round"></circle>
+          </svg>
+        </div>
+        <span>我的</span>
+      </button>
     </div>
   </nav>
 

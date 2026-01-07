@@ -114,6 +114,7 @@
       cursor:pointer;
       opacity:.65;
     }
+    .eye svg{width:18px;height:18px;stroke:currentColor}
 
     /* 验证码 */
     .captcha-row{display:flex;align-items:center;gap:10px}
@@ -205,19 +206,34 @@
         <label>登录密码</label>
         <div class="field">
           <input id="pwd" type="password" placeholder="请输入 6-16 位密码" autocomplete="new-password" />
-          <button type="button" class="eye" id="togglePwd" title="显示/隐藏">👁️</button>
+          <button type="button" class="eye" id="togglePwd" title="显示/隐藏">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round"></circle>
+            </svg>
+          </button>
         </div>
 
         <label>确认密码</label>
         <div class="field">
           <input id="pwd2" type="password" placeholder="再输入一次登录密码" autocomplete="new-password" />
-          <button type="button" class="eye" id="togglePwd2" title="显示/隐藏">👁️</button>
+          <button type="button" class="eye" id="togglePwd2" title="显示/隐藏">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round"></circle>
+            </svg>
+          </button>
         </div>
 
         <label>安全密码（6位数字）</label>
         <div class="field">
           <input id="safePwd" type="password" placeholder="请输入 6 位安全码" inputmode="numeric" />
-          <button type="button" class="eye" id="toggleSafe" title="显示/隐藏">👁️</button>
+          <button type="button" class="eye" id="toggleSafe" title="显示/隐藏">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+              <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round"></circle>
+            </svg>
+          </button>
         </div>
 
         <label>昵称</label>

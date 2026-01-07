@@ -6,16 +6,100 @@
 
 .doInfo{flex:1;min-width:220px}
 .doTitle{font-weight:900;font-size:18px;color:#101828}
-.doSub{margin-top:6px;color:#667085;font-weight:900;font-size:13px}
+.doSub{margin-top:6px;color:#667085;font-weight:800;font-size:13px}
 
 .doGrid{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .doBox{background:#f7f8fb;border-radius:18px;padding:12px}
-.doBox .k{color:#667085;font-weight:900;font-size:13px}
+.doBox .k{color:#667085;font-weight:800;font-size:13px}
 .doBox .v{margin-top:6px;font-weight:900;color:#101828}
-.doBox .v.blue{color:#1f6fff}
+.doBox .v.blue{color:#1f3a8a}
 
-.balanceLine{margin-top:12px;color:#667085;font-weight:900}
+.balanceLine{margin-top:12px;color:#667085;font-weight:800}
 .balanceLine b{color:#101828}
 
 .doBtn{width:100%;margin-top:12px;height:48px;border-radius:999px}
-.hint{margin-top:10px;color:#667085;font-weight:900;font-size:13px;line-height:1.6}
+.hint{margin-top:10px;color:#667085;font-weight:800;font-size:13px;line-height:1.6}
+
+.modalMask{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.35);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+  padding:24px;
+}
+.modalMask.show{display:flex}
+.modalCard{
+  width:min(420px, 100%);
+  background:#fff;
+  border-radius:22px;
+  border:1px solid #e3e6ea;
+  padding:18px;
+  box-shadow:0 20px 40px rgba(15,23,42,.18);
+}
+.modalTitle{font-size:18px;font-weight:1000;color:#101828}
+.modalSub{margin-top:6px;color:#667085;font-weight:800;font-size:13px;line-height:1.6}
+.modalActions{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+}
+.modalActions .primaryBtn{width:auto; padding:10px 18px}
+.modalActions .ghostBtn{border-color:#d0d5dd;color:#101828}
+
+.submitOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:24px;
+}
+.submitOverlay.show{display:flex}
+.overlayCard{
+  width:min(420px, 100%);
+  background:#fff;
+  border-radius:22px;
+  border:1px solid #e3e6ea;
+  padding:20px;
+  box-shadow:0 20px 40px rgba(15,23,42,.12);
+}
+.overlayTitle{font-weight:1000;font-size:18px;color:#101828}
+.overlaySub{margin-top:6px;color:#667085;font-weight:800;font-size:13px}
+.progress{
+  margin-top:14px;
+  height:8px;
+  background:#edf0f4;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress .bar{
+  width:0%;
+  height:100%;
+  background:#101828;
+  border-radius:999px;
+  transition:width .4s ease;
+}
+.stepList{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.step{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#98a2b3;
+  font-weight:800;
+  font-size:13px;
+}
+.step::before{
+  content:"";
+  width:8px;height:8px;border-radius:999px;
+  background:#d0d5dd;
+}
+.step.active{color:#101828}
+.step.active::before{background:#101828}
+.step.done{color:#101828}
+.step.done::before{background:#12b76a}

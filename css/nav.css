@@ -29,7 +29,11 @@ body, .app{
   box-sizing:border-box !important;
 
   height:calc(var(--tabbar-height) + var(--safe-bottom)) !important;
-  padding:8px 14px var(--safe-bottom) !important;
+  padding:8px 14px calc(8px + var(--safe-bottom)) !important;
+
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
 
   background:rgba(255,255,255,.96) !important;
   border-top:1px solid var(--nav-line) !important;
@@ -46,7 +50,7 @@ body, .app{
 .tabbar .tabs{
   width:100% !important;
   max-width:520px !important;
-  margin:0 auto !important;
+  margin:0 !important;
   height:100% !important;
 
   display:grid !important;

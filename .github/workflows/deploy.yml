@@ -1,5 +1,4 @@
-name: Deploy
-
+name: Auto Deploy to Server
 on:
   push:
     branches: ["main"]
@@ -8,18 +7,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          port: ${{ secrets.DEPLOY_PORT || 22 }}
-          script: |
-            set -e
-            cd /opt/shua1
-            git fetch --all
-            git reset --hard origin/main
-            npm install --production
-            npm run migrate
-            pm2 startOrReload ecosystem.config.js
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Check SSH port reachable
+        run: |
+          HOST="${{ secrets.DEPLOY_HOST }}"
+          PORT="${{ secrets.DEPLOY_PORT }}"
+          echo "Testing ${HOST}:${PORT}"
+          timeout 8 bash -c "cat < /dev/null > /dev/tcp/${HOST}/${PORT}"
+
+      - name: Deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            -p "${{ secrets.DEPLOY_PORT }}" \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "bash /usr/local/bin/deploy_shua1.sh"

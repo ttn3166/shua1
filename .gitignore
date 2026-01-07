@@ -1,4 +1,11 @@
-node_modules/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
 .env
-/data/*.db
-/uploads/*
+*.pem
+*.key
+node_modules/
+dist/
+build/

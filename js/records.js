@@ -6,10 +6,10 @@
 
   const dict = {
     zh:{
-      status:{PENDING:'处理中', DONE:'已完成', REJECTED:'已拒绝'},
+      status:{PENDING:'处理中', DONE:'成功', REJECTED:'失败'},
       txStatus:{SUCCESS:'成功', FAILED:'失败', PENDING:'处理中'},
       insufficientTitle:'余额不足提醒',
-      insufficientBody:(amt)=>`当前订单需要可用余额 ≥ <b>${amt || '0.0000'}</b>（USDT）。记录已生成，可在记录中心查询，请先完成充值后继续。`,
+      insufficientBody:(amt)=>`当前订单需要可用余额 ≥ <b>${amt || '0.00'}</b>（USDT）。记录已生成，可在记录中心查询，请先完成充值后继续。`,
       goDeposit:'去充值', goTask:'返回任务',
       segTask:'任务记录', segTx:'交易流水',
       amount:'金额', progress:'进度', currency:'币种',
@@ -20,7 +20,7 @@
       status:{PENDING:'In progress', DONE:'Completed', REJECTED:'Rejected'},
       txStatus:{SUCCESS:'Success', FAILED:'Failed', PENDING:'In progress'},
       insufficientTitle:'Insufficient balance',
-      insufficientBody:(amt)=>`This order requires available funds ≥ <b>${amt || '0.0000'}</b> USDT. A record has been created. Please top up before continuing.`,
+      insufficientBody:(amt)=>`This order requires available funds ≥ <b>${amt || '0.00'}</b> USDT. A record has been created. Please top up before continuing.`,
       goDeposit:'Deposit', goTask:'Back to tasks',
       segTask:'Task history', segTx:'Transactions',
       amount:'Amount', progress:'Progress', currency:'Currency',
@@ -43,18 +43,94 @@
     try{ return JSON.parse(localStorage.getItem(k) || JSON.stringify(d)); }catch(e){ return d; }
   }
 
+  function writeJSON(k, v){
+    localStorage.setItem(k, JSON.stringify(v));
+  }
+
   let tab = "TASK";
   const filters = {status:"ALL", time:"ALL", search:""};
   let detailItems = [];
 
+  const orderMapKey = "order_number_map";
+  const typeMap = {
+    TASK_DONE:"任务完成",
+    TASK_PROFIT:"任务返利",
+    DEPOSIT:"充值",
+    WITHDRAW:"提现",
+    TX:"交易"
+  };
+
+  function normalizeType(value){
+    if(!value) return "交易";
+    const key = String(value).toUpperCase();
+    return typeMap[key] || value;
+  }
+
+  function formatAmount(value){
+    const num = Number(value || 0);
+    if(Number.isNaN(num)) return "0.00";
+    return num.toFixed(2);
+  }
+
+  function formatTime(value){
+    const ts = typeof value === "number" ? value : toTs(value);
+    if(!ts) return "-";
+    const d = new Date(ts);
+    const pad = (n)=>String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  function generateOrderNo(used){
+    let orderNo = "";
+    while(!orderNo || used.has(orderNo)){
+      const stamp = String(Date.now()).slice(-8);
+      const rand = String(Math.floor(Math.random() * 100)).padStart(2, "0");
+      orderNo = `${stamp}${rand}`;
+    }
+    used.add(orderNo);
+    return orderNo;
+  }
+
+  function ensureOrderNos(list, storeKey){
+    const orderMap = readJSON(orderMapKey, {});
+    const used = new Set(Object.values(orderMap));
+    let updated = false;
+
+    list.forEach((item, index)=>{
+      const baseKey = item.id || item.code || item.txid || item.hash || item.time || item.createdAt || index;
+      const mapKey = `${storeKey}:${baseKey}`;
+      let orderNo = item.orderNo;
+
+      if(!orderNo || !/^\d{10}$/.test(orderNo)){
+        orderNo = orderMap[mapKey];
+      }
+      if(!orderNo || !/^\d{10}$/.test(orderNo)){
+        orderNo = generateOrderNo(used);
+        orderMap[mapKey] = orderNo;
+        updated = true;
+      }
+      if(item.orderNo !== orderNo){
+        item.orderNo = orderNo;
+        updated = true;
+      }
+    });
+
+    if(updated){
+      writeJSON(orderMapKey, orderMap);
+      writeJSON(storeKey, list);
+    }
+
+    return list;
+  }
+
   function loadTasks(){
-    const list = readJSON("tasks", []);
+    const list = ensureOrderNos(readJSON("tasks", []), "tasks");
     return list.filter(t=>!t.userEmail || t.userEmail===user.email)
                .sort((a,b)=>(b.createdAtTs||0)-(a.createdAtTs||0));
   }
 
   function loadTx(){
-    const list = readJSON("transactions", []);
+    const list = ensureOrderNos(readJSON("transactions", []), "transactions");
     return list.filter(t=>!t.userEmail || t.userEmail===user.email);
   }
 
@@ -96,7 +172,7 @@
   function matchSearch(item){
     const q = (filters.search || "").trim().toLowerCase();
     if(!q) return true;
-    const pool = [item.code, item.id, item.note, item.title].filter(Boolean).join(" ").toLowerCase();
+    const pool = [item.orderNo, item.code, item.id, item.note, item.title].filter(Boolean).join(" ").toLowerCase();
     return pool.includes(q);
   }
 
@@ -154,35 +230,35 @@
       listEl.innerHTML = tasks.map(t=>{
         const tag = statusCN(t.status||"PENDING");
         const cls = statusClass(t.status||"PENDING");
+        const displayType = normalizeType(t.type || t.title || "TASK_DONE");
+        const displayAmount = formatAmount(t.amount);
+        const displayTime = formatTime(t.createdAtTs || t.createdAt);
         const reward = Number(t.amount||0) * Number(t.rewardRate||5) / 100;
         const detailIndex = detailItems.length;
         detailItems.push({
           title:"任务回执",
           sub:"记录已生成，可在记录中心查询。",
           rows:[
-            {k:"订单编号", v:t.code||"-"},
-            {k:"记录类型", v:"任务提交"},
-            {k:"提交时间", v:t.createdAt || "-"},
-            {k:"订单金额", v:`${Number(t.amount||0).toFixed(4)} USDT`, highlight:true},
-            {k:"返利金额", v:`${reward.toFixed(4)} USDT`, highlight:true},
+            {k:"订单编号", v:t.orderNo || "-"},
+            {k:"记录类型", v:displayType},
+            {k:"提交时间", v:displayTime},
+            {k:"订单金额", v:`${displayAmount} USDT`, highlight:true},
+            {k:"返利金额", v:`${formatAmount(reward)} USDT`, highlight:true},
             {k:"处理状态", v:tag}
           ]
         });
         return `
           <div class="rCard">
-            <div class="ledgerRow ledgerHead">
-              <div>类型</div>
-              <div>订单号</div>
-              <div>时间</div>
-              <div style="text-align:right;">金额</div>
-              <div style="text-align:right;">状态</div>
+            <div class="rowTop">
+              <div class="rowType">${displayType}</div>
+              <div class="rowAmount"><strong>${displayAmount}</strong> USDT</div>
             </div>
-            <div class="ledgerRow">
-              <div class="ledgerCell">${t.title||"任务"}</div>
-              <div class="ledgerCell">${t.code||"-"}</div>
-              <div class="ledgerCell sub">${t.createdAt || "-"}</div>
-              <div class="ledgerCell amount">${Number(t.amount||0).toFixed(4)}</div>
-              <div class="ledgerCell status"><span class="ledgerBadge ${cls}">${tag}</span></div>
+            <div class="rowBottom">
+              <div class="rowMeta">
+                <span class="rowOrder">订单号：${t.orderNo || "-"}</span>
+                <span class="rowTime">${displayTime}</span>
+              </div>
+              <span class="rowTag ${cls}">${tag}</span>
             </div>
             <div class="ledgerActions">
               ${ (t.status==="PENDING") ? `<button class="rBtn" data-go="${t.id}">${tr('continue')}</button>` : `<button class="rBtn ghost" data-go="tx">${tr('viewTx')}</button>` }
@@ -226,16 +302,19 @@
       const st = t.status || "PENDING";
       const tag = tr(`txStatus.${st}`, tr('txStatus.PENDING'));
       const cls = (st==="SUCCESS"?"done":(st==="FAILED"?"fail":"pending"));
-      const rebate = (typ && String(typ).includes("TASK")) ? Number(t.amount||0).toFixed(4) : "-";
+      const rebate = (typ && String(typ).includes("TASK")) ? formatAmount(t.amount) : "-";
+      const displayType = normalizeType(typ);
+      const displayAmount = formatAmount(t.amount);
+      const displayTime = formatTime(t.time);
       const detailIndex = detailItems.length;
       detailItems.push({
         title:"交易回执",
         sub:"记录已生成，可在记录中心查询。",
         rows:[
-          {k:"记录号", v:t.id || "-"},
-          {k:"交易类型", v:typ},
-          {k:"交易时间", v:t.time || "-"},
-          {k:"金额", v:`${Number(t.amount||0).toFixed(4)} ${t.chain || "USDT"}`, highlight:true},
+          {k:"订单编号", v:t.orderNo || "-"},
+          {k:"交易类型", v:displayType},
+          {k:"交易时间", v:displayTime},
+          {k:"金额", v:`${displayAmount} ${t.chain || "USDT"}`, highlight:true},
           {k:"返利金额", v:rebate === "-" ? "-" : `${rebate} USDT`, highlight:rebate !== "-"},
           {k:"处理状态", v:tag},
           {k:"说明", v:t.note || "-"}
@@ -243,19 +322,16 @@
       });
       return `
         <div class="rCard">
-          <div class="ledgerRow ledgerHead">
-            <div>类型</div>
-            <div>订单号</div>
-            <div>时间</div>
-            <div style="text-align:right;">金额</div>
-            <div style="text-align:right;">状态</div>
+          <div class="rowTop">
+            <div class="rowType">${displayType}</div>
+            <div class="rowAmount"><strong>${displayAmount}</strong> ${t.chain || "USDT"}</div>
           </div>
-          <div class="ledgerRow">
-            <div class="ledgerCell">${typ}</div>
-            <div class="ledgerCell">${t.id || "-"}</div>
-            <div class="ledgerCell sub">${t.time || "-"}</div>
-            <div class="ledgerCell amount">${Number(t.amount||0).toFixed(4)}</div>
-            <div class="ledgerCell status"><span class="ledgerBadge ${cls}">${tag}</span></div>
+          <div class="rowBottom">
+            <div class="rowMeta">
+              <span class="rowOrder">订单号：${t.orderNo || "-"}</span>
+              <span class="rowTime">${displayTime}</span>
+            </div>
+            <span class="rowTag ${cls}">${tag}</span>
           </div>
           <div class="ledgerActions">
             <button class="rBtn ghost" data-detail="${detailIndex}">查看回执</button>
@@ -333,6 +409,10 @@
   });
   $("orderSearch").addEventListener("input", (e)=>{
     filters.search = e.target.value;
+    renderWithSkeleton();
+  });
+  $("searchBtn").addEventListener("click", ()=>{
+    filters.search = $("orderSearch").value;
     renderWithSkeleton();
   });
 

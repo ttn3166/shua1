@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="./css/records.css?v=2" />
 </head>
 
-<body>
+<body class="recordsPage">
   <main class="app page">
     <header class="topbar">
       <div class="brand">
@@ -32,25 +32,19 @@
     <div id="notice"></div>
 
     <section class="card panel">
-      <div class="cardHead">
-        <div>
-          <div class="cardTitle" data-i18n-zh="筛选" data-i18n-en="Filter">筛选</div>
-          <div class="cardSub" data-i18n-zh="切换查看任务/流水" data-i18n-en="Switch between tasks and transactions">切换查看任务/流水</div>
-        </div>
-      </div>
       <div class="cardBody">
-        <div class="segRow">
+        <div class="segRow filterTabs">
           <button class="seg active" data-tab="TASK" type="button" data-i18n-zh="任务记录" data-i18n-en="Task history">任务记录</button>
           <button class="seg" data-tab="TX" type="button" data-i18n-zh="交易流水" data-i18n-en="Transactions">交易流水</button>
         </div>
-        <div class="filterGrid">
+        <div class="filterRow">
           <div class="filterItem">
             <label class="filterLabel" for="statusFilter">状态</label>
             <select class="filterInput" id="statusFilter">
               <option value="ALL">全部</option>
               <option value="PENDING">处理中</option>
-              <option value="DONE">已完成</option>
-              <option value="FAILED">失败/拒绝</option>
+              <option value="DONE">成功</option>
+              <option value="FAILED">失败</option>
             </select>
           </div>
           <div class="filterItem">
@@ -63,7 +57,8 @@
           </div>
         </div>
         <div class="searchRow">
-          <input class="searchInput" id="orderSearch" type="search" placeholder="搜索订单号/记录号" />
+          <input class="searchInput" id="orderSearch" type="search" placeholder="搜索订单号（10位数字）" />
+          <button class="searchBtn" id="searchBtn" type="button">搜索</button>
         </div>
       </div>
     </section>

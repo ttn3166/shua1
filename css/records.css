@@ -18,15 +18,21 @@
   background:#fff;color:#101828;border:1px solid #e3e6ea;box-shadow:none
 }
 
-.segRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.segRow{display:flex;gap:10px;flex-wrap:wrap}
 .seg{
   border:1px solid #d0d5dd;background:#fff;color:#101828;font-weight:900;
-  border-radius:999px;padding:10px 14px;cursor:pointer
+  border-radius:999px;padding:8px 14px;cursor:pointer
 }
-.seg.active{border-color:#d0d5dd;background:#f4f5f8;color:#101828}
+.seg.active{border-color:#cbd5e1;background:#f8fafc;color:#101828}
 .seg:active{transform:scale(.98)}
 
-.filterGrid{margin-top:14px}
+.filterTabs{margin-bottom:12px}
+.filterRow{
+  display:flex;
+  gap:12px;
+  align-items:flex-end;
+  flex-wrap:wrap;
+}
 .filterItem{display:flex;flex-direction:column;gap:8px}
 .filterLabel{font-size:12px;font-weight:800;color:#667085}
 .filterInput{
@@ -39,60 +45,65 @@
   outline:none;
 }
 .filterInput:focus{border-color:#98a2b3}
-.searchRow{margin-top:12px}
+.searchRow{margin-top:12px;display:flex;gap:10px;align-items:center}
 .searchInput{
-  width:100%;
+  flex:1;
   border-radius:14px;
   border:1px solid #d0d5dd;
   padding:12px 14px;
   font-weight:800;
 }
 .searchInput::placeholder{color:#98a2b3}
+.searchBtn{
+  border-radius:14px;
+  border:1px solid #d0d5dd;
+  background:#f8fafc;
+  padding:12px 16px;
+  font-weight:900;
+  color:#101828;
+  cursor:pointer;
+}
+.searchBtn:active{transform:scale(.98)}
 
 .rList{margin-top:12px}
 .rCard{
   background:#fff;border-radius:18px;border:1px solid #e3e6ea;box-shadow:0 8px 18px rgba(15,23,42,.06);
   padding:14px;margin-top:12px;
 }
-.rTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.rTitle{font-weight:900}
-.rSub{color:#667085;font-weight:800;font-size:13px;margin-top:6px}
-.rTag{
-  font-weight:900;font-size:12px;padding:6px 10px;border-radius:999px;
-}
-.rTag.pending{background:#fff3e6;color:#f59e0b}
-.rTag.done{background:#ecfdf3;color:#16a34a}
-.rTag.fail{background:#fee2e2;color:#ef4444}
-
-.ledgerRow{
-  display:grid;
-  grid-template-columns:1.3fr 1.2fr 1.2fr 1fr .8fr;
+.rowTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   gap:10px;
-  align-items:center;
-  font-size:13px;
-  font-weight:800;
 }
-.ledgerRow + .ledgerRow{margin-top:8px}
-.ledgerHead{color:#9aa1ad;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.4px}
-.ledgerCell{color:#111827}
-.ledgerCell.sub{color:#6b7280;font-weight:700;font-size:12px}
-.ledgerCell.amount{text-align:right;color:#1f3a8a}
-.ledgerCell.status{text-align:right}
-.ledgerBadge{
-  display:inline-flex;
+.rowType{font-weight:900;color:#101828}
+.rowAmount{font-weight:900;color:#101828;text-align:right}
+.rowAmount strong{font-size:16px}
+.rowBottom{
+  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:6px;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid #e3e6ea;
-  background:#f8fafc;
+  gap:10px;
+}
+.rowMeta{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
   font-size:12px;
+  color:#98a2b3;
   font-weight:800;
-  color:#6b7280;
 }
-.ledgerBadge.done{background:#eef2ff;color:#1f3a8a;border-color:#dfe3f0}
-.ledgerBadge.fail{background:#fef2f2;color:#b91c1c;border-color:#f2d4d4}
-.ledgerBadge.pending{background:#f3f4f6;color:#6b7280}
+.rowTag{
+  font-weight:900;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+}
+.rowTag.done{background:#e7f8ee;color:#15803d;border-color:#b7e4c6}
+.rowTag.pending{background:#eef2f7;color:#475569;border-color:#d5dde8}
+.rowTag.fail{background:#fee2e2;color:#b91c1c;border-color:#fecaca}
 .ledgerActions{margin-top:12px;display:flex;justify-content:flex-end;gap:10px}
 .ledgerActions .rBtn{padding:10px 14px}
 .rGrid{display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;margin-top:12px}
@@ -128,13 +139,8 @@
 }
 
 @media (max-width:420px){
-  .ledgerHead{display:none}
-  .ledgerRow{
-    grid-template-columns:1fr 1fr;
-    row-gap:6px;
-  }
-  .ledgerCell.amount,
-  .ledgerCell.status{text-align:right}
+  .rowMeta{font-size:11px}
+  .rowAmount strong{font-size:15px}
 }
 
 .modalMask{
@@ -164,3 +170,14 @@
   justify-content:flex-end;
   gap:10px;
 }
+
+.recordsPage .supportFab{
+  right:12px;
+  bottom:calc(var(--tabbar-height, 72px) + env(safe-area-inset-bottom,0px) + 8px);
+  width:48px;
+  height:48px;
+  padding:0;
+  border-radius:999px;
+  justify-content:center;
+}
+.recordsPage .supportFab .s-text{display:none;}

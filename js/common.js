@@ -1,114 +1,127 @@
 /* ===== common.js：全站通用（鉴权/导航/余额/流水）===== */
 (function () {
-  // 小工具
   function $(id){ return document.getElementById(id); }
-  function readJSON(key, fallback){
-    try { return JSON.parse(localStorage.getItem(key) || fallback); }
-    catch(e){ return JSON.parse(fallback); }
-  }
-  function writeJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
 
-  // 用户
+  const PUBLIC_TOKEN_KEY = 'public_token';
+  const PUBLIC_USER_KEY = 'public_user';
+  const BALANCE_KEY = 'public_balance';
+
+  function getPublicToken() {
+    return localStorage.getItem(PUBLIC_TOKEN_KEY);
+  }
+
+  function setPublicSession(token, user) {
+    localStorage.setItem(PUBLIC_TOKEN_KEY, token);
+    localStorage.setItem(PUBLIC_USER_KEY, JSON.stringify(user));
+  }
+
+  function clearPublicSession() {
+    localStorage.removeItem(PUBLIC_TOKEN_KEY);
+    localStorage.removeItem(PUBLIC_USER_KEY);
+    localStorage.removeItem(BALANCE_KEY);
+  }
+
   function getCurrentUser() {
-    // 1) 新字段：currentUser JSON
     try {
-      const u = JSON.parse(localStorage.getItem("currentUser") || "null");
-      if (u && (u.email || u.nickname)) return u;
+      const u = JSON.parse(localStorage.getItem(PUBLIC_USER_KEY) || 'null');
+      if (u) return u;
     } catch (e) {}
 
-    // 2) 兼容旧字段：current_user 存邮箱
-    const email = localStorage.getItem("current_user");
-    const ok = localStorage.getItem("logged_in") === "yes";
-    if (ok && email) {
-      let nick = "";
-      try {
-        const users = JSON.parse(localStorage.getItem("users") || "{}");
-        nick = (users[email] && (users[email].nickname || users[email].name)) || "";
-      } catch (e) {}
-      return { email: email, nickname: nick || (email.includes("@") ? email.split("@")[0] : "用户") };
-    }
+    try {
+      const legacy = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (legacy && (legacy.email || legacy.nickname)) return legacy;
+    } catch (e) {}
+
     return null;
   }
 
   function requireAuth() {
-    const user = getCurrentUser();
-    if (!user) {
-      window.location.href = "./index.html";
+    const token = getPublicToken();
+    if (!token) {
+      window.location.href = './index.html';
       return null;
+    }
+    refreshPublicUser().catch(() => {});
+    return getCurrentUser();
+  }
+
+  async function publicApiFetch(path, options) {
+    const opts = options || {};
+    const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+    const token = getPublicToken();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+    const res = await fetch(path, Object.assign({}, opts, { headers }));
+    const contentType = res.headers.get('content-type') || '';
+    let data = null;
+    let rawText = '';
+    if (contentType.includes('application/json')) {
+      try {
+        data = await res.json();
+      } catch (e) {
+        data = null;
+      }
+    } else {
+      rawText = await res.text();
+    }
+
+    if (res.status === 401) {
+      clearPublicSession();
+      window.location.href = './index.html';
+      throw new Error('登录失效，请重新登录');
+    }
+
+    if (!res.ok) {
+      if (!data && rawText && /<html|<!doctype/i.test(rawText)) {
+        throw new Error('接口异常/反代异常');
+      }
+      throw new Error(data && data.error ? data.error : `Request failed (${res.status})`);
+    }
+
+    if (data && data.success === false) {
+      throw new Error(data.error || 'Request failed');
+    }
+
+    if (data && Object.prototype.hasOwnProperty.call(data, 'data')) {
+      return data.data;
+    }
+
+    return data;
+  }
+
+  async function refreshPublicUser() {
+    const token = getPublicToken();
+    if (!token) return null;
+    const user = await publicApiFetch('/api/public/me');
+    if (user) {
+      localStorage.setItem(PUBLIC_USER_KEY, JSON.stringify(user));
     }
     return user;
   }
 
+  async function refreshBalance() {
+    try {
+      const data = await publicApiFetch('/api/public/balance');
+      if (data && data.balance != null) {
+        localStorage.setItem(BALANCE_KEY, String(data.balance));
+      }
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getUserBalance() {
+    const val = localStorage.getItem(BALANCE_KEY);
+    return Number(val || 0);
+  }
+
   function logout() {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("logged_in");
-    localStorage.removeItem("current_user");
-    window.location.href = "./index.html";
+    clearPublicSession();
+    window.location.href = './index.html';
   }
 
-  // 余额（可用+冻结）
-  function stateKey(email){ return "state_" + String(email||"").toLowerCase(); }
-
-  function loadUserState(email){
-    const st = readJSON(stateKey(email), '{"balance":0,"frozen":0}');
-    // 兼容旧 points
-    if (typeof st.balance !== "number") st.balance = Number(st.balance || 0);
-    if (typeof st.frozen !== "number") st.frozen = Number(st.frozen || 0);
-    if (st.balance === 0 && typeof st.points === "number") st.balance = Number(st.points || 0);
-    return st;
-  }
-
-  function saveUserState(email, st){
-    writeJSON(stateKey(email), st);
-  }
-
-  function getUserBalance(email){
-    const st = loadUserState(email);
-    return Number(st.balance || 0);
-  }
-
-  function setUserBalance(email, v){
-    const st = loadUserState(email);
-    st.balance = Number(v || 0);
-    // 同步旧字段 points（为了你旧页面不报错）
-    st.points = st.balance;
-    saveUserState(email, st);
-  }
-
-  function getUserFrozen(email){
-    const st = loadUserState(email);
-    return Number(st.frozen || 0);
-  }
-
-  function setUserFrozen(email, v){
-    const st = loadUserState(email);
-    st.frozen = Number(v || 0);
-    saveUserState(email, st);
-  }
-
-  // 流水 transactions
-  function txKey(email){ return "transactions_" + String(email||"").toLowerCase(); }
-
-  function getTransactions(email){
-    return readJSON(txKey(email), "[]");
-  }
-
-  function addTransaction(email, tx){
-    const list = getTransactions(email);
-    const item = Object.assign({
-      id: "TX_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-      ts: Date.now(),
-      currency: "USDT",
-      chain: "TRC20",
-      status: "SUCCESS",
-      meta: {}
-    }, tx || {});
-    list.push(item);
-    writeJSON(txKey(email), list);
-    return item;
-  }
-
-  // 全站导航（关键：修复你说的“点不动”）
   function bindNav(){
     document.querySelectorAll("[data-go]").forEach(el=>{
       el.addEventListener("click", ()=>{
@@ -124,21 +137,13 @@
     });
   }
 
-  // 页面加载后自动绑定
   document.addEventListener("DOMContentLoaded", bindNav);
 
-  // 暴露全局（给各页面 js 用）
   window.getCurrentUser = getCurrentUser;
   window.requireAuth = requireAuth;
   window.logout = logout;
-
-  window.loadUserState = loadUserState;
-  window.saveUserState = saveUserState;
+  window.publicApiFetch = publicApiFetch;
+  window.setPublicSession = setPublicSession;
+  window.refreshBalance = refreshBalance;
   window.getUserBalance = getUserBalance;
-  window.setUserBalance = setUserBalance;
-  window.getUserFrozen = getUserFrozen;
-  window.setUserFrozen = setUserFrozen;
-
-  window.getTransactions = getTransactions;
-  window.addTransaction = addTransaction;
 })();

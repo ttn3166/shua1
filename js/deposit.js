@@ -4,16 +4,10 @@
 
   const $ = (id)=>document.getElementById(id);
 
-  function kDeposit(email){ return "deposit_records_" + String(email||"").toLowerCase(); }
-
-  function readJSON(key, fallback){
-    try{ return JSON.parse(localStorage.getItem(key) || fallback); }
-    catch(e){ return JSON.parse(fallback); }
-  }
-  function writeJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
-
-  function fmt(ts){
-    const d=new Date(ts);
+  function fmt(value){
+    if (!value) return '-';
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return value;
     const pad=(n)=>String(n).padStart(2,"0");
     return d.getFullYear()+"/"+pad(d.getMonth()+1)+"/"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());
   }
@@ -25,8 +19,13 @@
     m.innerText = t;
   }
 
-  function render(){
-    const list = readJSON(kDeposit(user.email), "[]").sort((a,b)=>(b.ts||0)-(a.ts||0));
+  function statusLabel(status){
+    if (status === 'approved') return { text: '成功', cls: 'ok' };
+    if (status === 'rejected') return { text: '失败', cls: 'no' };
+    return { text: '待处理', cls: '' };
+  }
+
+  function render(list){
     const box = $("list");
     if (!list.length){
       box.innerHTML = "";
@@ -36,25 +35,31 @@
     $("empty").style.display="none";
 
     box.innerHTML = list.slice(0,20).map(x=>{
-      const st = x.status || "PENDING";
-      const badge = st==="SUCCESS"?"成功":(st==="FAILED"?"失败":"待处理");
-      const cls = st==="SUCCESS"?"ok":(st==="FAILED"?"no":"");
+      const st = statusLabel(x.status);
       return `
         <div class="row">
           <div class="rTop">
             <div class="rType">充值</div>
-            <div class="rBadge ${cls}">${badge}</div>
+            <div class="rBadge ${st.cls}">${st.text}</div>
           </div>
-          <div class="rMid">时间：${fmt(x.ts)}<br>链：${x.chain||"TRC20"}<br>TxHash：${x.txHash||"-"}</div>
+          <div class="rMid">时间：${fmt(x.created_at)}<br>金额：${Number(x.amount||0).toFixed(4)}<br>备注：${x.note || '-'}<br>凭证：${x.attachment_url ? '已上传' : '-'}</div>
           <div class="rAmt">+${Number(x.amount||0).toFixed(4)} USDT</div>
         </div>
       `;
     }).join("");
   }
 
-  // 页面控件（你deposit.html里需要这些id：amount, chain, txHash, submitBtn, msg, list, empty）
+  async function loadDeposits(){
+    try {
+      const data = await publicApiFetch('/api/public/deposits');
+      render(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setMsg(err.message || '加载失败', false);
+    }
+  }
+
   const submitBtn = $("submitBtn");
-  submitBtn.onclick = function(){
+  submitBtn.onclick = async function(){
     const amount = Number(($("amount").value || "").trim());
     const chain = ($("chain").value || "TRC20").trim();
     const txHash = ($("txHash").value || "").trim();
@@ -62,37 +67,25 @@
     if (!amount || amount <= 0) return setMsg("请输入正确的充值金额", false);
     if (!txHash) return setMsg("请填写 TxHash 或转账凭证编号", false);
 
-    // 1) 写入充值记录（保留旧结构）
-    const list = readJSON(kDeposit(user.email), "[]");
-    const rec = {
-      ts: Date.now(),
-      amount: amount,
-      chain: chain,
-      txHash: txHash,
-      status: "PENDING"
-    };
-    list.push(rec);
-    writeJSON(kDeposit(user.email), list);
-
-    // 2) ✅ 写入统一流水 transactions
-    addTransaction(user.email, {
-      type: "DEPOSIT",
-      status: "PENDING",
-      amount: amount,       // 充值是正数
-      chain: chain,
-      meta: { txHash: txHash }
-    });
-
-    $("amount").value = "";
-    $("txHash").value = "";
-
-    setMsg("充值申请已提交，等待审核入账。", true);
-    render();
+    try {
+      await publicApiFetch('/api/finance/deposits', {
+        method: 'POST',
+        body: JSON.stringify({ amount, note: chain, attachment_url: txHash })
+      });
+      $("amount").value = "";
+      $("txHash").value = "";
+      setMsg("充值申请已提交，等待审核入账。", true);
+      await loadDeposits();
+      if (window.refreshBalance) {
+        await window.refreshBalance();
+      }
+    } catch (err) {
+      setMsg(err.message || '提交失败', false);
+    }
   };
 
-  // 返回/底部跳转（可选）
   const backBtn = document.getElementById("backBtn");
   if (backBtn) backBtn.onclick = ()=>history.back();
 
-  render();
+  loadDeposits();
 })();

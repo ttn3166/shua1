@@ -1,10 +1,4 @@
-alert("login.js 已加载");   
 const $ = (id) => document.getElementById(id);
-
-function getUsers() {
-  try { return JSON.parse(localStorage.getItem('users') || '{}'); }
-  catch (e) { return {}; }
-}
 
 function showMsg(text) {
   const m = $('msg');
@@ -26,7 +20,6 @@ function setLoading(isLoading) {
   btn.innerText = isLoading ? '登录中...' : '登录';
 }
 
-// 语言按钮（暂不实现）
 const langBtn = $('langBtn');
 if (langBtn) {
   langBtn.onclick = () => {
@@ -34,7 +27,6 @@ if (langBtn) {
   };
 }
 
-// 密码显示/隐藏
 const togglePwd = $('togglePwd');
 if (togglePwd) {
   togglePwd.onclick = function () {
@@ -44,7 +36,6 @@ if (togglePwd) {
   };
 }
 
-// 记住邮箱（更像产品）
 (function preloadEmail(){
   const last = localStorage.getItem('last_email');
   if (last && $('email')) $('email').value = last;
@@ -54,7 +45,7 @@ const form = $('loginForm');
 if (!form) {
   console.error('找不到 loginForm，请确认 index.html 里 form 的 id="loginForm"');
 } else {
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     clearMsg();
 
@@ -66,32 +57,29 @@ if (!form) {
     if (!email || !pwd) return showMsg('请输入邮箱和密码');
     if (!/^\S+@\S+\.\S+$/.test(email)) return showMsg('邮箱格式不正确');
 
-    const users = getUsers();
-    if (!users[email]) return showMsg('该邮箱未注册，请先注册');
-
-    if (users[email].pwd !== pwd) return showMsg('密码错误');
-
-    // ✅ 登录成功：保存登录态
-    localStorage.setItem('last_email', email);
-    localStorage.setItem('logged_in', 'yes');     // 旧字段：保留
-    localStorage.setItem('current_user', email);  // 旧字段：保留
-
-    // ✅ 新字段：给 dashboard/common.js 用（重点）
-    // 优先用注册时保存的 nickname，没有就用邮箱前缀或默认名
-    const nick =
-      (users[email] && (users[email].nickname || users[email].name)) ||
-      (email.includes('@') ? email.split('@')[0] : 'CoCo.');
-
-    localStorage.setItem('currentUser', JSON.stringify({
-      email: email,
-      nickname: nick
-    }));
-
     setLoading(true);
 
-    // 模拟 loading（更像真实站）
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/public/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pwd })
+      });
+      const data = await res.json();
+      if (!res.ok || data.success === false) {
+        throw new Error(data.error || '登录失败');
+      }
+
+      localStorage.setItem('last_email', email);
+      if (window.setPublicSession) {
+        window.setPublicSession(data.data.token, data.data.user);
+      }
+
       window.location.href = './dashboard.html';
-    }, 600);
+    } catch (err) {
+      showMsg(err.message || '登录失败');
+    } finally {
+      setLoading(false);
+    }
   });
 }

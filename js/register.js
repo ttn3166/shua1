@@ -1,13 +1,5 @@
 const $ = (id) => document.getElementById(id);
 
-function getUsers() {
-  try { return JSON.parse(localStorage.getItem('users') || '{}'); }
-  catch (e) { return {}; }
-}
-function setUsers(users) {
-  localStorage.setItem('users', JSON.stringify(users));
-}
-
 function showMsg(text, ok = false) {
   const m = $('msg');
   m.className = ok ? 'msg ok' : 'msg';
@@ -26,10 +18,9 @@ function setLoading(isLoading) {
   btn.innerText = isLoading ? '注册中...' : '注册';
 }
 
-// ====== 验证码：字母数字（人机校验） ======
 let currentCaptcha = '';
 function randChar() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 去掉 I O 0 1
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   return chars[Math.floor(Math.random() * chars.length)];
 }
 function genCaptcha(len = 5) {
@@ -42,7 +33,6 @@ function renderCaptcha() {
   $('captchaCode').innerText = currentCaptcha;
 }
 
-// 眼睛按钮
 $('togglePwd').onclick = () => {
   const el = $('pwd'); el.type = el.type === 'password' ? 'text' : 'password';
 };
@@ -53,7 +43,6 @@ $('toggleSafe').onclick = () => {
   const el = $('safePwd'); el.type = el.type === 'password' ? 'text' : 'password';
 };
 
-// 验证码点击刷新
 $('captchaBox').onclick = renderCaptcha;
 renderCaptcha();
 
@@ -61,7 +50,7 @@ $('termsLink').onclick = () => {
   alert('：条款页面后续可以做成 terms.html');
 };
 
-$('regForm').addEventListener('submit', function (e) {
+$('regForm').addEventListener('submit', async function (e) {
   e.preventDefault();
   clearMsg();
 
@@ -91,19 +80,28 @@ $('regForm').addEventListener('submit', function (e) {
 
   if (!agree) return showMsg('请先勾选同意条款与条件');
 
-  const users = getUsers();
-  if (users[email]) return showMsg('该邮箱已注册，请直接登录');
-
-  // 保存（：明文，别用真实密码）
-  users[email] = { pwd, safePwd, nickname, invite };
-  setUsers(users);
-
   setLoading(true);
-  showMsg('注册成功，正在返回登录...', true);
 
-  setTimeout(() => {
-    // 记住邮箱，回登录页自动填充
+  try {
+    const res = await fetch('/api/public/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pwd, nickname, invite })
+    });
+    const data = await res.json();
+    if (!res.ok || data.success === false) {
+      throw new Error(data.error || '注册失败');
+    }
+
     localStorage.setItem('last_email', email);
-    window.location.href = './index.html';
-  }, 800);
+    showMsg('注册成功，正在返回登录...', true);
+
+    setTimeout(() => {
+      window.location.href = './index.html';
+    }, 800);
+  } catch (err) {
+    showMsg(err.message || '注册失败');
+  } finally {
+    setLoading(false);
+  }
 });

@@ -40,6 +40,9 @@
       }
 
       setSession(data.data.token, data.data.user);
+      if (auth && auth.refreshUser) {
+        await auth.refreshUser();
+      }
       window.location.href = '/admin.html';
 
     } catch (err) {

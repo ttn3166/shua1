@@ -26,10 +26,23 @@
 
   function requireAuth() {
     if (!getToken()) {
-      window.location.href = './admin-login.html';
+      window.location.href = '/admin-login.html';
       return null;
     }
+    refreshUser().catch(() => {});
     return getUser();
+  }
+
+  async function refreshUser() {
+    const token = getToken();
+    if (!token) {
+      return null;
+    }
+    const user = await apiFetch('/api/auth/me');
+    if (user) {
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    }
+    return user;
   }
 
   async function apiFetch(path, options) {
@@ -39,20 +52,62 @@
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
+    const method = opts.method || 'GET';
     const res = await fetch(path, Object.assign({}, opts, { headers }));
-    let body = null;
-    try {
-      body = await res.json();
-    } catch (e) {
-      body = null;
+    console.log(`[admin] api ${method} ${path} -> ${res.status}`);
+
+    const contentType = res.headers.get('content-type') || '';
+    let data = null;
+    let rawText = '';
+
+    if (contentType.includes('application/json')) {
+      try {
+        data = await res.json();
+      } catch (e) {
+        data = null;
+      }
+    } else {
+      try {
+        rawText = await res.text();
+      } catch (e) {
+        rawText = '';
+      }
     }
+
+    if (res.status === 401) {
+      clearSession();
+      window.location.href = '/admin-login.html';
+      throw new Error('登录失效，请重新登录');
+    }
+
+    if (res.status === 403) {
+      throw new Error('无权限');
+    }
+
     if (!res.ok) {
-      throw new Error(body && body.error ? body.error : `Request failed (${res.status})`);
+      if (!data && rawText && /<html|<!doctype/i.test(rawText)) {
+        throw new Error('接口异常/反代异常');
+      }
+      throw new Error(data && data.error ? data.error : `Request failed (${res.status})`);
     }
-    if (body && body.success === false) {
-      throw new Error(body.error || 'Request failed');
+
+    if (data && data.success === false) {
+      if (data.error && /token/i.test(data.error)) {
+        clearSession();
+        window.location.href = '/admin-login.html';
+      }
+      throw new Error(data.error || 'Request failed');
     }
-    return body && Object.prototype.hasOwnProperty.call(body, 'data') ? body.data : body;
+
+    if (data && Object.prototype.hasOwnProperty.call(data, 'data')) {
+      return data.data;
+    }
+
+    if (!data && rawText) {
+      throw new Error('接口异常/反代异常');
+    }
+
+    return data;
   }
 
   window.adminAuth = {
@@ -61,6 +116,7 @@
     clearSession,
     getUser,
     requireAuth,
+    refreshUser,
     apiFetch
   };
 })();

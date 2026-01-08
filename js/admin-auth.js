@@ -40,14 +40,26 @@
       headers.Authorization = `Bearer ${token}`;
     }
     const res = await fetch(path, Object.assign({}, opts, { headers }));
+    const contentType = res.headers.get('content-type') || '';
     let body = null;
-    try {
-      body = await res.json();
-    } catch (e) {
-      body = null;
+    if (contentType.includes('application/json')) {
+      try {
+        body = await res.json();
+      } catch (e) {
+        body = null;
+      }
+    } else {
+      const text = await res.text();
+      body = text ? { rawText: text } : null;
     }
     if (!res.ok) {
+      if (!contentType.includes('application/json')) {
+        throw new Error('接口返回非 JSON，请检查后端或 Nginx /api 代理配置。');
+      }
       throw new Error(body && body.error ? body.error : `Request failed (${res.status})`);
+    }
+    if (!contentType.includes('application/json')) {
+      throw new Error('接口返回非 JSON，请检查后端或 Nginx /api 代理配置。');
     }
     if (body && body.success === false) {
       throw new Error(body.error || 'Request failed');

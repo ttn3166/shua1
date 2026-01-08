@@ -1,5 +1,5 @@
 (function () {
-  const { setSession } = window.adminAuth || {};
+  const { setSession, apiFetch } = window.adminAuth || {};
   const $ = (id) => document.getElementById(id);
 
   function showMsg(text, ok) {
@@ -19,16 +19,16 @@
       return;
     }
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || '登录失败');
+      const data = apiFetch
+        ? await apiFetch('/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ username, password })
+          })
+        : null;
+      if (!data || !data.token) {
+        throw new Error('登录失败');
       }
-      setSession(data.data.token, data.data.user);
+      setSession(data.token, data.user);
       window.location.href = 'http://185.39.31.27/admin.html';
     } catch (error) {
       showMsg(error.message || '登录失败', false);
